@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TSUGI — Conditions d'utilisation / Terms of Use / Gebruiksvoorwaarden</title>
+<meta name="robots" content="index, follow">
+<style>
+  :root {
+    --void: #0b0b0f;
+    --panel: #17171d;
+    --panel-raised: #1f1f28;
+    --line: #2a2a35;
+    --ink: #f2f2f5;
+    --ink-dim: #b4b4c0;
+    --ink-faint: #7d7d8a;
+    --seal: #e3402c;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --void: #f7f7f9;
+      --panel: #ffffff;
+      --panel-raised: #f0f0f3;
+      --line: #e2e2e8;
+      --ink: #16161c;
+      --ink-dim: #48485a;
+      --ink-faint: #7d7d8a;
+      --seal: #d6341f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --void: #0b0b0f; --panel: #17171d; --panel-raised: #1f1f28; --line: #2a2a35;
+    --ink: #f2f2f5; --ink-dim: #b4b4c0; --ink-faint: #7d7d8a; --seal: #e3402c;
+  }
+  :root[data-theme="light"] {
+    --void: #f7f7f9; --panel: #ffffff; --panel-raised: #f0f0f3; --line: #e2e2e8;
+    --ink: #16161c; --ink-dim: #48485a; --ink-faint: #7d7d8a; --seal: #d6341f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--void);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  header {
+    padding: 32px 20px 0;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    font-weight: 900;
+    font-size: 28px;
+    letter-spacing: -0.5px;
+  }
+  .brand .dot { color: var(--seal); }
+  .tagline {
+    color: var(--ink-faint);
+    font-size: 13px;
+    margin-top: 2px;
+  }
+  nav.lang-switch {
+    max-width: 720px;
+    margin: 24px auto 0;
+    padding: 0 20px;
+    display: flex;
+    gap: 8px;
+  }
+  nav.lang-switch label {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    background: var(--panel);
+    user-select: none;
+  }
+  input[type="radio"] { display: none; }
+  #lang-fr:checked ~ nav.lang-switch label[for="lang-fr"],
+  #lang-en:checked ~ nav.lang-switch label[for="lang-en"],
+  #lang-nl:checked ~ nav.lang-switch label[for="lang-nl"] {
+    background: var(--seal);
+    border-color: var(--seal);
+    color: #fff;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 20px 80px;
+  }
+  .panel { display: none; }
+  h1 {
+    font-size: 26px;
+    font-weight: 900;
+    margin: 0 0 4px;
+  }
+  .updated {
+    color: var(--ink-faint);
+    font-size: 13px;
+    margin: 0 0 28px;
+  }
+  h2 {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--seal);
+    margin: 28px 0 8px;
+  }
+  p {
+    color: var(--ink-dim);
+    font-size: 15px;
+    margin: 0 0 4px;
+  }
+  a { color: var(--seal); }
+  #lang-fr:checked ~ main #panel-fr,
+  #lang-en:checked ~ main #panel-en,
+  #lang-nl:checked ~ main #panel-nl {
+    display: block;
+  }
+  footer {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    color: var(--ink-faint);
+    font-size: 12px;
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+  }
+  footer a { color: var(--ink-faint); }
+</style>
+</head>
+<body>
+
+<input type="radio" name="lang" id="lang-fr" checked>
+<input type="radio" name="lang" id="lang-en">
+<input type="radio" name="lang" id="lang-nl">
+
+<header>
+  <div class="brand">TSUGI<span class="dot">.</span></div>
+  <div class="tagline">次 — ce qui arrive</div>
+</header>
+
+<nav class="lang-switch">
+  <label for="lang-fr">Français</label>
+  <label for="lang-en">English</label>
+  <label for="lang-nl">Nederlands</label>
+</nav>
+
+<main>
+<div class="panel" id="panel-fr">
+<h1>Conditions d&#x27;utilisation</h1>
+<p class="updated">Dernière mise à jour : juillet 2026</p>
+<h2>1. Nature du service</h2>
+<p>TSUGI est une application d&#x27;agrégation affichant des informations issues d&#x27;API tierces publiques (calendriers, annonces, fiches). Elle est fournie « telle quelle », sans garantie de disponibilité ni d&#x27;exhaustivité.</p>
+<h2>2. Propriété du contenu</h2>
+<p>Les titres, visuels, jaquettes et descriptions proviennent de tiers (AniList, MangaDex, TMDB, TVMaze, etc.) et restent la propriété de leurs ayants droit respectifs. TSUGI n&#x27;héberge aucun contenu sous copyright.</p>
+<h2>3. TSUGI ne diffuse aucun média</h2>
+<p>L&#x27;application est un calendrier et un moteur de suivi. Elle ne permet pas de lire des mangas ni de visionner des animes, séries ou films : elle vous oriente vers les plateformes officielles.</p>
+<h2>4. Compte utilisateur</h2>
+<p>La création d&#x27;un compte est facultative et sert uniquement à synchroniser votre liste de suivi et à voter. Vous êtes responsable de la confidentialité de votre mot de passe et des activités réalisées depuis votre compte.</p>
+<h2>5. Abonnement Premium</h2>
+<p>Un abonnement Premium payant et facultatif peut être souscrit via Google Play Billing, directement depuis l&#x27;application. Le prix et la périodicité sont indiqués avant l&#x27;achat et varient selon votre pays. Les abonnements se renouvellent automatiquement jusqu&#x27;à résiliation, gérée depuis Google Play › Abonnements. Aucune donnée bancaire ne transite ni n&#x27;est stockée par TSUGI.</p>
+<h2>6. Droit de rétractation</h2>
+<p>La résiliation et le remboursement d&#x27;un abonnement récemment souscrit se gèrent directement depuis Google Play (Play Store › Abonnements), conformément à la politique de remboursement de Google. Vous pouvez aussi nous contacter à <a href="mailto:doba.guimartinien@gmail.com">doba.guimartinien@gmail.com</a>. La résiliation prend effet à la fin de la période en cours.</p>
+<h2>7. Suppression de compte</h2>
+<p>Vous pouvez supprimer votre compte et l&#x27;ensemble de vos données à tout moment depuis Réglages › Compte › Supprimer le compte. Cette action est définitive.</p>
+<h2>8. Usage autorisé</h2>
+<p>Réservé à un cadre strictement personnel. Toute extraction automatisée intensive, surcharge des API ou tentative de contournement de la sécurité entraînera une suspension immédiate.</p>
+<h2>9. Fonction de vérification par IA</h2>
+<p>Le mode Fact-Check s&#x27;appuie sur une recherche web (Tavily) et des moteurs d&#x27;IA (Groq, OpenRouter). Les résultats sont fournis à titre purement informatif et peuvent comporter des erreurs. Ne saisissez aucune donnée personnelle sensible.</p>
+<h2>10. Fiabilité des informations</h2>
+<p>Les comptes à rebours, dates et notes sont indicatifs et dépendent des API tierces ; ils peuvent changer sans préavis. TSUGI ne saurait être tenu responsable d&#x27;un retard ou d&#x27;une inexactitude.</p>
+<h2>11. Modification du service</h2>
+<p>Nous nous réservons le droit de modifier, suspendre ou interrompre tout ou partie du service sans préavis.</p>
+<h2>12. Propriété intellectuelle de l&#x27;application</h2>
+<p>Le code source, le logo et les designs créés pour TSUGI sont notre propriété et protégés par les lois en vigueur.</p>
+<h2>13. Frais réseau</h2>
+<p>Les données consommées par l&#x27;application sont à la charge de l&#x27;utilisateur auprès de son opérateur.</p>
+<h2>14. Droit applicable</h2>
+<p>Les présentes conditions sont régies par le droit applicable ; tout litige sera porté devant les juridictions compétentes.</p>
+<h2>15. Acceptation</h2>
+<p>En utilisant TSUGI, vous acceptez les présentes conditions ainsi que la Politique de confidentialité.</p>
+</div>
+<div class="panel" id="panel-en">
+<h1>Terms of Use</h1>
+<p class="updated">Last updated: July 2026</p>
+<h2>1. Nature of the service</h2>
+<p>TSUGI is an aggregation app displaying information from public third-party APIs (schedules, announcements, sheets). It is provided &quot;as is&quot;, with no guarantee of availability or completeness.</p>
+<h2>2. Content ownership</h2>
+<p>Titles, artwork, covers and descriptions come from third parties (AniList, MangaDex, TMDB, TVMaze, etc.) and remain the property of their respective rights holders. TSUGI hosts no copyrighted content.</p>
+<h2>3. TSUGI streams no media</h2>
+<p>The app is a calendar and tracking engine. It does not let you read manga or watch anime, series or movies: it points you to the official platforms.</p>
+<h2>4. User account</h2>
+<p>Creating an account is optional and only serves to sync your watchlist and to vote. You are responsible for keeping your password confidential and for activity carried out from your account.</p>
+<h2>5. Premium subscription</h2>
+<p>An optional paid Premium subscription may be purchased through Google Play Billing, directly from the app. Price and billing period are shown before purchase and vary by country. Subscriptions renew automatically until cancelled from Google Play › Subscriptions. No banking data passes through or is stored by TSUGI.</p>
+<h2>6. Right of withdrawal</h2>
+<p>Cancellation and refunds for a recently purchased subscription are handled directly from Google Play (Play Store › Subscriptions), in accordance with Google&#x27;s refund policy. You can also contact us at <a href="mailto:doba.guimartinien@gmail.com">doba.guimartinien@gmail.com</a>. Cancellation takes effect at the end of the current period.</p>
+<h2>7. Account deletion</h2>
+<p>You can delete your account and all your data at any time from Settings › Account › Delete account. This action is permanent.</p>
+<h2>8. Permitted use</h2>
+<p>Strictly personal use only. Any intensive automated scraping, API overloading or attempt to bypass security will result in immediate suspension.</p>
+<h2>9. AI fact-checking feature</h2>
+<p>The Fact-Check mode relies on a web search (Tavily) and AI engines (Groq, OpenRouter). Results are purely informational and may contain errors. Do not enter sensitive personal data.</p>
+<h2>10. Reliability of information</h2>
+<p>Countdowns, dates and scores are indicative and depend on third-party APIs; they may change without notice. TSUGI cannot be held liable for any delay or inaccuracy.</p>
+<h2>11. Service changes</h2>
+<p>We reserve the right to modify, suspend or discontinue all or part of the service without notice.</p>
+<h2>12. App intellectual property</h2>
+<p>The source code, logo and designs created for TSUGI are our property and protected by applicable laws.</p>
+<h2>13. Network costs</h2>
+<p>Data consumed by the app is the user&#x27;s responsibility with their carrier.</p>
+<h2>14. Governing law</h2>
+<p>These terms are governed by applicable law; any dispute will be brought before the competent courts.</p>
+<h2>15. Acceptance</h2>
+<p>By using TSUGI, you accept these terms and the Privacy Policy.</p>
+</div>
+<div class="panel" id="panel-nl">
+<h1>Gebruiksvoorwaarden</h1>
+<p class="updated">Laatst bijgewerkt: juli 2026</p>
+<h2>1. Aard van de dienst</h2>
+<p>TSUGI is een aggregatie-app die informatie toont uit openbare API&#x27;s van derden (schema&#x27;s, aankondigingen, fiches). De app wordt &quot;as is&quot; geleverd, zonder garantie op beschikbaarheid of volledigheid.</p>
+<h2>2. Eigendom van content</h2>
+<p>Titels, beeldmateriaal, covers en beschrijvingen komen van derden (AniList, MangaDex, TMDB, TVMaze, enz.) en blijven eigendom van de respectieve rechthebbenden. TSUGI host geen auteursrechtelijk beschermde content.</p>
+<h2>3. TSUGI streamt geen media</h2>
+<p>De app is een kalender en volgtool. Je kunt er geen manga lezen of anime, series of films kijken: de app verwijst je naar de officiële platforms.</p>
+<h2>4. Gebruikersaccount</h2>
+<p>Een account aanmaken is optioneel en dient enkel om je volglijst te synchroniseren en te stemmen. Je bent verantwoordelijk voor de vertrouwelijkheid van je wachtwoord en de activiteit vanaf je account.</p>
+<h2>5. Premium-abonnement</h2>
+<p>Een optioneel betaald Premium-abonnement kan rechtstreeks in de app worden afgesloten via Google Play Billing. Prijs en factuurperiode worden vóór aankoop getoond en verschillen per land. Abonnementen verlengen automatisch tot opzegging via Google Play › Abonnementen. Er passeren of worden geen bankgegevens opgeslagen door TSUGI.</p>
+<h2>6. Herroepingsrecht</h2>
+<p>Opzegging en terugbetaling van een recent afgesloten abonnement verloopt rechtstreeks via Google Play (Play Store › Abonnementen), conform het terugbetalingsbeleid van Google. Je kunt ons ook bereiken via <a href="mailto:doba.guimartinien@gmail.com">doba.guimartinien@gmail.com</a>. Opzegging gaat in aan het einde van de lopende periode.</p>
+<h2>7. Account verwijderen</h2>
+<p>Je kunt je account en al je gegevens op elk moment verwijderen via Instellingen › Account › Account verwijderen. Deze actie is definitief.</p>
+<h2>8. Toegestaan gebruik</h2>
+<p>Uitsluitend voor strikt persoonlijk gebruik. Intensief geautomatiseerd scrapen, overbelasting van de API&#x27;s of pogingen om de beveiliging te omzeilen leiden tot onmiddellijke opschorting.</p>
+<h2>9. AI-factcheckfunctie</h2>
+<p>De Fact-Check-modus steunt op een webzoekopdracht (Tavily) en AI-engines (Groq, OpenRouter). Resultaten zijn puur informatief en kunnen fouten bevatten. Voer geen gevoelige persoonsgegevens in.</p>
+<h2>10. Betrouwbaarheid van informatie</h2>
+<p>Aftellers, data en scores zijn indicatief en afhankelijk van API&#x27;s van derden; ze kunnen zonder kennisgeving wijzigen. TSUGI is niet aansprakelijk voor vertragingen of onnauwkeurigheden.</p>
+<h2>11. Wijziging van de dienst</h2>
+<p>Wij behouden het recht de dienst geheel of gedeeltelijk te wijzigen, op te schorten of te beëindigen zonder kennisgeving.</p>
+<h2>12. Intellectueel eigendom van de app</h2>
+<p>De broncode, het logo en de ontwerpen die voor TSUGI zijn gemaakt, zijn onze eigendom en beschermd door de geldende wetgeving.</p>
+<h2>13. Netwerkkosten</h2>
+<p>Het dataverbruik van de app komt voor rekening van de gebruiker bij zijn provider.</p>
+<h2>14. Toepasselijk recht</h2>
+<p>Deze voorwaarden vallen onder het toepasselijke recht; elk geschil wordt voorgelegd aan de bevoegde rechtbanken.</p>
+<h2>15. Aanvaarding</h2>
+<p>Door TSUGI te gebruiken aanvaard je deze voorwaarden en het Privacybeleid.</p>
+</div>
+</main>
+
+<footer>
+  TSUGI — app.tsugi.android — <a href="mailto:doba.guimartinien@gmail.com">doba.guimartinien@gmail.com</a> — <a href="privacy-policy.html">Politique de confidentialité / Privacy Policy</a>
+</footer>
+
+</body>
+</html>

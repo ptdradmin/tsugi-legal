@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TSUGI — Politique de confidentialité / Privacy Policy / Privacybeleid</title>
+<meta name="robots" content="index, follow">
+<style>
+  :root {
+    --void: #0b0b0f;
+    --panel: #17171d;
+    --panel-raised: #1f1f28;
+    --line: #2a2a35;
+    --ink: #f2f2f5;
+    --ink-dim: #b4b4c0;
+    --ink-faint: #7d7d8a;
+    --seal: #e3402c;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --void: #f7f7f9;
+      --panel: #ffffff;
+      --panel-raised: #f0f0f3;
+      --line: #e2e2e8;
+      --ink: #16161c;
+      --ink-dim: #48485a;
+      --ink-faint: #7d7d8a;
+      --seal: #d6341f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --void: #0b0b0f; --panel: #17171d; --panel-raised: #1f1f28; --line: #2a2a35;
+    --ink: #f2f2f5; --ink-dim: #b4b4c0; --ink-faint: #7d7d8a; --seal: #e3402c;
+  }
+  :root[data-theme="light"] {
+    --void: #f7f7f9; --panel: #ffffff; --panel-raised: #f0f0f3; --line: #e2e2e8;
+    --ink: #16161c; --ink-dim: #48485a; --ink-faint: #7d7d8a; --seal: #d6341f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--void);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  header {
+    padding: 32px 20px 0;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    font-weight: 900;
+    font-size: 28px;
+    letter-spacing: -0.5px;
+  }
+  .brand .dot { color: var(--seal); }
+  .tagline {
+    color: var(--ink-faint);
+    font-size: 13px;
+    margin-top: 2px;
+  }
+  nav.lang-switch {
+    max-width: 720px;
+    margin: 24px auto 0;
+    padding: 0 20px;
+    display: flex;
+    gap: 8px;
+  }
+  nav.lang-switch label {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    background: var(--panel);
+    user-select: none;
+  }
+  input[type="radio"] { display: none; }
+  #lang-fr:checked ~ nav.lang-switch label[for="lang-fr"],
+  #lang-en:checked ~ nav.lang-switch label[for="lang-en"],
+  #lang-nl:checked ~ nav.lang-switch label[for="lang-nl"] {
+    background: var(--seal);
+    border-color: var(--seal);
+    color: #fff;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 20px 80px;
+  }
+  .panel { display: none; }
+  h1 {
+    font-size: 26px;
+    font-weight: 900;
+    margin: 0 0 4px;
+  }
+  .updated {
+    color: var(--ink-faint);
+    font-size: 13px;
+    margin: 0 0 28px;
+  }
+  h2 {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--seal);
+    margin: 28px 0 8px;
+  }
+  p {
+    color: var(--ink-dim);
+    font-size: 15px;
+    margin: 0 0 4px;
+  }
+  a { color: var(--seal); }
+  #lang-fr:checked ~ main #panel-fr,
+  #lang-en:checked ~ main #panel-en,
+  #lang-nl:checked ~ main #panel-nl {
+    display: block;
+  }
+  footer {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    color: var(--ink-faint);
+    font-size: 12px;
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+  }
+  footer a { color: var(--ink-faint); }
+</style>
+</head>
+<body>
+
+<input type="radio" name="lang" id="lang-fr" checked>
+<input type="radio" name="lang" id="lang-en">
+<input type="radio" name="lang" id="lang-nl">
+
+<header>
+  <div class="brand">TSUGI<span class="dot">.</span></div>
+  <div class="tagline">次 — ce qui arrive</div>
+</header>
+
+<nav class="lang-switch">
+  <label for="lang-fr">Français</label>
+  <label for="lang-en">English</label>
+  <label for="lang-nl">Nederlands</label>
+</nav>
+
+<main>
+<div class="panel" id="panel-fr">
+<h1>Politique de confidentialité</h1>
+<p class="updated">Dernière mise à jour : juillet 2026</p>
+<h2>1. Principe général</h2>
+<p>TSUGI est conçu pour respecter votre vie privée. En mode invité, aucune donnée personnelle identifiante n&#x27;est collectée : l&#x27;application fonctionne sans compte.</p>
+<h2>2. Données de compte (si vous vous inscrivez)</h2>
+<p>Si vous créez un compte, nous traitons votre adresse email et un mot de passe chiffré via Supabase Auth, dans le seul but de vous authentifier et de synchroniser votre liste de suivi. Aucune revente, aucun profilage publicitaire.</p>
+<h2>3. Stockage local</h2>
+<p>Votre liste de suivi et vos préférences sont stockées sur votre appareil via une base Room (SQLite) et des SharedPreferences chiffrées (AES-256). Elles restent accessibles hors ligne.</p>
+<h2>4. Synchronisation cloud</h2>
+<p>Si vous êtes connecté, votre liste de suivi et vos votes sont acheminés de façon chiffrée (HTTPS) vers Supabase. La sécurité au niveau des lignes (RLS) garantit que vous seul accédez à vos données.</p>
+<h2>5. Paiements Premium</h2>
+<p>Les paiements sont traités par Google Play Billing. TSUGI ne voit, ne reçoit ni ne stocke aucune donnée de carte bancaire. Nous conservons uniquement l&#x27;état de votre abonnement (plan, statut, date d&#x27;expiration) rattaché à votre compte, après vérification du jeton d&#x27;achat auprès de l&#x27;API Google Play Developer.</p>
+<h2>6. Notifications</h2>
+<p>Si vous les activez, l&#x27;application planifie des vérifications en arrière-plan pour vous alerter des nouveaux épisodes et chapitres. La permission de notification peut être révoquée à tout moment dans les réglages Android.</p>
+<h2>7. Fonction Fact-Check (IA)</h2>
+<p>Lorsque vous lancez une vérification, votre requête est envoyée aux services Tavily (recherche web) et Groq / OpenRouter (analyse IA) pour produire un verdict. N&#x27;y saisissez aucune donnée personnelle sensible.</p>
+<h2>8. Appels directs aux API tierces</h2>
+<p>L&#x27;application interroge directement AniList, Jikan, MangaDex, TMDB, TVMaze, RAWG, OMDb et Watchmode. Ces services reçoivent des requêtes techniques (titre recherché, région) mais aucune donnée d&#x27;identification personnelle.</p>
+<h2>9. Aucune publicité, aucun pistage</h2>
+<p>TSUGI n&#x27;intègre aucun SDK publicitaire, aucun traqueur commercial ni analyse comportementale à des fins marketing.</p>
+<h2>10. Sécurité</h2>
+<p>Tous les flux réseau utilisent le chiffrement TLS/HTTPS. Les jetons de session sont stockés de manière chiffrée sur l&#x27;appareil et rafraîchis automatiquement.</p>
+<h2>11. Accès à l&#x27;appareil</h2>
+<p>L&#x27;application n&#x27;accède ni à vos photos, ni à vos fichiers, ni à vos contacts. Elle se limite à son espace applicatif isolé (sandbox Android).</p>
+<h2>12. Vos droits (accès, effacement)</h2>
+<p>Vous gardez le contrôle total : vider la liste, se déconnecter, ou supprimer définitivement votre compte et toutes vos données depuis Réglages › Compte › Supprimer le compte. La désinstallation efface toutes les données locales.</p>
+<h2>13. Conservation des données</h2>
+<p>Les données de compte sont conservées tant que le compte existe. Après suppression, elles sont effacées de nos systèmes.</p>
+<h2>14. Liens externes</h2>
+<p>Les liens vers des tiers (YouTube, plateformes de streaming, sites d&#x27;actualités) sont soumis à leurs propres politiques de confidentialité.</p>
+<h2>15. Enfants</h2>
+<p>L&#x27;application ne cible pas les enfants et ne collecte sciemment aucune donnée les concernant.</p>
+<h2>16. Évolution de la politique</h2>
+<p>Toute modification substantielle sera signalée sur cette page au sein de l&#x27;application.</p>
+<h2>17. Contact</h2>
+<p>Pour toute question relative à vos données ou à votre abonnement, contactez-nous à <a href="mailto:doba.guimartinien@gmail.com">doba.guimartinien@gmail.com</a>.</p>
+</div>
+<div class="panel" id="panel-en">
+<h1>Privacy Policy</h1>
+<p class="updated">Last updated: July 2026</p>
+<h2>1. General principle</h2>
+<p>TSUGI is designed to respect your privacy. In guest mode, no identifying personal data is collected: the app works without an account.</p>
+<h2>2. Account data (if you sign up)</h2>
+<p>If you create an account, we process your email address and an encrypted password through Supabase Auth, solely to authenticate you and sync your watchlist. No resale, no advertising profiling.</p>
+<h2>3. Local storage</h2>
+<p>Your watchlist and preferences are stored on your device via a Room (SQLite) database and encrypted SharedPreferences (AES-256). They remain available offline.</p>
+<h2>4. Cloud sync</h2>
+<p>When signed in, your watchlist and votes are sent encrypted (HTTPS) to Supabase. Row-Level Security (RLS) ensures that only you can access your data.</p>
+<h2>5. Premium payments</h2>
+<p>Payments are handled by Google Play Billing. TSUGI never sees, receives or stores any card data. We only keep your subscription state (plan, status, expiry date) tied to your account, after verifying the purchase token against the Google Play Developer API.</p>
+<h2>6. Notifications</h2>
+<p>If enabled, the app schedules background checks to alert you about new episodes and chapters. The notification permission can be revoked at any time in Android settings.</p>
+<h2>7. Fact-Check feature (AI)</h2>
+<p>When you run a check, your query is sent to Tavily (web search) and Groq / OpenRouter (AI analysis) to produce a verdict. Do not enter sensitive personal data.</p>
+<h2>8. Direct third-party API calls</h2>
+<p>The app queries AniList, Jikan, MangaDex, TMDB, TVMaze, RAWG, OMDb and Watchmode directly. These services receive technical requests (search title, region) but no personally identifying data.</p>
+<h2>9. No ads, no tracking</h2>
+<p>TSUGI includes no advertising SDK, no commercial tracker and no behavioural analytics for marketing.</p>
+<h2>10. Security</h2>
+<p>All network traffic uses TLS/HTTPS encryption. Session tokens are stored encrypted on the device and refreshed automatically.</p>
+<h2>11. Device access</h2>
+<p>The app accesses neither your photos, files nor contacts. It stays within its isolated app space (Android sandbox).</p>
+<h2>12. Your rights (access, erasure)</h2>
+<p>You keep full control: clear the list, sign out, or permanently delete your account and all your data from Settings › Account › Delete account. Uninstalling erases all local data.</p>
+<h2>13. Data retention</h2>
+<p>Account data is kept as long as the account exists. After deletion it is erased from our systems.</p>
+<h2>14. External links</h2>
+<p>Links to third parties (YouTube, streaming platforms, news sites) are subject to their own privacy policies.</p>
+<h2>15. Children</h2>
+<p>The app does not target children and knowingly collects no data about them.</p>
+<h2>16. Policy changes</h2>
+<p>Any substantial change will be flagged on this page within the app.</p>
+<h2>17. Contact</h2>
+<p>For any question about your data or your subscription, contact us at <a href="mailto:doba.guimartinien@gmail.com">doba.guimartinien@gmail.com</a>.</p>
+</div>
+<div class="panel" id="panel-nl">
+<h1>Privacybeleid</h1>
+<p class="updated">Laatst bijgewerkt: juli 2026</p>
+<h2>1. Algemeen principe</h2>
+<p>TSUGI is ontworpen om je privacy te respecteren. In gastmodus worden geen identificeerbare persoonsgegevens verzameld: de app werkt zonder account.</p>
+<h2>2. Accountgegevens (als je je registreert)</h2>
+<p>Als je een account aanmaakt, verwerken we je e-mailadres en een versleuteld wachtwoord via Supabase Auth, uitsluitend om je te authenticeren en je volglijst te synchroniseren. Geen doorverkoop, geen advertentieprofilering.</p>
+<h2>3. Lokale opslag</h2>
+<p>Je volglijst en voorkeuren worden op je toestel opgeslagen via een Room-database (SQLite) en versleutelde SharedPreferences (AES-256). Ze blijven offline beschikbaar.</p>
+<h2>4. Cloudsynchronisatie</h2>
+<p>Wanneer je bent ingelogd, worden je volglijst en stemmen versleuteld (HTTPS) naar Supabase gestuurd. Row-Level Security (RLS) garandeert dat alleen jij toegang hebt tot je gegevens.</p>
+<h2>5. Premium-betalingen</h2>
+<p>Betalingen worden verwerkt door Google Play Billing. TSUGI ziet, ontvangt of bewaart geen enkel kaartgegeven. We bewaren enkel de status van je abonnement (plan, status, vervaldatum) gekoppeld aan je account, na verificatie van het aankooptoken bij de Google Play Developer API.</p>
+<h2>6. Meldingen</h2>
+<p>Indien ingeschakeld plant de app achtergrondcontroles om je te waarschuwen voor nieuwe afleveringen en hoofdstukken. De meldingstoestemming kan op elk moment worden ingetrokken in de Android-instellingen.</p>
+<h2>7. Fact-Check-functie (AI)</h2>
+<p>Wanneer je een controle uitvoert, wordt je zoekopdracht verzonden naar Tavily (webzoeken) en Groq / OpenRouter (AI-analyse) om een oordeel te vormen. Voer er geen gevoelige persoonsgegevens in.</p>
+<h2>8. Directe API-oproepen naar derden</h2>
+<p>De app bevraagt rechtstreeks AniList, Jikan, MangaDex, TMDB, TVMaze, RAWG, OMDb en Watchmode. Deze diensten ontvangen technische verzoeken (gezochte titel, regio) maar geen persoonlijk identificeerbare gegevens.</p>
+<h2>9. Geen advertenties, geen tracking</h2>
+<p>TSUGI bevat geen advertentie-SDK, geen commerciële tracker en geen gedragsanalyse voor marketing.</p>
+<h2>10. Beveiliging</h2>
+<p>Al het netwerkverkeer gebruikt TLS/HTTPS-versleuteling. Sessietokens worden versleuteld op het toestel bewaard en automatisch vernieuwd.</p>
+<h2>11. Toegang tot het toestel</h2>
+<p>De app heeft geen toegang tot je foto&#x27;s, bestanden of contacten. Ze blijft binnen haar geïsoleerde app-ruimte (Android-sandbox).</p>
+<h2>12. Je rechten (inzage, wissen)</h2>
+<p>Je houdt volledige controle: lijst wissen, uitloggen, of je account en al je gegevens definitief verwijderen via Instellingen › Account › Account verwijderen. Verwijderen van de app wist alle lokale gegevens.</p>
+<h2>13. Bewaartermijn</h2>
+<p>Accountgegevens worden bewaard zolang het account bestaat. Na verwijdering worden ze uit onze systemen gewist.</p>
+<h2>14. Externe links</h2>
+<p>Links naar derden (YouTube, streamingplatforms, nieuwssites) vallen onder hun eigen privacybeleid.</p>
+<h2>15. Kinderen</h2>
+<p>De app richt zich niet op kinderen en verzamelt bewust geen gegevens over hen.</p>
+<h2>16. Wijziging van het beleid</h2>
+<p>Elke substantiële wijziging wordt op deze pagina in de app gemeld.</p>
+<h2>17. Contact</h2>
+<p>Voor vragen over je gegevens of je abonnement kun je ons bereiken via <a href="mailto:doba.guimartinien@gmail.com">doba.guimartinien@gmail.com</a>.</p>
+</div>
+</main>
+
+<footer>
+  TSUGI — app.tsugi.android — <a href="mailto:doba.guimartinien@gmail.com">doba.guimartinien@gmail.com</a> — <a href="terms.html">Conditions d'utilisation / Terms of Use</a>
+</footer>
+
+</body>
+</html>
