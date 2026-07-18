@@ -1,11 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TSUGI — Un hub, pas dix apps</title>
+<meta name="description" content="Animes, mangas, manhwas, manhuas, webtoons, séries, dramas, films et jeux vidéo — suivis, notés et mis à jour au même endroit, sur tous vos appareils.">
 <style>
   @font-face {
     font-family: 'Dela Gothic One';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url(data:font/woff2;base64,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) format('woff2');
+    src: url(data:font/woff2;base64,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) format('woff2');
   }
   @font-face {
     font-family: 'Hanken Grotesk';
@@ -58,6 +64,7 @@
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
+  img { max-width: 100%; display: block; }
   ::selection { background: var(--seal); color: #fff; }
 
   .display { font-family: 'Dela Gothic One', 'Hanken Grotesk', sans-serif; }
@@ -67,7 +74,7 @@
     color: var(--seal);
   }
 
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
   @media (max-width: 640px) { .wrap { padding: 0 20px; } }
 
   /* ---------------- Nav ---------------- */
@@ -81,60 +88,49 @@
   .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
   .nav-brand .glyph { font-family: 'Dela Gothic One', sans-serif; font-size: 22px; color: var(--seal); }
   .nav-brand b { font-family: 'Dela Gothic One', sans-serif; font-size: 15px; letter-spacing: 1px; }
-  nav.nav-links { display: flex; gap: 28px; }
+  nav.nav-links { display: flex; gap: 28px; align-items: center; }
   nav.nav-links a {
     color: var(--ink-dim); text-decoration: none; font-size: 14px; font-weight: 600;
   }
   nav.nav-links a:hover { color: var(--ink); }
-  @media (max-width: 640px) { nav.nav-links { display: none; } }
+  nav.nav-links a.nav-cta {
+    color: var(--ink); background: var(--panel-raised); border: 1px solid var(--line);
+    padding: 8px 16px; border-radius: 9px;
+  }
+  @media (max-width: 720px) { nav.nav-links a:not(.nav-cta) { display: none; } }
 
-  /* ---------------- Hero ---------------- */
+  /* ---------------- Hero (asymmetric) ---------------- */
   .hero {
     position: relative;
-    padding: 88px 0 96px;
-    text-align: center;
+    padding: 76px 0 96px;
     overflow: hidden;
   }
   .hero-glow {
-    position: absolute; top: -220px; left: 50%; transform: translateX(-50%);
-    width: 900px; height: 900px; border-radius: 50%;
+    position: absolute; top: -260px; right: -160px;
+    width: 780px; height: 780px; border-radius: 50%;
     background: radial-gradient(circle, var(--seal-soft) 0%, transparent 68%);
     pointer-events: none;
   }
-  .hero-glyph {
+  .hero-grid {
     position: relative;
-    font-size: clamp(72px, 14vw, 148px);
-    line-height: 1;
-    color: var(--seal);
-    text-shadow: 0 0 70px var(--seal-soft);
-    margin-bottom: 8px;
+    display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 40px; align-items: center;
   }
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-glyph { animation: pulse-glow 5s ease-in-out infinite; }
-  }
-  @keyframes pulse-glow {
-    0%, 100% { text-shadow: 0 0 50px var(--seal-soft); }
-    50% { text-shadow: 0 0 100px var(--seal-soft); }
-  }
-  .hero p.mono-label { position: relative; margin: 0 0 22px; }
+  @media (max-width: 880px) { .hero-grid { grid-template-columns: 1fr; } }
+
+  .hero-glyph { font-size: 40px; color: var(--seal); margin-bottom: 18px; line-height: 1; }
   .hero h1 {
-    position: relative;
-    font-size: clamp(34px, 5.6vw, 60px);
-    line-height: 1.08;
+    font-size: clamp(32px, 4.6vw, 52px);
+    line-height: 1.1;
     letter-spacing: -0.01em;
-    margin: 0 auto 22px;
-    max-width: 16ch;
+    margin: 0 0 22px;
     text-wrap: balance;
   }
   .hero .lede {
-    position: relative;
-    max-width: 56ch; margin: 0 auto 40px;
-    font-size: 17px; line-height: 1.65; color: var(--ink-dim);
+    max-width: 52ch; margin: 0 0 34px;
+    font-size: 16.5px; line-height: 1.65; color: var(--ink-dim);
   }
-  .hero .cta-row {
-    position: relative;
-    display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
-  }
+  .hero .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
     font-family: inherit; font-size: 14.5px; font-weight: 700;
@@ -143,9 +139,26 @@
   }
   .btn-primary { background: var(--seal); color: #fff; }
   .btn-primary:hover { filter: brightness(1.08); }
-  .btn-primary .sub { font-weight: 500; opacity: .82; font-size: 12px; }
   .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
   .btn-ghost:hover { background: var(--panel); border-color: var(--ink-faint); }
+
+  .hero-shot-wrap { position: relative; display: flex; justify-content: center; }
+  .hero-shot {
+    position: relative;
+    width: min(300px, 78%);
+    border-radius: 34px;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    transform: rotate(-3deg);
+    overflow: hidden;
+  }
+  .hero-shot img { border-radius: 33px; }
+  .hero-shot-tag {
+    position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%) rotate(2deg);
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 8px 16px; font-size: 12.5px; font-weight: 700; color: var(--ink);
+    box-shadow: var(--shadow); white-space: nowrap;
+  }
 
   /* ---------------- Sections shared ---------------- */
   section { padding: 84px 0; border-top: 1px solid var(--line); }
@@ -158,39 +171,66 @@
   }
   .section-head p { margin: 0; font-size: 15.5px; line-height: 1.65; color: var(--ink-dim); }
 
-  /* ---------------- Category grid ---------------- */
+  /* ---------------- Categories: grid + companion shot ---------------- */
+  .cat-layout { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: start; }
+  @media (max-width: 880px) { .cat-layout { grid-template-columns: 1fr; } }
   .cat-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
   }
-  @media (max-width: 760px) { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 460px) { .cat-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 620px) { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
   .cat-card {
     background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
-    padding: 20px 20px 18px; box-shadow: var(--shadow);
+    padding: 20px 20px 18px;
   }
   .cat-card .idx {
     font-family: ui-monospace, monospace; font-size: 11px; color: var(--ink-faint);
     letter-spacing: 1px;
   }
   .cat-card h3 {
-    font-family: 'Dela Gothic One', sans-serif; font-size: 17px; margin: 10px 0 6px; color: var(--ink);
+    font-family: 'Dela Gothic One', sans-serif; font-size: 16px; margin: 10px 0 6px; color: var(--ink);
   }
   .cat-card p { margin: 0; font-size: 13px; line-height: 1.55; color: var(--ink-dim); }
-
-  /* ---------------- Features ---------------- */
-  .feat-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  .companion-shot {
+    border-radius: 28px; border: 1px solid var(--line); overflow: hidden; box-shadow: var(--shadow);
+    transform: rotate(2deg);
   }
+  @media (max-width: 880px) { .companion-shot { max-width: 260px; margin: 0 auto; } }
+
+  /* ---------------- Features: text + companion shot, reversed ---------------- */
+  .feat-layout { display: grid; grid-template-columns: 340px 1fr; gap: 40px; align-items: start; }
+  @media (max-width: 880px) { .feat-layout { grid-template-columns: 1fr; } }
+  .feat-layout .companion-shot { transform: rotate(-2deg); order: 1; }
+  @media (max-width: 880px) { .feat-layout .companion-shot { max-width: 260px; margin: 0 auto; order: -1; } }
+  .feat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
   @media (max-width: 700px) { .feat-grid { grid-template-columns: 1fr; } }
   .feat-card {
     background: var(--panel); border: 1px solid var(--line); border-radius: 16px;
-    padding: 28px; box-shadow: var(--shadow);
+    padding: 26px; box-shadow: var(--shadow);
   }
-  .feat-card .num {
-    font-family: 'Dela Gothic One', sans-serif; font-size: 13px; color: var(--seal); margin-bottom: 14px;
+  .feat-card .num { font-family: 'Dela Gothic One', sans-serif; font-size: 13px; color: var(--seal); margin-bottom: 12px; }
+  .feat-card h3 { font-size: 17px; margin: 0 0 8px; font-weight: 800; }
+  .feat-card p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-dim); }
+
+  /* ---------------- FAQ ---------------- */
+  .faq-list { display: flex; flex-direction: column; gap: 10px; max-width: 74ch; }
+  .faq-item {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    overflow: hidden;
   }
-  .feat-card h3 { font-size: 18px; margin: 0 0 10px; font-weight: 800; }
-  .feat-card p { margin: 0; font-size: 14.5px; line-height: 1.65; color: var(--ink-dim); }
+  .faq-item summary {
+    list-style: none; cursor: pointer; padding: 18px 22px;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    font-weight: 700; font-size: 15px; color: var(--ink);
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary .chev {
+    flex: none; width: 18px; height: 18px; color: var(--seal);
+    transition: transform .2s ease;
+  }
+  .faq-item[open] summary .chev { transform: rotate(45deg); }
+  .faq-item .faq-a {
+    padding: 0 22px 20px; margin: 0; font-size: 14.5px; line-height: 1.65; color: var(--ink-dim);
+  }
 
   /* ---------------- CTA band ---------------- */
   .cta-band {
@@ -200,38 +240,27 @@
     padding: 64px 32px;
     box-shadow: var(--shadow);
   }
-  .cta-band h2 {
-    font-family: 'Dela Gothic One', sans-serif;
-    font-size: clamp(24px, 3.6vw, 36px); margin: 0 0 14px;
-  }
+  .cta-band h2 { font-family: 'Dela Gothic One', sans-serif; font-size: clamp(24px, 3.6vw, 36px); margin: 0 0 14px; }
   .cta-band p { margin: 0 0 30px; color: var(--ink-dim); font-size: 15px; }
+  .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
   /* ---------------- Footer ---------------- */
-  footer {
-    border-top: 1px solid var(--line);
-    padding: 40px 0 48px;
-  }
-  .foot-row {
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
-  }
+  footer { border-top: 1px solid var(--line); padding: 40px 0 48px; }
+  .foot-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
   .foot-brand { display: flex; align-items: center; gap: 8px; color: var(--ink-faint); font-size: 13px; }
   .foot-brand .glyph { font-family: 'Dela Gothic One', sans-serif; color: var(--seal); font-size: 15px; }
   .foot-links { display: flex; gap: 22px; flex-wrap: wrap; }
   .foot-links a { color: var(--ink-dim); text-decoration: none; font-size: 13px; }
   .foot-links a:hover { color: var(--ink); }
 
-  [data-reveal] {
-    opacity: 0; transform: translateY(18px);
-  }
+  [data-reveal] { opacity: 0; transform: translateY(18px); }
   @media (prefers-reduced-motion: no-preference) {
     [data-reveal] { transition: opacity .7s ease, transform .7s ease; }
     [data-reveal].in { opacity: 1; transform: translateY(0); }
   }
-  @media (prefers-reduced-motion: reduce) {
-    [data-reveal] { opacity: 1; transform: none; }
-  }
+  @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; } }
 
-  a:focus-visible, button:focus-visible { outline: 2px solid var(--seal); outline-offset: 3px; }
+  a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--seal); outline-offset: 3px; }
 </style>
 
 <header class="site-nav">
@@ -243,24 +272,34 @@
     <nav class="nav-links">
       <a href="#categories">Catégories</a>
       <a href="#fonctionnalites">Fonctionnalités</a>
-      <a href="privacy-policy.html">Confidentialité</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://ptdradmin.github.io/tsugi-legal/privacy-policy.html">Confidentialité</a>
+      <a class="nav-cta" href="https://play.google.com/store/apps/details?id=app.tsugi.android" target="_blank" rel="noopener">Google Play</a>
     </nav>
   </div>
 </header>
 
 <main id="top">
-  <section class="hero" style="border-top:none; padding-top: 88px;">
+  <section class="hero" style="border-top:none;">
     <div class="hero-glow" aria-hidden="true"></div>
-    <div class="wrap">
-      <div class="hero-glyph" aria-hidden="true">次</div>
-      <p class="mono-label">TSUGI — ce qui arrive</p>
-      <h1>Tout ce que vous suivez.<br>Un seul endroit.</h1>
-      <p class="lede">Animes, mangas, manhwas, manhuas, webtoons, séries, dramas, films et jeux vidéo — une seule bibliothèque, des alertes de sortie, et une synchronisation entre tous vos appareils.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#fonctionnalites">
-          <span>Bientôt sur Google Play</span>
-        </a>
-        <a class="btn btn-ghost" href="#categories">Voir les catégories</a>
+    <div class="wrap hero-grid">
+      <div>
+        <div class="hero-glyph" aria-hidden="true">次</div>
+        <p class="mono-label">TSUGI — ce qui arrive</p>
+        <h1>Tout ce que vous suivez.<br>Un seul endroit.</h1>
+        <p class="lede">Animes, mangas, manhwas, manhuas, webtoons, séries, dramas, films et jeux vidéo — une seule bibliothèque, des alertes de sortie, et une synchronisation entre tous vos appareils.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=app.tsugi.android" target="_blank" rel="noopener">
+            <span>Voir sur Google Play</span>
+          </a>
+          <a class="btn btn-ghost" href="#categories">Voir les catégories</a>
+        </div>
+      </div>
+      <div class="hero-shot-wrap">
+        <div class="hero-shot">
+          <img src="img/shot-feed.png" alt="Le Feed TSUGI listant des sorties d'anime à venir">
+        </div>
+        <div class="hero-shot-tag">📅 25/07/2026 — BLEACH: Sennen Kessen-hen</div>
       </div>
     </div>
   </section>
@@ -272,16 +311,21 @@
         <h2>Arrêtez de jongler entre dix applications.</h2>
         <p>Chaque catégorie a son propre univers de fans — et sa propre app dédiée. TSUGI les réunit toutes, avec les mêmes outils de suivi partout.</p>
       </div>
-      <div class="cat-grid">
-        <div class="cat-card" data-reveal><span class="idx">01</span><h3>Anime</h3><p>Saisons, films et OAV suivis épisode par épisode.</p></div>
-        <div class="cat-card" data-reveal><span class="idx">02</span><h3>Manga</h3><p>Chapitres lus, séries en cours ou terminées.</p></div>
-        <div class="cat-card" data-reveal><span class="idx">03</span><h3>Manhwa</h3><p>Webtoons coréens, du one-shot à la série longue.</p></div>
-        <div class="cat-card" data-reveal><span class="idx">04</span><h3>Manhua</h3><p>Bande dessinée chinoise, cultivation et fantasy.</p></div>
-        <div class="cat-card" data-reveal><span class="idx">05</span><h3>Webtoon</h3><p>Format vertical, mise à jour au fil des sorties.</p></div>
-        <div class="cat-card" data-reveal><span class="idx">06</span><h3>Séries</h3><p>Renouvellements suivis, même quand une date change.</p></div>
-        <div class="cat-card" data-reveal><span class="idx">07</span><h3>Dramas</h3><p>K-drama, J-drama et C-drama, diffusion en cours.</p></div>
-        <div class="cat-card" data-reveal><span class="idx">08</span><h3>Films</h3><p>Sorties à venir, du festival à la salle obscure.</p></div>
-        <div class="cat-card" data-reveal><span class="idx">09</span><h3>Jeux</h3><p>Dates de sortie confirmées, jusqu'à plusieurs années.</p></div>
+      <div class="cat-layout">
+        <div class="cat-grid">
+          <div class="cat-card" data-reveal><span class="idx">01</span><h3>Anime</h3><p>Saisons, films et OAV suivis épisode par épisode.</p></div>
+          <div class="cat-card" data-reveal><span class="idx">02</span><h3>Manga</h3><p>Chapitres lus, séries en cours ou terminées.</p></div>
+          <div class="cat-card" data-reveal><span class="idx">03</span><h3>Manhwa</h3><p>Webtoons coréens, du one-shot à la série longue.</p></div>
+          <div class="cat-card" data-reveal><span class="idx">04</span><h3>Manhua</h3><p>Bande dessinée chinoise, cultivation et fantasy.</p></div>
+          <div class="cat-card" data-reveal><span class="idx">05</span><h3>Webtoon</h3><p>Format vertical, mise à jour au fil des sorties.</p></div>
+          <div class="cat-card" data-reveal><span class="idx">06</span><h3>Séries</h3><p>Renouvellements suivis, même quand une date change.</p></div>
+          <div class="cat-card" data-reveal><span class="idx">07</span><h3>Dramas</h3><p>K-drama, J-drama et C-drama, diffusion en cours.</p></div>
+          <div class="cat-card" data-reveal><span class="idx">08</span><h3>Films</h3><p>Sorties à venir, du festival à la salle obscure.</p></div>
+          <div class="cat-card" data-reveal><span class="idx">09</span><h3>Jeux</h3><p>Dates de sortie confirmées, jusqu'à plusieurs années.</p></div>
+        </div>
+        <div class="companion-shot" data-reveal>
+          <img src="img/shot-calendrier.png" alt="Le calendrier de sorties TSUGI, filtré par jour">
+        </div>
       </div>
     </div>
   </section>
@@ -292,27 +336,115 @@
         <p class="mono-label">Pourquoi TSUGI</p>
         <h2>Pensé pour qu'on ne rate plus une sortie.</h2>
       </div>
-      <div class="feat-grid">
-        <div class="feat-card" data-reveal>
-          <div class="num">①</div>
-          <h3>Alertes de sortie</h3>
-          <p>Un nouvel épisode, chapitre ou une nouvelle saison sort ? TSUGI vous notifie directement, sans avoir à vérifier dix sites.</p>
+      <div class="feat-layout">
+        <div class="companion-shot" data-reveal>
+          <img src="img/shot-maliste.png" alt="Ma liste TSUGI avec 15 titres suivis, triés par catégorie">
         </div>
-        <div class="feat-card" data-reveal>
-          <div class="num">②</div>
-          <h3>Bibliothèque personnelle</h3>
-          <p>Progression épisode par épisode ou chapitre par chapitre, statut de suivi et note sur 5 étoiles pour chaque titre.</p>
+        <div class="feat-grid">
+          <div class="feat-card" data-reveal>
+            <div class="num">①</div>
+            <h3>Alertes de sortie</h3>
+            <p>Un nouvel épisode, chapitre ou une nouvelle saison sort ? TSUGI vous notifie directement, sans avoir à vérifier dix sites.</p>
+          </div>
+          <div class="feat-card" data-reveal>
+            <div class="num">②</div>
+            <h3>Bibliothèque personnelle</h3>
+            <p>Progression épisode par épisode ou chapitre par chapitre, statut de suivi et note sur 5 étoiles pour chaque titre.</p>
+          </div>
+          <div class="feat-card" data-reveal>
+            <div class="num">③</div>
+            <h3>Synchronisé partout</h3>
+            <p>Votre liste vous suit d'un appareil à l'autre, en continu, sans rien faire de plus.</p>
+          </div>
+          <div class="feat-card" data-reveal>
+            <div class="num">④</div>
+            <h3>Filtres avancés</h3>
+            <p>Genre, statut de diffusion, recherche par titre — sur chaque catégorie, pour retrouver exactement ce que vous cherchez.</p>
+          </div>
         </div>
-        <div class="feat-card" data-reveal>
-          <div class="num">③</div>
-          <h3>Synchronisé partout</h3>
-          <p>Votre liste vous suit d'un appareil à l'autre, en continu, sans rien faire de plus.</p>
-        </div>
-        <div class="feat-card" data-reveal>
-          <div class="num">④</div>
-          <h3>Filtres avancés</h3>
-          <p>Genre, statut de diffusion, recherche par titre — sur chaque catégorie, pour retrouver exactement ce que vous cherchez.</p>
-        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <p class="mono-label">Questions fréquentes</p>
+        <h2>Ce qu'on nous demande le plus.</h2>
+      </div>
+      <div class="faq-list" data-reveal>
+        <details class="faq-item">
+          <summary>Est-ce que TSUGI est gratuit ?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <p class="faq-a">Oui. Toutes les fonctions essentielles (flux, calendrier, suivi, recherche, Top 100) sont gratuites. Un abonnement Premium facultatif est proposé pour soutenir le projet.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Ai-je besoin d'un compte ?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <p class="faq-a">Non, l'app fonctionne en mode invité. Un compte gratuit sert uniquement à synchroniser votre liste entre appareils et à voter au Top 100.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Comment marche la liste de suivi ?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <p class="faq-a">Touchez l'icône signet sur n'importe quelle fiche pour l'ajouter à votre bibliothèque. Vous la retrouvez dans l'onglet Bibliothèque, et elle se synchronise dans le cloud si vous êtes connecté.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Puis-je lire des mangas ou regarder des animes ici ?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <p class="faq-a">Non. TSUGI est un agrégateur d'informations et un calendrier de sorties. Chaque fiche vous oriente vers les plateformes officielles via la section « Où regarder ».</p>
+        </details>
+        <details class="faq-item">
+          <summary>Que contient l'abonnement Premium ?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <p class="faq-a">Le Premium est un soutien optionnel au développement. Le paiement est traité de façon sécurisée par Google Play Billing et rattaché à votre compte ; aucune donnée bancaire ne transite par TSUGI.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Comment fonctionne le Top 100 ?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <p class="faq-a">C'est un classement communautaire : chaque utilisateur connecté peut voter une fois par titre. Les compteurs sont mis à jour en temps réel via Supabase.</p>
+        </details>
+        <details class="faq-item">
+          <summary>L'application fonctionne-t-elle hors connexion ?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <p class="faq-a">Votre liste suivie et vos réglages restent accessibles hors ligne. La recherche, le calendrier et l'actualité nécessitent une connexion internet.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Mes données sont-elles en sécurité ?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <p class="faq-a">Oui : stockage local chiffré (AES-256), transferts en HTTPS, et isolation par utilisateur (RLS) côté serveur. Aucune publicité ni traqueur.</p>
+        </details>
+        <details class="faq-item">
+          <summary>D'où viennent les données ?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <p class="faq-a">Les épisodes d'anime viennent d'AniList et de MyAnimeList (Jikan), les chapitres de manga/manhwa/manhua/webtoon de MangaDex, les films de TMDB, les séries de TVMaze et les jeux de RAWG.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Comment supprimer mon compte ?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <p class="faq-a">Depuis Réglages › Compte › Supprimer le compte. Toutes vos données (liste, votes, abonnement) sont définitivement effacées de nos serveurs.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Comment activer les notifications ?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <p class="faq-a">Dans Réglages › Notifications, activez les alertes souhaitées et accordez la permission Android. TSUGI vérifie alors périodiquement les nouveautés de vos titres suivis.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Comment souscrire ou résilier le Premium ?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <p class="faq-a">Depuis Réglages › Premium (vous devez être connecté). La résiliation se fait à tout moment depuis Google Play › Abonnements ; l'abonnement reste actif jusqu'à la fin de la période payée.</p>
+        </details>
       </div>
     </div>
   </section>
@@ -323,7 +455,10 @@
         <h2>Rejoignez TSUGI</h2>
         <p>Une seule bibliothèque pour tout ce que vous suivez.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="mailto:contact@stud-in.be">
+          <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=app.tsugi.android" target="_blank" rel="noopener">
+            <span>Voir sur Google Play</span>
+          </a>
+          <a class="btn btn-ghost" href="mailto:contact@stud-in.be">
             <span>Nous contacter</span>
           </a>
         </div>
@@ -336,8 +471,9 @@
   <div class="wrap foot-row">
     <div class="foot-brand"><span class="glyph">次</span><span>&copy; <span id="year"></span> TSUGI — contact@stud-in.be</span></div>
     <div class="foot-links">
-      <a href="privacy-policy.html">Politique de confidentialité</a>
-      <a href="terms.html">Conditions d'utilisation</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://ptdradmin.github.io/tsugi-legal/privacy-policy.html">Politique de confidentialité</a>
+      <a href="https://ptdradmin.github.io/tsugi-legal/terms.html">Conditions d'utilisation</a>
     </div>
   </div>
 </footer>
@@ -351,9 +487,22 @@
       entries.forEach(function(e){
         if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.12 });
     els.forEach(function(el){ io.observe(el); });
   } else {
     els.forEach(function(el){ el.classList.add('in'); });
   }
+
+  // Only one FAQ item open at a time
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.addEventListener('toggle', function(){
+      if (item.open) {
+        document.querySelectorAll('.faq-item').forEach(function(other){
+          if (other !== item) other.open = false;
+        });
+      }
+    });
+  });
 </script>
+</body>
+</html>
