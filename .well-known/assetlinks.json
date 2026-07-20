@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.tsugi.android",
+      "sha256_cert_fingerprints": [
+        "6C:45:24:7C:9F:94:44:6F:75:77:B9:90:AF:6C:FB:69:55:EA:8A:FF:10:D1:51:4C:CF:13:BC:DD:B9:3C:9B:F1"
+      ]
+    }
+  }
+]
