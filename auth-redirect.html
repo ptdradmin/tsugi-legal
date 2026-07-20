@@ -112,6 +112,10 @@
     render("ok", OK_ICON, "Identité vérifiée",
       "Ouvrez l'app pour définir votre nouveau mot de passe.",
       "tsugi://reset-password#" + raw);
+  } else if (type === "magiclink" && hasToken) {
+    render("ok", OK_ICON, "Vous êtes connecté(e) !",
+      "Ouvrez l'app pour retrouver votre compte.",
+      "tsugi://auth-callback#" + raw);
   } else if (hasToken) {
     render("ok", OK_ICON, "Compte confirmé !",
       "Votre adresse email est vérifiée. Vous pouvez maintenant vous connecter dans l'app.",
