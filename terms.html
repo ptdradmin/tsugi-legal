@@ -53,6 +53,17 @@
     max-width: 720px;
     margin: 0 auto;
   }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ink-faint);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .back-link:hover { color: var(--seal); }
   .brand {
     display: flex;
     align-items: baseline;
@@ -145,7 +156,8 @@
 <input type="radio" name="lang" id="lang-nl">
 
 <header>
-  <div class="brand">TSUGI<span class="dot">.</span></div>
+  <a class="back-link" href="/">&larr; Retour à l'accueil / Back to home / Terug naar home</a>
+  <div class="brand"><a href="/" style="color:inherit;text-decoration:none;">TSUGI<span class="dot">.</span></a></div>
   <div class="tagline">次 — ce qui arrive</div>
 </header>
 
