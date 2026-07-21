@@ -294,7 +294,11 @@
   #lang-nl:checked ~ header .lang-panel-nl .lang-switch-inline label[for="lang-nl"] {
     background: var(--seal); color: #fff;
   }
-  @media (max-width: 720px) { .lang-switch-inline { display: none; } }
+  /* Stays visible on mobile: it's the only way to change language once the nav-links below hide
+     the section links, and the compact pill size (11.5px labels) already fits a narrow header. */
+  @media (max-width: 480px) {
+    .lang-switch-inline label { padding: 4px 7px; font-size: 10.5px; }
+  }
 
   /* ---------------- interaction polish ---------------- */
   .btn { transition: filter .18s ease, background .18s ease, border-color .18s ease, transform .12s ease; }
