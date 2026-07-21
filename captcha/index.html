@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TSUGI — Vérification</title>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root {
+    --void: #0b0b0f; --panel: #17171d; --line: #2a2a35;
+    --ink: #f2f2f5; --ink-dim: #b4b4c0; --seal: #e3402c;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --void: #f7f7f9; --panel: #ffffff; --line: #e2e2e8;
+      --ink: #16161c; --ink-dim: #48485a; --seal: #d6341f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: var(--void); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 24px;
+  }
+  .card {
+    max-width: 340px; width: 100%; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 20px; padding: 32px 24px; text-align: center;
+  }
+  .brand { display: flex; align-items: baseline; justify-content: center; gap: 2px; font-weight: 900; font-size: 22px; margin-bottom: 8px; }
+  .brand .dot { color: var(--seal); }
+  p.desc { color: var(--ink-dim); font-size: 13.5px; margin: 0 0 20px; }
+  .widget-wrap { display: flex; justify-content: center; min-height: 65px; }
+  #status { margin-top: 14px; font-size: 12.5px; color: var(--ink-dim); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand"><span>TSUGI</span><span class="dot">.</span></div>
+    <p class="desc">Vérification rapide avant de continuer.</p>
+    <div class="widget-wrap">
+      <div class="cf-turnstile"
+           data-sitekey="0x4AAAAAAD6ITFZnCVssh5d2"
+           data-callback="onTurnstileToken"
+           data-error-callback="onTurnstileError"
+           data-expired-callback="onTurnstileExpired"
+           data-theme="auto"></div>
+    </div>
+    <p id="status"></p>
+  </div>
+
+<script>
+  function post(token) {
+    if (window.TsugiCaptcha && window.TsugiCaptcha.onToken) {
+      window.TsugiCaptcha.onToken(token);
+    }
+  }
+  function onTurnstileToken(token) {
+    document.getElementById("status").textContent = "";
+    post(token);
+  }
+  function onTurnstileError() {
+    document.getElementById("status").textContent = "Erreur de vérification. Réessayez.";
+  }
+  function onTurnstileExpired() {
+    document.getElementById("status").textContent = "Vérification expirée, relancez-la.";
+  }
+</script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+</html>
