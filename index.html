@@ -253,9 +253,12 @@
   .foot-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
   .foot-brand { display: flex; align-items: center; gap: 8px; color: var(--ink-faint); font-size: 13px; }
   .foot-brand .glyph { font-family: 'Dela Gothic One', sans-serif; color: var(--seal); font-size: 15px; }
-  .foot-links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .foot-links { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
   .foot-links a { color: var(--ink-dim); text-decoration: none; font-size: 13px; }
   .foot-links a:hover { color: var(--ink); }
+  .foot-social { color: var(--ink-dim); display: flex; align-items: center; }
+  .foot-social:hover { color: var(--seal); }
+  .foot-social svg { width: 19px; height: 19px; }
 
   [data-reveal] { opacity: 0; transform: translateY(18px); }
   @media (prefers-reduced-motion: no-preference) {
@@ -929,6 +932,9 @@
       <a href="#faq-fr">FAQ</a>
       <a href="privacy-policy.html">Politique de confidentialité</a>
       <a href="terms.html">Conditions d'utilisation</a>
+      <a class="foot-social" href="https://www.instagram.com/stud_in_app/" target="_blank" rel="noopener" aria-label="TSUGI sur Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
     </div>
   </div>
   <div class="wrap foot-row lang-panel lang-panel-en">
@@ -937,6 +943,9 @@
       <a href="#faq-en">FAQ</a>
       <a href="privacy-policy.html">Privacy Policy</a>
       <a href="terms.html">Terms of Use</a>
+      <a class="foot-social" href="https://www.instagram.com/stud_in_app/" target="_blank" rel="noopener" aria-label="TSUGI on Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
     </div>
   </div>
   <div class="wrap foot-row lang-panel lang-panel-nl">
@@ -945,6 +954,9 @@
       <a href="#faq-nl">FAQ</a>
       <a href="privacy-policy.html">Privacybeleid</a>
       <a href="terms.html">Gebruiksvoorwaarden</a>
+      <a class="foot-social" href="https://www.instagram.com/stud_in_app/" target="_blank" rel="noopener" aria-label="TSUGI op Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
     </div>
   </div>
 </footer>
