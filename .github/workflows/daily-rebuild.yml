@@ -1,0 +1,80 @@
+name: Daily Rebuild - Living Landing Page
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Every day at 06:00 UTC
+  workflow_dispatch:      # Manual trigger
+  push:
+    paths:
+      - 'index.html'
+      - '.github/workflows/daily-rebuild.yml'
+
+permissions:
+  contents: write  # Needed to commit/push updated index.html
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: tsugi-legal-build/package.json
+      
+      - name: Install dependencies
+        run: |
+          cd tsugi-legal-build
+          npm ci
+      
+      - name: Build landing page
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          ANILIST_CLIENT_ID: ${{ secrets.ANILIST_CLIENT_ID }}
+          ANILIST_CLIENT_SECRET: ${{ secrets.ANILIST_CLIENT_SECRET }}
+          IGDB_CLIENT_ID: ${{ secrets.IGDB_CLIENT_ID }}
+          IGDB_CLIENT_SECRET: ${{ secrets.IGDB_CLIENT_SECRET }}
+          BETASERIES_API_KEY: ${{ secrets.BETASERIES_API_KEY }}
+          BETASERIES_TOKEN: ${{ secrets.BETASERIES_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          cd tsugi-legal-build
+          node build.js
+      
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet index.html; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No changes to index.html"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Changes detected in index.html"
+          fi
+      
+      - name: Commit and push updates
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "🤖 Daily rebuild: $(date -u +'%Y-%m-%d') - Updated upcoming releases"
+          git push
+      
+      - name: Deploy to GitHub Pages (optional)
+        if: steps.changes.outputs.changed == 'true'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          keep_files: true

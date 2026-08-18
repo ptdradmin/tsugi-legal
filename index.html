@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
+<!DOCTYPE html><html lang="fr"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TSUGI — Un hub, pas dix apps</title>
@@ -328,11 +326,42 @@
   .faq-item[open] { border-color: var(--seal); }
 
   .companion-shot, .hero-shot { transition: transform .3s ease; }
+
+
+  /* Dynamic upcoming releases - visually distinct from static category cards */
+  .cat-card.dynamic {
+    background: linear-gradient(180deg, var(--panel-raised), var(--panel));
+    border-color: var(--seal);
+    position: relative;
+  }
+  .cat-card.dynamic::before {
+    content: "⚡"; position: absolute; top: 8px; right: 10px; font-size: 14px; opacity: 0.7;
+  }
+  .cat-card.dynamic:hover {
+    border-color: var(--gold);
+    box-shadow: 0 4px 20px var(--seal-soft);
+  }
+  .cat-card.dynamic .release-date {
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    color: var(--seal);
+    font-weight: 700;
+    margin: 6px 0 4px;
+  }
+  .cat-card.dynamic .blurb {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--ink-dim);
+    margin: 0;
+  }
+  .cat-card.dynamic img {
+    border: 1px solid var(--line);
+  }
 </style>
 </head>
 <body>
 
-<input type="radio" name="lang" id="lang-fr" checked>
+<input type="radio" name="lang" id="lang-fr" checked="">
 <input type="radio" name="lang" id="lang-en">
 <input type="radio" name="lang" id="lang-nl">
 
@@ -448,24 +477,59 @@
 
   <section id="categories-fr" class="lang-panel lang-panel-fr">
     <div class="wrap">
-      <div class="section-head" data-reveal>
+      <div class="section-head" data-reveal="">
         <p class="mono-label">Neuf mondes, un seul hub</p>
         <h2>Arrêtez de jongler entre dix applications.</h2>
         <p>Chaque catégorie a son propre univers de fans — et sa propre app dédiée. TSUGI les réunit toutes, avec les mêmes outils de suivi partout.</p>
       </div>
       <div class="cat-layout">
         <div class="cat-grid">
-          <div class="cat-card" data-reveal><span class="idx">01</span><h3>Anime</h3><p>Saisons, films et OAV suivis épisode par épisode.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">02</span><h3>Manga</h3><p>Chapitres lus, séries en cours ou terminées.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">03</span><h3>Manhwa</h3><p>Webtoons coréens, du one-shot à la série longue.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">04</span><h3>Manhua</h3><p>Bande dessinée chinoise, cultivation et fantasy.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">05</span><h3>Webtoon</h3><p>Format vertical, mise à jour au fil des sorties.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">06</span><h3>Séries</h3><p>Renouvellements suivis, même quand une date change.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">07</span><h3>Dramas</h3><p>K-drama, J-drama et C-drama, diffusion en cours.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">08</span><h3>Films</h3><p>Sorties à venir, du festival à la salle obscure.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">09</span><h3>Jeux</h3><p>Dates de sortie confirmées, jusqu'à plusieurs années.</p></div>
-        </div>
-        <div class="companion-shot" data-reveal>
+          <div class="cat-card" data-reveal=""><span class="idx">01</span><h3>Anime</h3><p>Saisons, films et OAV suivis épisode par épisode.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">02</span><h3>Manga</h3><p>Chapitres lus, séries en cours ou terminées.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">03</span><h3>Manhwa</h3><p>Webtoons coréens, du one-shot à la série longue.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">04</span><h3>Manhua</h3><p>Bande dessinée chinoise, cultivation et fantasy.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">05</span><h3>Webtoon</h3><p>Format vertical, mise à jour au fil des sorties.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">06</span><h3>Séries</h3><p>Renouvellements suivis, même quand une date change.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">07</span><h3>Dramas</h3><p>K-drama, J-drama et C-drama, diffusion en cours.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">08</span><h3>Films</h3><p>Sorties à venir, du festival à la salle obscure.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">09</span><h3>Jeux</h3><p>Dates de sortie confirmées, jusqu'à plusieurs années.</p></div>
+        <!-- No upcoming releases --><!-- No upcoming releases -->
+      <div class="dynamic-section-header" data-reveal="" style="grid-column: 1/-1; margin-top: 24px; margin-bottom: 12px;"><span class="mono-label">🎬 Films à venir</span></div><div class="dynamic-section-header" data-reveal="" style="grid-column: 1/-1; margin-top: 24px; margin-bottom: 12px;"><span class="mono-label">📺 Séries à venir</span></div><div class="dynamic-section-header" data-reveal="" style="grid-column: 1/-1; margin-top: 24px; margin-bottom: 12px;"><span class="mono-label">🎌 Anime à venir</span></div><div class="cat-card dynamic" data-reveal="" style="grid-column: span 1;">
+        <span class="idx">01</span>
+        <h3>The Apothecary Diaries Season 3</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx195516-MJpUZlOberqH.jpg" alt="The Apothecary Diaries Season 3" style="width:100%;border-radius:8px;margin:8px 0;">
+        <p class="release-date">Anime · 2 octobre 2026</p>
+        <p class="blurb"></p>
+      </div>
+    
+
+      <div class="cat-card dynamic" data-reveal="" style="grid-column: span 1;">
+        <span class="idx">02</span>
+        <h3>Black Clover Season 2</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx195604-BjvWdT5jOcM6.jpg" alt="Black Clover Season 2" style="width:100%;border-radius:8px;margin:8px 0;">
+        <p class="release-date">Anime · Invalid Date</p>
+        <p class="blurb"></p>
+      </div>
+    
+
+      <div class="cat-card dynamic" data-reveal="" style="grid-column: span 1;">
+        <span class="idx">03</span>
+        <h3>Dandadan 3rd Season</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="Dandadan 3rd Season" style="width:100%;border-radius:8px;margin:8px 0;">
+        <p class="release-date">Anime · Invalid Date</p>
+        <p class="blurb"></p>
+      </div>
+    
+
+      <div class="cat-card dynamic" data-reveal="" style="grid-column: span 1;">
+        <span class="idx">04</span>
+        <h3>Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen" style="width:100%;border-radius:8px;margin:8px 0;">
+        <p class="release-date">Anime · Invalid Date</p>
+        <p class="blurb"></p>
+      </div>
+    </div>
+        <div class="companion-shot" data-reveal="">
           <img src="img/shot-calendrier.png" alt="Le calendrier de sorties TSUGI, filtré par jour" loading="lazy">
         </div>
       </div>
@@ -473,24 +537,59 @@
   </section>
   <section id="categories-en" class="lang-panel lang-panel-en">
     <div class="wrap">
-      <div class="section-head" data-reveal>
+      <div class="section-head" data-reveal="">
         <p class="mono-label">Nine worlds, one hub</p>
         <h2>Stop juggling ten different apps.</h2>
         <p>Every category has its own fandom — and its own dedicated app. TSUGI brings them all together, with the same tracking tools everywhere.</p>
       </div>
       <div class="cat-layout">
         <div class="cat-grid">
-          <div class="cat-card" data-reveal><span class="idx">01</span><h3>Anime</h3><p>Seasons, movies and OVAs tracked episode by episode.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">02</span><h3>Manga</h3><p>Chapters read, series ongoing or completed.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">03</span><h3>Manhwa</h3><p>Korean webtoons, from one-shots to long-running series.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">04</span><h3>Manhua</h3><p>Chinese comics, cultivation and fantasy.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">05</span><h3>Webtoon</h3><p>Vertical format, updated as new episodes drop.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">06</span><h3>Series</h3><p>Renewals tracked, even when a date changes.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">07</span><h3>Dramas</h3><p>K-drama, J-drama and C-drama, currently airing.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">08</span><h3>Movies</h3><p>Upcoming releases, from festival premieres to theaters.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">09</span><h3>Games</h3><p>Confirmed release dates, even years out.</p></div>
-        </div>
-        <div class="companion-shot" data-reveal>
+          <div class="cat-card" data-reveal=""><span class="idx">01</span><h3>Anime</h3><p>Seasons, movies and OVAs tracked episode by episode.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">02</span><h3>Manga</h3><p>Chapters read, series ongoing or completed.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">03</span><h3>Manhwa</h3><p>Korean webtoons, from one-shots to long-running series.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">04</span><h3>Manhua</h3><p>Chinese comics, cultivation and fantasy.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">05</span><h3>Webtoon</h3><p>Vertical format, updated as new episodes drop.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">06</span><h3>Series</h3><p>Renewals tracked, even when a date changes.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">07</span><h3>Dramas</h3><p>K-drama, J-drama and C-drama, currently airing.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">08</span><h3>Movies</h3><p>Upcoming releases, from festival premieres to theaters.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">09</span><h3>Games</h3><p>Confirmed release dates, even years out.</p></div>
+        <!-- No upcoming releases --><!-- No upcoming releases -->
+      <div class="dynamic-section-header" data-reveal="" style="grid-column: 1/-1; margin-top: 24px; margin-bottom: 12px;"><span class="mono-label">🎬 Upcoming Movies</span></div><div class="dynamic-section-header" data-reveal="" style="grid-column: 1/-1; margin-top: 24px; margin-bottom: 12px;"><span class="mono-label">📺 Upcoming Series</span></div><div class="dynamic-section-header" data-reveal="" style="grid-column: 1/-1; margin-top: 24px; margin-bottom: 12px;"><span class="mono-label">🎌 Upcoming Anime</span></div><div class="cat-card dynamic" data-reveal="" style="grid-column: span 1;">
+        <span class="idx">01</span>
+        <h3>The Apothecary Diaries Season 3</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx195516-MJpUZlOberqH.jpg" alt="The Apothecary Diaries Season 3" style="width:100%;border-radius:8px;margin:8px 0;">
+        <p class="release-date">Anime · Oct 2, 2026</p>
+        <p class="blurb"></p>
+      </div>
+    
+
+      <div class="cat-card dynamic" data-reveal="" style="grid-column: span 1;">
+        <span class="idx">02</span>
+        <h3>Black Clover Season 2</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx195604-BjvWdT5jOcM6.jpg" alt="Black Clover Season 2" style="width:100%;border-radius:8px;margin:8px 0;">
+        <p class="release-date">Anime · Invalid Date</p>
+        <p class="blurb"></p>
+      </div>
+    
+
+      <div class="cat-card dynamic" data-reveal="" style="grid-column: span 1;">
+        <span class="idx">03</span>
+        <h3>Dandadan 3rd Season</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="Dandadan 3rd Season" style="width:100%;border-radius:8px;margin:8px 0;">
+        <p class="release-date">Anime · Invalid Date</p>
+        <p class="blurb"></p>
+      </div>
+    
+
+      <div class="cat-card dynamic" data-reveal="" style="grid-column: span 1;">
+        <span class="idx">04</span>
+        <h3>Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen" style="width:100%;border-radius:8px;margin:8px 0;">
+        <p class="release-date">Anime · Invalid Date</p>
+        <p class="blurb"></p>
+      </div>
+    </div>
+        <div class="companion-shot" data-reveal="">
           <img src="img/shot-calendrier.png" alt="The TSUGI release calendar, filtered by day" loading="lazy">
         </div>
       </div>
@@ -498,24 +597,59 @@
   </section>
   <section id="categories-nl" class="lang-panel lang-panel-nl">
     <div class="wrap">
-      <div class="section-head" data-reveal>
+      <div class="section-head" data-reveal="">
         <p class="mono-label">Negen werelden, één hub</p>
         <h2>Stop met jongleren tussen tien apps.</h2>
         <p>Elke categorie heeft zijn eigen fandom — en zijn eigen app. TSUGI brengt ze allemaal samen, met overal dezelfde volgtools.</p>
       </div>
       <div class="cat-layout">
         <div class="cat-grid">
-          <div class="cat-card" data-reveal><span class="idx">01</span><h3>Anime</h3><p>Seizoenen, films en OVA's, episode per episode gevolgd.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">02</span><h3>Manga</h3><p>Gelezen hoofdstukken, lopende of afgeronde series.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">03</span><h3>Manhwa</h3><p>Koreaanse webtoons, van oneshot tot langlopende serie.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">04</span><h3>Manhua</h3><p>Chinese strips, cultivation en fantasy.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">05</span><h3>Webtoon</h3><p>Verticaal formaat, bijgewerkt bij elke nieuwe release.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">06</span><h3>Series</h3><p>Verlengingen gevolgd, ook als een datum verandert.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">07</span><h3>Dramas</h3><p>K-drama, J-drama en C-drama, nu in uitzending.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">08</span><h3>Films</h3><p>Aankomende releases, van festival tot bioscoop.</p></div>
-          <div class="cat-card" data-reveal><span class="idx">09</span><h3>Games</h3><p>Bevestigde releasedata, zelfs jaren vooruit.</p></div>
-        </div>
-        <div class="companion-shot" data-reveal>
+          <div class="cat-card" data-reveal=""><span class="idx">01</span><h3>Anime</h3><p>Seizoenen, films en OVA's, episode per episode gevolgd.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">02</span><h3>Manga</h3><p>Gelezen hoofdstukken, lopende of afgeronde series.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">03</span><h3>Manhwa</h3><p>Koreaanse webtoons, van oneshot tot langlopende serie.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">04</span><h3>Manhua</h3><p>Chinese strips, cultivation en fantasy.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">05</span><h3>Webtoon</h3><p>Verticaal formaat, bijgewerkt bij elke nieuwe release.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">06</span><h3>Series</h3><p>Verlengingen gevolgd, ook als een datum verandert.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">07</span><h3>Dramas</h3><p>K-drama, J-drama en C-drama, nu in uitzending.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">08</span><h3>Films</h3><p>Aankomende releases, van festival tot bioscoop.</p></div>
+          <div class="cat-card" data-reveal=""><span class="idx">09</span><h3>Games</h3><p>Bevestigde releasedata, zelfs jaren vooruit.</p></div>
+        <!-- No upcoming releases --><!-- No upcoming releases -->
+      <div class="dynamic-section-header" data-reveal="" style="grid-column: 1/-1; margin-top: 24px; margin-bottom: 12px;"><span class="mono-label">🎬 Komende Films</span></div><div class="dynamic-section-header" data-reveal="" style="grid-column: 1/-1; margin-top: 24px; margin-bottom: 12px;"><span class="mono-label">📺 Komende Series</span></div><div class="dynamic-section-header" data-reveal="" style="grid-column: 1/-1; margin-top: 24px; margin-bottom: 12px;"><span class="mono-label">🎌 Komende Anime</span></div><div class="cat-card dynamic" data-reveal="" style="grid-column: span 1;">
+        <span class="idx">01</span>
+        <h3>The Apothecary Diaries Season 3</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx195516-MJpUZlOberqH.jpg" alt="The Apothecary Diaries Season 3" style="width:100%;border-radius:8px;margin:8px 0;">
+        <p class="release-date">Anime · 2 oktober 2026</p>
+        <p class="blurb"></p>
+      </div>
+    
+
+      <div class="cat-card dynamic" data-reveal="" style="grid-column: span 1;">
+        <span class="idx">02</span>
+        <h3>Black Clover Season 2</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx195604-BjvWdT5jOcM6.jpg" alt="Black Clover Season 2" style="width:100%;border-radius:8px;margin:8px 0;">
+        <p class="release-date">Anime · Invalid Date</p>
+        <p class="blurb"></p>
+      </div>
+    
+
+      <div class="cat-card dynamic" data-reveal="" style="grid-column: span 1;">
+        <span class="idx">03</span>
+        <h3>Dandadan 3rd Season</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="Dandadan 3rd Season" style="width:100%;border-radius:8px;margin:8px 0;">
+        <p class="release-date">Anime · Invalid Date</p>
+        <p class="blurb"></p>
+      </div>
+    
+
+      <div class="cat-card dynamic" data-reveal="" style="grid-column: span 1;">
+        <span class="idx">04</span>
+        <h3>Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen" style="width:100%;border-radius:8px;margin:8px 0;">
+        <p class="release-date">Anime · Invalid Date</p>
+        <p class="blurb"></p>
+      </div>
+    </div>
+        <div class="companion-shot" data-reveal="">
           <img src="img/shot-calendrier.png" alt="De TSUGI releasekalender, gefilterd per dag" loading="lazy">
         </div>
       </div>
@@ -524,31 +658,31 @@
 
   <section id="fonctionnalites-fr" class="lang-panel lang-panel-fr">
     <div class="wrap">
-      <div class="section-head" data-reveal>
+      <div class="section-head" data-reveal="">
         <p class="mono-label">Pourquoi TSUGI</p>
         <h2>Pensé pour qu'on ne rate plus une sortie.</h2>
       </div>
       <div class="feat-layout">
-        <div class="companion-shot" data-reveal>
+        <div class="companion-shot" data-reveal="">
           <img src="img/shot-maliste.png" alt="Ma liste TSUGI avec 15 titres suivis, triés par catégorie" loading="lazy">
         </div>
         <div class="feat-grid">
-          <div class="feat-card" data-reveal>
+          <div class="feat-card" data-reveal="">
             <div class="num">①</div>
             <h3>Alertes de sortie</h3>
             <p>Un nouvel épisode, chapitre ou une nouvelle saison sort ? TSUGI vous notifie directement, sans avoir à vérifier dix sites.</p>
           </div>
-          <div class="feat-card" data-reveal>
+          <div class="feat-card" data-reveal="">
             <div class="num">②</div>
             <h3>Bibliothèque personnelle</h3>
             <p>Progression épisode par épisode ou chapitre par chapitre, statut de suivi et note sur 5 étoiles pour chaque titre.</p>
           </div>
-          <div class="feat-card" data-reveal>
+          <div class="feat-card" data-reveal="">
             <div class="num">③</div>
             <h3>Synchronisé partout</h3>
             <p>Votre liste vous suit d'un appareil à l'autre, en continu, sans rien faire de plus.</p>
           </div>
-          <div class="feat-card" data-reveal>
+          <div class="feat-card" data-reveal="">
             <div class="num">④</div>
             <h3>Filtres avancés</h3>
             <p>Genre, statut de diffusion, recherche par titre — sur chaque catégorie, pour retrouver exactement ce que vous cherchez.</p>
@@ -559,31 +693,31 @@
   </section>
   <section id="fonctionnalites-en" class="lang-panel lang-panel-en">
     <div class="wrap">
-      <div class="section-head" data-reveal>
+      <div class="section-head" data-reveal="">
         <p class="mono-label">Why TSUGI</p>
         <h2>Built so you never miss a release again.</h2>
       </div>
       <div class="feat-layout">
-        <div class="companion-shot" data-reveal>
+        <div class="companion-shot" data-reveal="">
           <img src="img/shot-maliste.png" alt="The TSUGI library with 15 tracked titles, sorted by category" loading="lazy">
         </div>
         <div class="feat-grid">
-          <div class="feat-card" data-reveal>
+          <div class="feat-card" data-reveal="">
             <div class="num">①</div>
             <h3>Release alerts</h3>
             <p>A new episode, chapter, or season drops? TSUGI notifies you directly — no need to check ten different sites.</p>
           </div>
-          <div class="feat-card" data-reveal>
+          <div class="feat-card" data-reveal="">
             <div class="num">②</div>
             <h3>Personal library</h3>
             <p>Episode-by-episode or chapter-by-chapter progress, tracking status, and a 5-star rating for every title.</p>
           </div>
-          <div class="feat-card" data-reveal>
+          <div class="feat-card" data-reveal="">
             <div class="num">③</div>
             <h3>Synced everywhere</h3>
             <p>Your list follows you from one device to the next, automatically, with nothing extra to do.</p>
           </div>
-          <div class="feat-card" data-reveal>
+          <div class="feat-card" data-reveal="">
             <div class="num">④</div>
             <h3>Advanced filters</h3>
             <p>Genre, airing status, title search — on every category, so you find exactly what you're looking for.</p>
@@ -594,31 +728,31 @@
   </section>
   <section id="fonctionnalites-nl" class="lang-panel lang-panel-nl">
     <div class="wrap">
-      <div class="section-head" data-reveal>
+      <div class="section-head" data-reveal="">
         <p class="mono-label">Waarom TSUGI</p>
         <h2>Gemaakt zodat je nooit meer een release mist.</h2>
       </div>
       <div class="feat-layout">
-        <div class="companion-shot" data-reveal>
+        <div class="companion-shot" data-reveal="">
           <img src="img/shot-maliste.png" alt="De TSUGI-bibliotheek met 15 gevolgde titels, gesorteerd per categorie" loading="lazy">
         </div>
         <div class="feat-grid">
-          <div class="feat-card" data-reveal>
+          <div class="feat-card" data-reveal="">
             <div class="num">①</div>
             <h3>Releasemeldingen</h3>
             <p>Een nieuwe episode, hoofdstuk of seizoen verschijnt? TSUGI stuurt je direct een melding — geen tien sites meer checken.</p>
           </div>
-          <div class="feat-card" data-reveal>
+          <div class="feat-card" data-reveal="">
             <div class="num">②</div>
             <h3>Persoonlijke bibliotheek</h3>
             <p>Voortgang per episode of hoofdstuk, volgstatus en een beoordeling van 5 sterren per titel.</p>
           </div>
-          <div class="feat-card" data-reveal>
+          <div class="feat-card" data-reveal="">
             <div class="num">③</div>
             <h3>Overal gesynchroniseerd</h3>
             <p>Je lijst volgt je van het ene apparaat naar het andere, automatisch, zonder extra moeite.</p>
           </div>
-          <div class="feat-card" data-reveal>
+          <div class="feat-card" data-reveal="">
             <div class="num">④</div>
             <h3>Geavanceerde filters</h3>
             <p>Genre, uitzendstatus, titel zoeken — bij elke categorie, zodat je precies vindt wat je zoekt.</p>
@@ -630,80 +764,80 @@
 
   <section id="faq-fr" class="lang-panel lang-panel-fr">
     <div class="wrap">
-      <div class="section-head" data-reveal>
+      <div class="section-head" data-reveal="">
         <p class="mono-label">Questions fréquentes</p>
         <h2>Ce qu'on nous demande le plus.</h2>
       </div>
-      <div class="faq-list" data-reveal>
+      <div class="faq-list" data-reveal="">
         <details class="faq-item">
           <summary>Est-ce que TSUGI est gratuit ?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Oui. Toutes les fonctions essentielles (flux, calendrier, suivi, recherche, Top 100) sont gratuites. Un abonnement Premium facultatif est proposé pour soutenir le projet.</p>
         </details>
         <details class="faq-item">
           <summary>Ai-je besoin d'un compte ?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Non, l'app fonctionne en mode invité. Un compte gratuit sert uniquement à synchroniser votre liste entre appareils et à voter au Top 100.</p>
         </details>
         <details class="faq-item">
           <summary>Comment marche la liste de suivi ?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Touchez l'icône signet sur n'importe quelle fiche pour l'ajouter à votre bibliothèque. Vous la retrouvez dans l'onglet Bibliothèque, et elle se synchronise dans le cloud si vous êtes connecté.</p>
         </details>
         <details class="faq-item">
           <summary>Puis-je lire des mangas ou regarder des animes ici ?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Non. TSUGI est un agrégateur d'informations et un calendrier de sorties. Chaque fiche vous oriente vers les plateformes officielles via la section « Où regarder ».</p>
         </details>
         <details class="faq-item">
           <summary>Que contient l'abonnement Premium ?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Le Premium est un soutien optionnel au développement. Le paiement est traité de façon sécurisée par Google Play Billing et rattaché à votre compte ; aucune donnée bancaire ne transite par TSUGI.</p>
         </details>
         <details class="faq-item">
           <summary>Comment fonctionne le Top 100 ?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">C'est un classement communautaire : chaque utilisateur connecté peut voter une fois par titre. Les compteurs sont mis à jour en temps réel via Supabase.</p>
         </details>
         <details class="faq-item">
           <summary>L'application fonctionne-t-elle hors connexion ?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Votre liste suivie et vos réglages restent accessibles hors ligne. La recherche, le calendrier et l'actualité nécessitent une connexion internet.</p>
         </details>
         <details class="faq-item">
           <summary>Mes données sont-elles en sécurité ?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Oui : stockage local chiffré (AES-256), transferts en HTTPS, et isolation par utilisateur (RLS) côté serveur. Aucune publicité ni traqueur.</p>
         </details>
         <details class="faq-item">
           <summary>D'où viennent les données ?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Les épisodes d'anime viennent d'AniList et de MyAnimeList (Jikan), les chapitres de manga/manhwa/manhua/webtoon de MangaDex, les films de TMDB, les séries de TVMaze et les jeux de RAWG.</p>
         </details>
         <details class="faq-item">
           <summary>Comment supprimer mon compte ?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Depuis Réglages › Compte › Supprimer le compte. Toutes vos données (liste, votes, abonnement) sont définitivement effacées de nos serveurs.</p>
         </details>
         <details class="faq-item">
           <summary>Comment activer les notifications ?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Dans Réglages › Notifications, activez les alertes souhaitées et accordez la permission Android. TSUGI vérifie alors périodiquement les nouveautés de vos titres suivis.</p>
         </details>
         <details class="faq-item">
           <summary>Comment souscrire ou résilier le Premium ?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Depuis Réglages › Premium (vous devez être connecté). La résiliation se fait à tout moment depuis Google Play › Abonnements ; l'abonnement reste actif jusqu'à la fin de la période payée.</p>
         </details>
@@ -712,80 +846,80 @@
   </section>
   <section id="faq-en" class="lang-panel lang-panel-en">
     <div class="wrap">
-      <div class="section-head" data-reveal>
+      <div class="section-head" data-reveal="">
         <p class="mono-label">Frequently asked</p>
         <h2>What people ask us the most.</h2>
       </div>
-      <div class="faq-list" data-reveal>
+      <div class="faq-list" data-reveal="">
         <details class="faq-item">
           <summary>Is TSUGI free?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Yes. All the essential features (feed, calendar, tracking, search, Top 100) are free. An optional Premium subscription is available to support the project.</p>
         </details>
         <details class="faq-item">
           <summary>Do I need an account?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">No, the app works in guest mode. A free account is only needed to sync your list across devices and to vote in the Top 100.</p>
         </details>
         <details class="faq-item">
           <summary>How does the tracking list work?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Tap the bookmark icon on any title to add it to your library. You'll find it under the Library tab, and it syncs to the cloud if you're signed in.</p>
         </details>
         <details class="faq-item">
           <summary>Can I read manga or watch anime here?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">No. TSUGI is an information aggregator and release calendar. Every title page points you to official platforms via the "Where to watch" section.</p>
         </details>
         <details class="faq-item">
           <summary>What's included in Premium?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Premium is an optional way to support development. Payment is processed securely by Google Play Billing and tied to your account; no payment data ever passes through TSUGI.</p>
         </details>
         <details class="faq-item">
           <summary>How does the Top 100 work?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">It's a community ranking: every signed-in user can vote once per title. Counts update in real time via Supabase.</p>
         </details>
         <details class="faq-item">
           <summary>Does the app work offline?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Your tracked list and settings stay available offline. Search, calendar, and news require an internet connection.</p>
         </details>
         <details class="faq-item">
           <summary>Is my data safe?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Yes: encrypted local storage (AES-256), HTTPS transfers, and per-user isolation (RLS) server-side. No ads, no trackers.</p>
         </details>
         <details class="faq-item">
           <summary>Where does the data come from?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Anime episodes come from AniList and MyAnimeList (Jikan), manga/manhwa/manhua/webtoon chapters from MangaDex, movies from TMDB, series from TVMaze, and games from RAWG.</p>
         </details>
         <details class="faq-item">
           <summary>How do I delete my account?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">From Settings › Account › Delete account. All your data (list, votes, subscription) is permanently erased from our servers.</p>
         </details>
         <details class="faq-item">
           <summary>How do I enable notifications?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">In Settings › Notifications, turn on the alerts you want and grant the Android permission. TSUGI then periodically checks for updates on your tracked titles.</p>
         </details>
         <details class="faq-item">
           <summary>How do I subscribe to or cancel Premium?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">From Settings › Premium (you need to be signed in). Cancel anytime from Google Play › Subscriptions; your subscription stays active until the end of the paid period.</p>
         </details>
@@ -794,80 +928,80 @@
   </section>
   <section id="faq-nl" class="lang-panel lang-panel-nl">
     <div class="wrap">
-      <div class="section-head" data-reveal>
+      <div class="section-head" data-reveal="">
         <p class="mono-label">Veelgestelde vragen</p>
         <h2>Wat we het meest gevraagd krijgen.</h2>
       </div>
-      <div class="faq-list" data-reveal>
+      <div class="faq-list" data-reveal="">
         <details class="faq-item">
           <summary>Is TSUGI gratis?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Ja. Alle essentiële functies (feed, kalender, volgen, zoeken, Top 100) zijn gratis. Een optioneel Premium-abonnement is beschikbaar om het project te steunen.</p>
         </details>
         <details class="faq-item">
           <summary>Heb ik een account nodig?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Nee, de app werkt in gastmodus. Een gratis account is alleen nodig om je lijst tussen apparaten te synchroniseren en te stemmen in de Top 100.</p>
         </details>
         <details class="faq-item">
           <summary>Hoe werkt de volglijst?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Tik op het bladwijzericoon op een titel om deze aan je bibliotheek toe te voegen. Je vindt hem terug onder het tabblad Bibliotheek, en hij synchroniseert naar de cloud als je bent ingelogd.</p>
         </details>
         <details class="faq-item">
           <summary>Kan ik hier manga lezen of anime kijken?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Nee. TSUGI is een informatie-aggregator en releasekalender. Elke titelpagina verwijst je naar officiële platforms via de sectie "Waar te kijken".</p>
         </details>
         <details class="faq-item">
           <summary>Wat zit er in het Premium-abonnement?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Premium is een optionele steun aan de ontwikkeling. Betaling wordt veilig verwerkt via Google Play Billing en gekoppeld aan je account; er gaan nooit betaalgegevens via TSUGI.</p>
         </details>
         <details class="faq-item">
           <summary>Hoe werkt de Top 100?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Het is een community-ranking: elke ingelogde gebruiker kan één keer per titel stemmen. Tellers worden in realtime bijgewerkt via Supabase.</p>
         </details>
         <details class="faq-item">
           <summary>Werkt de app offline?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Je volglijst en instellingen blijven offline beschikbaar. Zoeken, kalender en nieuws vereisen een internetverbinding.</p>
         </details>
         <details class="faq-item">
           <summary>Zijn mijn gegevens veilig?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Ja: versleutelde lokale opslag (AES-256), HTTPS-overdracht, en isolatie per gebruiker (RLS) op de server. Geen advertenties, geen trackers.</p>
         </details>
         <details class="faq-item">
           <summary>Waar komen de gegevens vandaan?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Anime-episodes komen van AniList en MyAnimeList (Jikan), manga/manhwa/manhua/webtoon-hoofdstukken van MangaDex, films van TMDB, series van TVMaze en games van RAWG.</p>
         </details>
         <details class="faq-item">
           <summary>Hoe verwijder ik mijn account?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Via Instellingen › Account › Account verwijderen. Al je gegevens (lijst, stemmen, abonnement) worden definitief van onze servers gewist.</p>
         </details>
         <details class="faq-item">
           <summary>Hoe schakel ik meldingen in?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Zet in Instellingen › Meldingen de gewenste meldingen aan en geef de Android-toestemming. TSUGI controleert dan periodiek op nieuws over je gevolgde titels.</p>
         </details>
         <details class="faq-item">
           <summary>Hoe abonneer of zeg ik Premium op?
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
           </summary>
           <p class="faq-a">Via Instellingen › Premium (je moet ingelogd zijn). Opzeggen kan op elk moment via Google Play › Abonnementen; het abonnement blijft actief tot het einde van de betaalde periode.</p>
         </details>
@@ -877,7 +1011,7 @@
 
   <section class="lang-panel lang-panel-fr">
     <div class="wrap">
-      <div class="cta-band" data-reveal>
+      <div class="cta-band" data-reveal="">
         <h2>Rejoignez TSUGI</h2>
         <p>Une seule bibliothèque pour tout ce que vous suivez.</p>
         <div class="cta-row">
@@ -893,7 +1027,7 @@
   </section>
   <section class="lang-panel lang-panel-en">
     <div class="wrap">
-      <div class="cta-band" data-reveal>
+      <div class="cta-band" data-reveal="">
         <h2>Join TSUGI</h2>
         <p>One library for everything you follow.</p>
         <div class="cta-row">
@@ -909,7 +1043,7 @@
   </section>
   <section class="lang-panel lang-panel-nl">
     <div class="wrap">
-      <div class="cta-band" data-reveal>
+      <div class="cta-band" data-reveal="">
         <h2>Word lid van TSUGI</h2>
         <p>Eén bibliotheek voor alles wat je volgt.</p>
         <div class="cta-row">
@@ -927,35 +1061,35 @@
 
 <footer>
   <div class="wrap foot-row lang-panel lang-panel-fr">
-    <div class="foot-brand"><span class="glyph">次</span><span>&copy; <span class="year"></span> TSUGI — contact@stud-in.be</span></div>
+    <div class="foot-brand"><span class="last-updated" style="margin-right:16px;font-size:11px;color:var(--ink-faint);">Mis à jour: 2026-08-18</span><span class="glyph">次</span><span>© <span class="year"></span> TSUGI — contact@stud-in.be</span></div>
     <div class="foot-links">
       <a href="#faq-fr">FAQ</a>
       <a href="privacy-policy.html">Politique de confidentialité</a>
       <a href="terms.html">Conditions d'utilisation</a>
       <a class="foot-social" href="https://www.instagram.com/stud_in_app/" target="_blank" rel="noopener" aria-label="TSUGI sur Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
       </a>
     </div>
   </div>
   <div class="wrap foot-row lang-panel lang-panel-en">
-    <div class="foot-brand"><span class="glyph">次</span><span>&copy; <span class="year"></span> TSUGI — contact@stud-in.be</span></div>
+    <div class="foot-brand"><span class="last-updated" style="margin-right:16px;font-size:11px;color:var(--ink-faint);">Mis à jour: 2026-08-18</span><span class="glyph">次</span><span>© <span class="year"></span> TSUGI — contact@stud-in.be</span></div>
     <div class="foot-links">
       <a href="#faq-en">FAQ</a>
       <a href="privacy-policy.html">Privacy Policy</a>
       <a href="terms.html">Terms of Use</a>
       <a class="foot-social" href="https://www.instagram.com/stud_in_app/" target="_blank" rel="noopener" aria-label="TSUGI on Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
       </a>
     </div>
   </div>
   <div class="wrap foot-row lang-panel lang-panel-nl">
-    <div class="foot-brand"><span class="glyph">次</span><span>&copy; <span class="year"></span> TSUGI — contact@stud-in.be</span></div>
+    <div class="foot-brand"><span class="last-updated" style="margin-right:16px;font-size:11px;color:var(--ink-faint);">Mis à jour: 2026-08-18</span><span class="glyph">次</span><span>© <span class="year"></span> TSUGI — contact@stud-in.be</span></div>
     <div class="foot-links">
       <a href="#faq-nl">FAQ</a>
       <a href="privacy-policy.html">Privacybeleid</a>
       <a href="terms.html">Gebruiksvoorwaarden</a>
       <a class="foot-social" href="https://www.instagram.com/stud_in_app/" target="_blank" rel="noopener" aria-label="TSUGI op Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
       </a>
     </div>
   </div>
@@ -988,5 +1122,6 @@
     });
   });
 </script>
-</body>
-</html>
+
+
+</body></html>
