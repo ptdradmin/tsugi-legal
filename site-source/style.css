@@ -1,0 +1,242 @@
+  :root {
+    --bg: #08080c;
+    --bg-1: #0e0e15;
+    --bg-2: #14141d;
+    --glass: rgba(255,255,255,0.04);
+    --glass-hover: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.09);
+    --border-strong: rgba(255,255,255,0.16);
+    --ink: #f6f6f9;
+    --ink-dim: #a7a7b8;
+    --ink-faint: #6b6b7c;
+    --brand: #ff5a3c;
+    --brand-2: #ffb23c;
+    --radius: 20px;
+    --radius-sm: 12px;
+    --font-display: 'Space Grotesk', 'Hiragino Sans', sans-serif;
+    --font-body: 'Inter', 'Hiragino Sans', sans-serif;
+
+    --c-anime: #a78bfa;   --c-anime-bg: rgba(167,139,250,0.12);
+    --c-manga: #fbbf24;   --c-manga-bg: rgba(251,191,36,0.12);
+    --c-manhwa: #f472b6;  --c-manhwa-bg: rgba(244,114,182,0.12);
+    --c-manhua: #fb7185;  --c-manhua-bg: rgba(251,113,133,0.12);
+    --c-webtoon: #22d3ee; --c-webtoon-bg: rgba(34,211,238,0.12);
+    --c-series: #60a5fa;  --c-series-bg: rgba(96,165,250,0.12);
+    --c-drama: #fb923c;   --c-drama-bg: rgba(251,146,60,0.12);
+    --c-movie: #f87171;   --c-movie-bg: rgba(248,113,113,0.12);
+    --c-game: #4ade80;    --c-game-bg: rgba(74,222,128,0.12);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--font-body); line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  p { margin: 0; }
+
+  /* background texture: soft radial glows, fixed so they don't repeat per section */
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(680px 460px at 12% -6%, rgba(255,90,60,0.16), transparent 60%),
+      radial-gradient(620px 480px at 96% 18%, rgba(167,139,250,0.12), transparent 60%),
+      radial-gradient(700px 520px at 90% 92%, rgba(74,222,128,0.08), transparent 60%);
+  }
+
+  /* ---------- i18n via CSS radio buttons, no JS ---------- */
+  input[name="lang"] { position: absolute; opacity: 0; pointer-events: none; }
+  .lang-panel { display: none !important; }
+  #lang-fr:checked ~ header .lang-panel-fr,
+  #lang-fr:checked ~ footer .lang-panel-fr { display: flex !important; }
+  #lang-fr:checked ~ main .lang-panel-fr { display: block !important; }
+  #lang-en:checked ~ header .lang-panel-en,
+  #lang-en:checked ~ footer .lang-panel-en { display: flex !important; }
+  #lang-en:checked ~ main .lang-panel-en { display: block !important; }
+  #lang-nl:checked ~ header .lang-panel-nl,
+  #lang-nl:checked ~ footer .lang-panel-nl { display: flex !important; }
+  #lang-nl:checked ~ main .lang-panel-nl { display: block !important; }
+
+  .lang-switch { display: flex; gap: 2px; padding: 3px; background: var(--glass); border: 1px solid var(--border); border-radius: 999px; }
+  .lang-switch label { padding: 6px 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; border-radius: 999px; cursor: pointer; color: var(--ink-faint); transition: color .2s, background .2s; }
+  .lang-switch label:hover { color: var(--ink); }
+  #lang-fr:checked ~ header .lang-switch label[for="lang-fr"],
+  #lang-en:checked ~ header .lang-switch label[for="lang-en"],
+  #lang-nl:checked ~ header .lang-switch label[for="lang-nl"] { background: var(--ink); color: #08080c; }
+
+  /* ---------- header ---------- */
+  .site-nav {
+    position: sticky; top: 0; z-index: 40; display: flex; align-items: center; gap: 28px;
+    padding: 14px 32px; background: rgba(8,8,12,0.72); backdrop-filter: blur(16px) saturate(140%);
+    border-bottom: 1px solid var(--border);
+  }
+  .brand { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-size: 19px; margin-right: 8px; }
+  .brand .glyph { color: var(--brand); }
+  .nav-links { display: none !important; gap: 22px; flex: 1; }
+  #lang-fr:checked ~ header .nav-links.lang-panel-fr,
+  #lang-en:checked ~ header .nav-links.lang-panel-en,
+  #lang-nl:checked ~ header .nav-links.lang-panel-nl { display: flex !important; }
+  .nav-links a { font-size: 14px; color: var(--ink-dim); font-weight: 500; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-right { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; padding: 11px 22px; border-radius: 999px; font-size: 14px; font-weight: 700; border: 1px solid transparent; transition: transform .15s, box-shadow .15s, background .15s; white-space: nowrap; }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #100603; box-shadow: 0 8px 24px -8px rgba(255,90,60,0.55); }
+  .btn-primary:hover { box-shadow: 0 10px 30px -6px rgba(255,90,60,0.7); }
+  .btn-ghost { background: var(--glass); border-color: var(--border); color: var(--ink); }
+  .btn-ghost:hover { background: var(--glass-hover); border-color: var(--border-strong); }
+  .btn-play { background: var(--ink); color: #0a0a0f; padding: 9px 18px; font-size: 13px; }
+
+  main { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+  section { padding: 96px 0; border-top: 1px solid var(--border); }
+
+  /* ---------- hero ---------- */
+  /* display is set only through the checked-language rules below (same specificity + !important as
+     the base .lang-panel hide rule means whichever comes later in the file wins — a plain ".hero {
+     display: grid !important }" here silently overrode the hide rule and showed all 3 languages
+     stacked at once, regardless of which one was selected). */
+  .hero { border-top: none; padding-top: 64px; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; }
+  #lang-fr:checked ~ main .hero.lang-panel-fr,
+  #lang-en:checked ~ main .hero.lang-panel-en,
+  #lang-nl:checked ~ main .hero.lang-panel-nl { display: grid !important; }
+  .kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-dim); margin: 0 0 18px; }
+  .kicker .glyph { color: var(--brand); font-family: var(--font-display); }
+  .hero h1 { font-size: clamp(38px, 5vw, 58px); line-height: 1.05; }
+  .hero h1 .grad { background: linear-gradient(100deg, var(--brand) 10%, var(--brand-2) 55%, var(--c-anime) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero-body { margin-top: 22px; font-size: 17px; color: var(--ink-dim); max-width: 46ch; }
+  .hero-cta { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+  .social-proof { display: flex; align-items: center; gap: 12px; margin-top: 36px; font-size: 13px; color: var(--ink-faint); }
+  .avatars { display: flex; }
+  .avatars span { width: 26px; height: 26px; border-radius: 50%; margin-left: -8px; border: 2px solid var(--bg); background: linear-gradient(135deg, var(--c-anime), var(--c-movie)); }
+  .avatars span:first-child { margin-left: 0; background: linear-gradient(135deg, var(--brand), var(--brand-2)); }
+  .avatars span:nth-child(2) { background: linear-gradient(135deg, var(--c-game), var(--c-webtoon)); }
+
+  .hero-art { position: relative; height: 480px; }
+  .hero-art .phone { position: absolute; width: 220px; border-radius: 28px; border: 1px solid var(--border-strong); box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6); }
+  .phone-a { top: 0; left: 90px; z-index: 3; }
+  .phone-b { top: 60px; left: 260px; z-index: 2; opacity: 0.9; transform: rotate(6deg); }
+  .phone-c { top: 20px; left: -60px; z-index: 1; opacity: 0.75; transform: rotate(-7deg); }
+
+  /* ---------- section heads ---------- */
+  .section-head { max-width: 640px; margin-bottom: 48px; }
+  .section-head h2 { font-size: clamp(28px, 3.4vw, 40px); line-height: 1.12; margin-top: 10px; }
+  .section-body { margin-top: 16px; color: var(--ink-dim); font-size: 16px; }
+
+  /* ---------- category bento ---------- */
+  .cat-bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+  .cat-tile {
+    grid-column: span 2; position: relative; padding: 22px; border-radius: var(--radius-sm);
+    background: var(--glass); border: 1px solid var(--border); overflow: hidden;
+    transition: transform .2s, border-color .2s, background .2s;
+  }
+  .cat-tile:hover { transform: translateY(-3px); border-color: var(--border-strong); background: var(--glass-hover); }
+  .cat-tile::before { content: ''; position: absolute; inset: 0; opacity: 0; background: var(--tile-bg); transition: opacity .2s; }
+  .cat-tile:hover::before { opacity: 1; }
+  .cat-tile > * { position: relative; }
+  .cat-tile .cat-num { font-family: var(--font-display); font-size: 12px; color: var(--tile-c); font-weight: 700; }
+  .cat-tile h3 { font-size: 19px; margin: 10px 0 6px; }
+  .cat-tile p { font-size: 13.5px; color: var(--ink-dim); }
+  .cat-tile:nth-child(1) { grid-column: span 3; grid-row: span 2; padding: 28px; }
+  .cat-tile:nth-child(1) h3 { font-size: 26px; }
+  .cat-tile:nth-child(6) { grid-column: span 3; }
+
+  .hue-anime { --tile-c: var(--c-anime); --tile-bg: var(--c-anime-bg); }
+  .hue-manga { --tile-c: var(--c-manga); --tile-bg: var(--c-manga-bg); }
+  .hue-manhwa { --tile-c: var(--c-manhwa); --tile-bg: var(--c-manhwa-bg); }
+  .hue-manhua { --tile-c: var(--c-manhua); --tile-bg: var(--c-manhua-bg); }
+  .hue-webtoon { --tile-c: var(--c-webtoon); --tile-bg: var(--c-webtoon-bg); }
+  .hue-series { --tile-c: var(--c-series); --tile-bg: var(--c-series-bg); }
+  .hue-drama { --tile-c: var(--c-drama); --tile-bg: var(--c-drama-bg); }
+  .hue-movie { --tile-c: var(--c-movie); --tile-bg: var(--c-movie-bg); }
+  .hue-game { --tile-c: var(--c-game); --tile-bg: var(--c-game-bg); }
+
+  /* ---------- upcoming strips (build.js injects .cat-card.dynamic into .cat-grid) ---------- */
+  .cat-strips { margin-top: 64px; display: flex; flex-direction: column; gap: 40px; }
+  .cat-strip-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .cat-strip-head .cat-num { font-family: var(--font-display); font-size: 12px; font-weight: 700; color: var(--tile-c); }
+  .cat-strip-head h3 { font-size: 20px; }
+  .cat-strip-head .pill { margin-left: auto; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--tile-c); background: var(--tile-bg); padding: 5px 12px; border-radius: 999px; }
+  .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; min-height: 4px; }
+  .cat-grid:empty { display: none; }
+  .cat-card {
+    background: var(--glass); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 14px; transition: transform .2s, border-color .2s;
+  }
+  .cat-card:hover { transform: translateY(-3px); border-color: var(--tile-c, var(--border-strong)); }
+  .cat-card .idx { font-family: var(--font-display); font-size: 11px; color: var(--ink-faint); }
+  .cat-card h3 { font-size: 15px; margin: 8px 0 8px; line-height: 1.25; min-height: 38px; }
+  .cat-card img { border-radius: 10px; aspect-ratio: 2/3; object-fit: cover; }
+  .cat-card .release-date { font-size: 12px; color: var(--tile-c, var(--brand)); font-weight: 600; margin-top: 8px; }
+  .cat-card .blurb { font-size: 12.5px; color: var(--ink-faint); margin-top: 6px; line-height: 1.4; }
+
+  /* ---------- features ---------- */
+  .feat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .feat-card { grid-column: span 2; background: var(--glass); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 26px; transition: border-color .2s, background .2s; }
+  .feat-card:hover { border-color: var(--border-strong); background: var(--glass-hover); }
+  .feat-card .num { font-family: var(--font-display); font-size: 13px; color: var(--brand); font-weight: 700; margin-bottom: 12px; }
+  .feat-card h3 { font-size: 19px; margin-bottom: 8px; }
+  .feat-card p { font-size: 14px; color: var(--ink-dim); }
+  .feat-wide { grid-column: span 4; background: linear-gradient(120deg, rgba(255,90,60,0.10), rgba(167,139,250,0.10)); }
+
+  /* ---------- FAQ (native <details>, zero JS) ---------- */
+  .faq-list { max-width: 760px; }
+  .faq-item { border-bottom: 1px solid var(--border); padding: 18px 4px; }
+  .faq-item summary {
+    cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--font-display); font-size: 16px; font-weight: 500; color: var(--ink);
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item .chev { width: 20px; height: 20px; flex: none; position: relative; margin-left: 16px; }
+  .faq-item .chev::before, .faq-item .chev::after { content: ''; position: absolute; background: var(--ink-dim); border-radius: 2px; transition: transform .2s; }
+  .faq-item .chev::before { width: 12px; height: 2px; top: 9px; left: 4px; }
+  .faq-item .chev::after { width: 2px; height: 12px; top: 4px; left: 9px; }
+  .faq-item[open] .chev::after { transform: rotate(90deg) translate(0,0); opacity: 0; }
+  .faq-item p { margin-top: 14px; color: var(--ink-dim); font-size: 14.5px; max-width: 62ch; }
+
+  /* ---------- join / CTA ---------- */
+  .join { border-top: none; padding-top: 0; }
+  .join-card {
+    text-align: center; padding: 72px 40px; border-radius: 28px;
+    background: linear-gradient(145deg, var(--bg-2), var(--bg-1));
+    border: 1px solid var(--border-strong); position: relative; overflow: hidden;
+  }
+  .join-card::before { content: ''; position: absolute; inset: -40%; background: radial-gradient(closest-side, rgba(255,90,60,0.18), transparent); }
+  .join-card > * { position: relative; }
+  .join-card h2 { font-size: clamp(28px, 3.6vw, 42px); }
+  .join-card p { margin-top: 14px; color: var(--ink-dim); font-size: 16px; }
+  .join-card .hero-cta { justify-content: center; margin-top: 30px; }
+
+  /* ---------- footer ---------- */
+  footer { border-top: 1px solid var(--border); padding: 28px 32px; }
+  .foot-brand { display: none !important; max-width: 1240px; margin: 0 auto; align-items: center; gap: 18px; flex-wrap: wrap; color: var(--ink-faint); font-size: 13px; }
+  .foot-brand .glyph { color: var(--brand); font-family: var(--font-display); }
+  .foot-brand a { color: var(--ink-faint); }
+  .foot-brand a:hover { color: var(--ink); }
+  .foot-links { display: flex; gap: 18px; margin-left: auto; }
+  .last-updated { color: var(--ink-faint); }
+
+  @media (max-width: 860px) {
+    .site-nav { padding: 12px 18px; gap: 14px; }
+    .nav-links { display: none !important; }
+    main { padding: 0 18px; }
+    section { padding: 64px 0; }
+    .hero { grid-template-columns: 1fr; padding-top: 32px; }
+    .hero-art { height: 320px; order: -1; }
+    .hero-art .phone { width: 160px; }
+    .phone-a { left: 60px; } .phone-b { left: 170px; top: 30px; } .phone-c { left: -20px; }
+    .cat-bento { grid-template-columns: repeat(2, 1fr); }
+    .cat-tile, .cat-tile:nth-child(1), .cat-tile:nth-child(6) { grid-column: span 2; grid-row: auto; }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .feat-grid { grid-template-columns: 1fr; }
+    .feat-card, .feat-wide { grid-column: span 1; }
+    .join-card { padding: 48px 24px; }
+  }
+
+  [data-reveal] { animation: rise .5s ease both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
