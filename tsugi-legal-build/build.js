@@ -267,8 +267,12 @@ function generateCategoryHTML(items, category, lang) {
   const dateFormatter = { fr: formatDateFR, en: formatDateEN, nl: formatDateNL }[lang];
   
   return items.map((item, i) => {
-    const date = item.release_date || item.first_air_date || 
-      (item.startDate ? `${item.startDate.year}-${String(item.startDate.month).padStart(2,'0')}-${String(item.startDate.day).padStart(2,'0')}` : null);
+    // AniList's startDate often has only a year for not-yet-released anime (month/day still
+    // unannounced) — building a date string with a null month/day produced "Invalid Date"
+    // everywhere that happened. Only build the string when all three parts are real.
+    const sd = item.startDate;
+    const date = item.release_date || item.first_air_date ||
+      (sd && sd.year && sd.month && sd.day ? `${sd.year}-${String(sd.month).padStart(2,'0')}-${String(sd.day).padStart(2,'0')}` : null);
     const title = item.title || item.name || item.romaji || 'Sans titre';
     const poster = item.poster_path || item.coverImage;
     const blurb = item.overview || item.description || '';
@@ -318,12 +322,15 @@ async function main() {
   for (const lang of langs) {
     for (const [catKey, items] of Object.entries(categories)) {
       const sectionId = `#categories-${lang}`;
-      const catGrid = $(sectionId).find('.cat-grid').first();
+      // Each category has its own strip/.cat-grid (data-catkey="movie"/"anime"/etc.) — grabbing
+      // just the first .cat-grid in the section used to dump every category's cards into whichever
+      // one happened to come first in the markup.
+      const catGrid = $(sectionId).find(`.cat-grid[data-catkey="${catKey}"]`);
 
       if (catGrid.length) {
         // Yesterday's run already injected .dynamic cards into this same committed index.html —
         // without clearing them first, every successful run piles more on top of the last forever.
-        catGrid.find(`.cat-card.dynamic[data-cat="${catKey}"]`).remove();
+        catGrid.find('.cat-card.dynamic').remove();
         const dynamicHTML = generateCategoryHTML(items, catKey, lang);
         catGrid.append(dynamicHTML);
         log('INJECT', `Injected ${items.length} ${catKey} items into ${lang}`);

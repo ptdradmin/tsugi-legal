@@ -55,8 +55,28 @@ TMDB_API_KEY=your_key node build.js
 
 1. Add fetch function in `build.js`
 2. Add to `Promise.all` in `main()`
-3. Add to `categories` object for injection
+3. Add to `categories` object for injection — the key must match a `data-catkey` on a `.cat-grid` in
+   `index.html` (currently: `movie`, `series`, `anime`, `game`, `drama`) or the items have nowhere to land
 4. Add CSS for any new card types
+
+`manga`/`manhwa`/`manhua`/`webtoon` have bento tiles in the categories section but no "à venir" strip —
+there's no daily-upcoming data source wired up for them yet (Jikan covers manga upcoming volumes in the
+Android app; manhwa/manhua/webtoon would need their own source). Add a `.cat-strip`/`.cat-grid` for them
+in `site-source/gen.js` once a fetcher exists.
+
+## Editing the design
+
+`index.html` is generated, not hand-edited — content and layout live in `site-source/`:
+- `site-source/gen.js` — copy (FR/EN/NL) and HTML structure. Regenerate with `node site-source/gen.js`
+  from the repo root (overwrites `index.html`'s static content; run `tsugi-legal-build/build.js`
+  afterward to re-inject the dynamic cards).
+- `site-source/style.css` — the whole visual design (one shared stylesheet, not duplicated per language).
+
+The CSS radio-button i18n mechanism (`#lang-{x}:checked ~ main .lang-panel-{x} { display: ... }`) hides/shows
+per language via `!important` + equal specificity — any element that's both `.lang-panel-*` and needs a
+non-`block`/`flex` display (the hero's `display: grid`, for instance) must set that display value through
+a `#lang-{x}:checked ~ ...` rule, never as a plain `.some-class { display: ... !important }`, or it silently
+wins over the hide rule by coming later in the file and all three languages render stacked at once.
 
 ## GitHub Pages
 
