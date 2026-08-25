@@ -1,0 +1,7 @@
+# Build system
+tsugi-legal-build/node_modules/
+tsugi-legal-build/package-lock.json
+
+# OS
+.DS_Store
+Thumbs.db
