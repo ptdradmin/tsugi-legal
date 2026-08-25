@@ -48,6 +48,10 @@ async function sleep(ms) {
   return new Promise(r => setTimeout(r, ms));
 }
 
+function esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 // ========== API CLIENTS ==========
 
 // TMDB
@@ -273,15 +277,22 @@ function generateCategoryHTML(items, category, lang) {
     const sd = item.startDate;
     const date = item.release_date || item.first_air_date ||
       (sd && sd.year && sd.month && sd.day ? `${sd.year}-${String(sd.month).padStart(2,'0')}-${String(sd.day).padStart(2,'0')}` : null);
-    const title = item.title || item.name || item.romaji || 'Sans titre';
+    const rawTitle = item.title || item.name || item.romaji || 'Sans titre';
+    const title = esc(rawTitle);
     const poster = item.poster_path || item.coverImage;
-    const blurb = item.overview || item.description || '';
-    
+    const blurb = esc(item.overview || item.description || '');
+    // Some very recently announced titles have no poster on TMDB/AniList at all yet (checked
+    // directly against the API — not a language-fallback gap, the field is genuinely empty) —
+    // an empty <img> slot read as a broken card, so show the category-colored initial instead.
+    const media = poster
+      ? `<img src="${poster}" alt="${title}" loading="lazy">`
+      : `<div class="cat-card-fallback">${esc(rawTitle.charAt(0).toUpperCase())}</div>`;
+
     return `
       <div class="cat-card dynamic" data-cat="${category}" data-reveal style="grid-column: span 1;">
         <span class="idx">${String(i+1).padStart(2,'0')}</span>
         <h3>${title}</h3>
-        ${poster ? `<img src="${poster}" alt="${title}" style="width:100%;border-radius:8px;margin:8px 0;">` : ''}
+        ${media}
         <p class="release-date">${label} · ${dateFormatter(date)}</p>
         <p class="blurb">${blurb.slice(0, 120)}${blurb.length > 120 ? '…' : ''}</p>
       </div>
