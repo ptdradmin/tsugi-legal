@@ -20,6 +20,11 @@ const CONFIG = {
   IGDB_CLIENT_SECRET: process.env.IGDB_CLIENT_SECRET,
   BETASERIES_API_KEY: process.env.BETASERIES_API_KEY,
   BETASERIES_TOKEN: process.env.BETASERIES_TOKEN,
+  // Same Supabase project the Android app uses, for the IGDB proxy (games have no free direct API).
+  // SUPABASE_ANON_KEY is the public/RLS-protected key — same one already shipped inside the app's
+  // compiled APK — but it's read from env like every other credential here, not hardcoded.
+  SUPABASE_URL: process.env.SUPABASE_URL,
+  SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
   // Optional: AI for descriptions
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
@@ -29,8 +34,8 @@ const CONFIG = {
   LIMIT_PER_CATEGORY: 4, // How many items to show per category on landing page
   
   // Paths
-  TEMPLATE_PATH: path.resolve('../tsugi-legal/index.html'),
-  OUTPUT_PATH: path.resolve('../tsugi-legal/index.html'),
+  TEMPLATE_PATH: path.resolve('../index.html'),
+  OUTPUT_PATH: path.resolve('../index.html'),
 };
 
 // ========== UTILITIES ==========
@@ -140,19 +145,64 @@ async function fetchAniListUpcoming() {
   }
 }
 
-// IGDB (via Supabase proxy - or direct if credentials)
+// IGDB, via the same Supabase RPC proxy the Android app uses (games have no free direct API).
 async function fetchIGDBGames() {
-  // This would need the Supabase proxy or direct IGDB access
-  // For now, return empty - the app uses Supabase proxy
-  log('IGDB', 'Skipped (needs Supabase proxy)');
-  return [];
+  if (!CONFIG.SUPABASE_URL || !CONFIG.SUPABASE_ANON_KEY) {
+    log('IGDB', 'Skipped (SUPABASE_URL/SUPABASE_ANON_KEY not set)');
+    return [];
+  }
+  const nowSec = Math.floor(Date.now() / 1000);
+  const query = `fields name, first_release_date, summary, cover.url, cover.image_id; where first_release_date >= ${nowSec}; sort first_release_date asc; limit ${CONFIG.LIMIT_PER_CATEGORY};`;
+  try {
+    const res = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/rpc/igdb_proxy`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': CONFIG.SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
+      },
+      body: JSON.stringify({ p_endpoint: 'games', p_query: query }),
+    });
+    const data = await res.json();
+    const games = Array.isArray(data) ? data : [];
+    return games.slice(0, CONFIG.LIMIT_PER_CATEGORY).map(g => ({
+      type: 'game',
+      title: g.name,
+      release_date: g.first_release_date ? new Date(g.first_release_date * 1000).toISOString().split('T')[0] : null,
+      overview: g.summary,
+      poster_path: g.cover?.url ? `https:${g.cover.url.replace('t_thumb', 't_cover_big')}` : null,
+      id: g.id,
+    }));
+  } catch (e) {
+    log('IGDB', `Error: ${e.message}`);
+    return [];
+  }
 }
 
-// BetaSeries
+// BetaSeries — dramas & series planning
 async function fetchBetaSeriesUpcoming() {
-  if (!CONFIG.BETASERIES_API_KEY || !CONFIG.BETASERIES_TOKEN) return [];
-  // Implementation would go here
-  return [];
+  if (!CONFIG.BETASERIES_API_KEY) return [];
+  try {
+    const res = await fetch('https://api.betaseries.com/planning/upcoming', {
+      headers: {
+        'X-BetaSeries-Key': CONFIG.BETASERIES_API_KEY,
+        'X-BetaSeries-Version': '3.0',
+      },
+    });
+    const data = await res.json();
+    const items = data.episodes || data.planning || [];
+    return items.filter(it => it.show).slice(0, CONFIG.LIMIT_PER_CATEGORY).map(it => ({
+      type: 'drama',
+      title: it.show.title,
+      release_date: it.date ? it.date.split(' ')[0] : null,
+      overview: it.show.description,
+      poster_path: it.show.poster || it.show.images?.poster,
+      id: it.show.id,
+    }));
+  } catch (e) {
+    log('BetaSeries', `Error: ${e.message}`);
+    return [];
+  }
 }
 
 // ========== DATE HELPERS ==========
@@ -224,7 +274,7 @@ function generateCategoryHTML(items, category, lang) {
     const blurb = item.overview || item.description || '';
     
     return `
-      <div class="cat-card dynamic" data-reveal style="grid-column: span 1;">
+      <div class="cat-card dynamic" data-cat="${category}" data-reveal style="grid-column: span 1;">
         <span class="idx">${String(i+1).padStart(2,'0')}</span>
         <h3>${title}</h3>
         ${poster ? `<img src="${poster}" alt="${title}" style="width:100%;border-radius:8px;margin:8px 0;">` : ''}
@@ -241,42 +291,49 @@ async function main() {
   
   // Fetch all data in parallel
   log('FETCH', 'Calling APIs...');
-  const [movies, series, anime] = await Promise.all([
+  const [movies, series, anime, games, dramas] = await Promise.all([
     fetchTMDBUpcomingMovies(),
     fetchTMDBUpcomingTV(),
     fetchAniListUpcoming(),
+    fetchIGDBGames(),
+    fetchBetaSeriesUpcoming(),
   ]);
-  
-  log('FETCH', `Got ${movies.length} movies, ${series.length} series, ${anime.length} anime`);
-  
+
+  log('FETCH', `Got ${movies.length} movies, ${series.length} series, ${anime.length} anime, ${games.length} games, ${dramas.length} dramas`);
+
   // Load template
   let html = fs.readFileSync(CONFIG.TEMPLATE_PATH, 'utf-8');
   const $ = cheerio.load(html);
-  
+
   // Inject into each language panel
   const langs = ['fr', 'en', 'nl'];
   const categories = {
     movie: movies,
     series: series,
     anime: anime,
+    game: games,
+    drama: dramas,
   };
-  
+
   for (const lang of langs) {
     for (const [catKey, items] of Object.entries(categories)) {
       const sectionId = `#categories-${lang}`;
       const catGrid = $(sectionId).find('.cat-grid').first();
-      
+
       if (catGrid.length) {
-        // Add dynamic cards after the static 9 category cards
+        // Yesterday's run already injected .dynamic cards into this same committed index.html —
+        // without clearing them first, every successful run piles more on top of the last forever.
+        catGrid.find(`.cat-card.dynamic[data-cat="${catKey}"]`).remove();
         const dynamicHTML = generateCategoryHTML(items, catKey, lang);
         catGrid.append(dynamicHTML);
         log('INJECT', `Injected ${items.length} ${catKey} items into ${lang}`);
       }
     }
   }
-  
-  // Add last updated timestamp
+
+  // Add last updated timestamp — remove yesterday's before adding today's, same reason as above.
   const now = new Date().toISOString();
+  $('footer .foot-brand .last-updated').remove();
   $('footer .foot-brand').prepend(`<span class="last-updated" style="margin-right:16px;font-size:11px;color:var(--ink-faint);">Mis à jour: ${now.slice(0,10)}</span>`);
   
   // Write output

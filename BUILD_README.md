@@ -27,12 +27,14 @@ The page is **rebuilt daily** via GitHub Actions to show real upcoming releases 
 | `TMDB_API_KEY` | TMDB Developer Settings | ✅ Movies/Series |
 | `ANILIST_CLIENT_ID` | AniList API Settings | ❌ (public works) |
 | `ANILIST_CLIENT_SECRET` | AniList API Settings | ❌ |
-| `IGDB_CLIENT_ID` | IGDB/Twitch Dev Console | ❌ (via Supabase) |
-| `IGDB_CLIENT_SECRET` | IGDB/Twitch Dev Console | ❌ |
-| `BETASERIES_API_KEY` | BetaSeries Dev | ❌ |
-| `BETASERIES_TOKEN` | BetaSeries Dev | ❌ |
-| `OPENAI_API_KEY` | OpenAI Platform | ❌ (AI blurbs) |
-| `ANTHROPIC_API_KEY` | Anthropic Console | ❌ (AI blurbs) |
+| `SUPABASE_URL` | Same value as the Android app's `.env` | ❌ Games, via IGDB proxy |
+| `SUPABASE_ANON_KEY` | Same value as the Android app's `.env` (public/RLS-protected key) | ❌ Games, via IGDB proxy |
+| `BETASERIES_API_KEY` | BetaSeries Dev | ❌ Dramas |
+| `BETASERIES_TOKEN` | BetaSeries Dev | ❌ (not currently used — `/planning/upcoming` only needs the API key) |
+| `OPENAI_API_KEY` | OpenAI Platform | ❌ (AI blurbs — not wired in yet, falls back to the source's own overview text) |
+| `ANTHROPIC_API_KEY` | Anthropic Console | ❌ (AI blurbs — not wired in yet, falls back to the source's own overview text) |
+
+`IGDB_CLIENT_ID`/`IGDB_CLIENT_SECRET` are no longer read by `build.js` — games go through the Supabase proxy (`SUPABASE_URL`/`SUPABASE_ANON_KEY` above), the same path the Android app uses, instead of talking to IGDB/Twitch directly.
 
 ## Local Development
 
