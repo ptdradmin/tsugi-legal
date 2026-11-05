@@ -206,10 +206,12 @@ function categoriesHtml(lang) {
   const tiles = CATS.map(c => {
     const [name, desc] = t.cats[c.key];
     return `
-        <a class="cat-tile hue-${c.hue}" href="#cat-${c.key}-${lang}" data-reveal>
+        <a class="cat-tile hue-${c.hue}" href="categorie.html?cat=${c.key}&amp;lang=${lang}" data-reveal>
           <span class="cat-num">${c.num}</span>
           <h3>${esc(name)}</h3>
           <p>${esc(desc)}</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="${c.key}"></span><span class="tile-more">${esc(t.seeMore)} →</span></span>
+          <span class="tile-covers" data-tilekey="${c.key}" aria-hidden="true"></span>
         </a>`;
   }).join('');
   const COMICS = ['manga', 'manhwa', 'manhua', 'webtoon'];

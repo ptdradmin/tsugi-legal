@@ -472,6 +472,12 @@ async function main() {
       // one happened to come first in the markup.
       const catGrid = $(sectionId).find(`.cat-grid[data-catkey="${catKey}"]`);
 
+      // Category tile: count + three real covers of that category.
+      const countLabel = { fr: 'titres', en: 'titles', nl: 'titels' }[lang];
+      if (items.length) $(sectionId).find(`.tile-count[data-tilekey="${catKey}"]`).text(`${items.length} ${countLabel}`);
+      const covers = items.map(it => it.poster_path || it.coverImage).filter(Boolean).slice(0, 3);
+      if (covers.length) $(sectionId).find(`.tile-covers[data-tilekey="${catKey}"]`).html(covers.map(u => `<img src="${u}" alt="" loading="lazy">`).join(''));
+
       // A failed fetch (dead API, bad secret) keeps yesterday's cards instead of blanking the strip.
       if (!items.length) { log('INJECT', `${catKey}: no items, keeping previous cards in ${lang}`); continue; }
       if (catGrid.length) {

@@ -144,10 +144,10 @@
   .section-body { margin-top: 16px; color: var(--ink-dim); font-size: 16px; }
 
   /* ---------- category bento ---------- */
-  .cat-bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+  .cat-bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
   .cat-tile {
-    grid-column: span 2; position: relative; padding: 22px; border-radius: var(--radius-sm);
-    background: var(--glass); border: 1px solid var(--border); overflow: hidden;
+    position: relative; display: flex; flex-direction: column; min-height: 220px; padding: 22px; border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--tile-bg), transparent 65%), var(--glass); border: 1px solid var(--border); overflow: hidden;
     transition: transform .2s, border-color .2s, background .2s;
   }
   .cat-tile:hover { transform: translateY(-3px); border-color: var(--border-strong); background: var(--glass-hover); }
@@ -157,9 +157,20 @@
   .cat-tile .cat-num { font-family: var(--font-display); font-size: 12px; color: var(--tile-c); font-weight: 700; }
   .cat-tile h3 { font-size: 19px; margin: 10px 0 6px; }
   .cat-tile p { font-size: 13.5px; color: var(--ink-dim); }
-  .cat-tile:nth-child(1) { grid-column: span 3; grid-row: span 2; padding: 28px; }
-  .cat-tile:nth-child(1) h3 { font-size: 26px; }
-  .cat-tile:nth-child(6) { grid-column: span 3; }
+  .cat-tile h3, .cat-tile p { max-width: 58%; }
+  .cat-tile:hover { border-color: var(--tile-c); }
+  .tile-foot { margin-top: auto; padding-top: 18px; display: flex; flex-direction: column; gap: 2px; }
+  .tile-count { font-size: 12px; color: var(--ink-faint); }
+  .tile-more { font-size: 13px; font-weight: 700; color: var(--tile-c); }
+  /* three real covers of the category, fanned out (filled by build.js) */
+  .tile-covers { position: absolute; right: 18px; bottom: 18px; width: 150px; height: 140px; }
+  .tile-covers img { position: absolute; bottom: 0; width: 72px; aspect-ratio: 2/3; object-fit: cover; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 10px 24px -8px rgba(0,0,0,0.7); transition: transform .25s; }
+  .tile-covers img:nth-child(1) { right: 64px; transform: rotate(-10deg); }
+  .tile-covers img:nth-child(2) { right: 34px; transform: rotate(-2deg) translateY(-8px); z-index: 1; }
+  .tile-covers img:nth-child(3) { right: 0; transform: rotate(8deg); z-index: 2; }
+  .cat-tile:hover .tile-covers img:nth-child(1) { transform: rotate(-14deg) translateX(-6px); }
+  .cat-tile:hover .tile-covers img:nth-child(3) { transform: rotate(12deg) translateX(6px); }
 
   .hue-anime { --tile-c: var(--c-anime); --tile-bg: var(--c-anime-bg); }
   .hue-manga { --tile-c: var(--c-manga); --tile-bg: var(--c-manga-bg); }
@@ -276,8 +287,8 @@
     .hero-art { height: 320px; order: -1; }
     .hero-art .phone { width: 160px; }
     .phone-a { left: 60px; } .phone-b { left: 170px; top: 30px; } .phone-c { left: -20px; }
-    .cat-bento { grid-template-columns: repeat(2, 1fr); }
-    .cat-tile, .cat-tile:nth-child(1), .cat-tile:nth-child(6) { grid-column: span 2; grid-row: auto; }
+    .cat-bento { grid-template-columns: 1fr; }
+    .cat-tile { min-height: 190px; }
     .cat-grid { grid-template-columns: repeat(2, 1fr); }
     .feat-grid { grid-template-columns: 1fr; }
     .feat-card, .feat-wide { grid-column: span 1; }
@@ -397,50 +408,68 @@
       <p class="section-body">Chaque catégorie a son propre univers de fans — et sa propre app dédiée. TSUGI les réunit toutes, avec les mêmes outils de suivi partout.</p>
     </div>
     <div class="cat-bento">
-        <a class="cat-tile hue-anime" href="#cat-anime-fr" data-reveal="">
+        <a class="cat-tile hue-anime" href="categorie.html?cat=anime&amp;lang=fr" data-reveal="">
           <span class="cat-num">01</span>
           <h3>Anime</h3>
           <p>Saisons, films et OAV suivis épisode par épisode.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="anime">50 titres</span><span class="tile-more">Voir plus →</span></span>
+          <span class="tile-covers" data-tilekey="anime" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx181641-4BnzXGnA7CJL.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manga" href="#cat-manga-fr" data-reveal="">
+        <a class="cat-tile hue-manga" href="categorie.html?cat=manga&amp;lang=fr" data-reveal="">
           <span class="cat-num">02</span>
           <h3>Manga</h3>
           <p>Chapitres lus, séries en cours ou terminées.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="manga">50 titres</span><span class="tile-more">Voir plus →</span></span>
+          <span class="tile-covers" data-tilekey="manga" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx30013-BeslEMqiPhlk.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx140475-QEGtrmdvbpOv.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manhwa" href="#cat-manhwa-fr" data-reveal="">
+        <a class="cat-tile hue-manhwa" href="categorie.html?cat=manhwa&amp;lang=fr" data-reveal="">
           <span class="cat-num">03</span>
           <h3>Manhwa</h3>
           <p>Webtoons coréens, du one-shot à la série longue.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="manhwa">50 titres</span><span class="tile-more">Voir plus →</span></span>
+          <span class="tile-covers" data-tilekey="manhwa" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx120980-RZ9WLd0o9hyo.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx159441-9W8201jAT9Yv.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx183376-Cw3VnZAItw2a.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manhua" href="#cat-manhua-fr" data-reveal="">
+        <a class="cat-tile hue-manhua" href="categorie.html?cat=manhua&amp;lang=fr" data-reveal="">
           <span class="cat-num">04</span>
           <h3>Manhua</h3>
           <p>Bande dessinée chinoise, cultivation et fantasy.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="manhua">50 titres</span><span class="tile-more">Voir plus →</span></span>
+          <span class="tile-covers" data-tilekey="manhua" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/b167372-zfQUGcQMWiAI.png" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx160980-KAM0gr3dSMvB.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx116353-DYuIigXuPwpZ.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-webtoon" href="#cat-webtoon-fr" data-reveal="">
+        <a class="cat-tile hue-webtoon" href="categorie.html?cat=webtoon&amp;lang=fr" data-reveal="">
           <span class="cat-num">05</span>
           <h3>Webtoon</h3>
           <p>Format vertical, mise à jour au fil des sorties.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="webtoon">50 titres</span><span class="tile-more">Voir plus →</span></span>
+          <span class="tile-covers" data-tilekey="webtoon" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx119257-Pi21aq3ey9GG.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx128067-wnLBg6Cy1ncs.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx103156-yTVWAW2N8uGi.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-series" href="#cat-series-fr" data-reveal="">
+        <a class="cat-tile hue-series" href="categorie.html?cat=series&amp;lang=fr" data-reveal="">
           <span class="cat-num">06</span>
           <h3>Séries</h3>
           <p>Renouvellements suivis, même quand une date change.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="series">50 titres</span><span class="tile-more">Voir plus →</span></span>
+          <span class="tile-covers" data-tilekey="series" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/tgGsACYKoMAtclxXkBkHhl3EvYa.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/zNH0vo3rvRTklF0gui5Ntr4DBAA.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/pQKofoTaTnwQopuU1crUEEqtAfg.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-drama" href="#cat-drama-fr" data-reveal="">
+        <a class="cat-tile hue-drama" href="categorie.html?cat=drama&amp;lang=fr" data-reveal="">
           <span class="cat-num">07</span>
           <h3>Dramas</h3>
           <p>K-drama, J-drama et C-drama, diffusion en cours.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="drama">18 titres</span><span class="tile-more">Voir plus →</span></span>
+          <span class="tile-covers" data-tilekey="drama" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/5SzLNVXBqpukDEwYkkocXZy8dd.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/cWXBisC8gIrGB8UfxKXaoHLxBH2.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/3L8El6VH4CL1pdz9JgnGsHXeGra.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-movie" href="#cat-movie-fr" data-reveal="">
+        <a class="cat-tile hue-movie" href="categorie.html?cat=movie&amp;lang=fr" data-reveal="">
           <span class="cat-num">08</span>
           <h3>Films</h3>
           <p>Sorties à venir, du festival à la salle obscure.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="movie">50 titres</span><span class="tile-more">Voir plus →</span></span>
+          <span class="tile-covers" data-tilekey="movie" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/pICoWjcKSet6sA3yzxOkP8ChwYI.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/tGdFDoA9qyt0t6Qr9MFnOl8Z2Jz.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-game" href="#cat-game-fr" data-reveal="">
+        <a class="cat-tile hue-game" href="categorie.html?cat=game&amp;lang=fr" data-reveal="">
           <span class="cat-num">09</span>
           <h3>Jeux</h3>
           <p>Dates de sortie confirmées, jusqu'à plusieurs années.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="game">50 titres</span><span class="tile-more">Voir plus →</span></span>
+          <span class="tile-covers" data-tilekey="game" aria-hidden="true"><img src="https://images.igdb.com/igdb/image/upload/t_cover_big/cobc6d.jpg" alt="" loading="lazy"><img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co95i0.jpg" alt="" loading="lazy"><img src="https://images.igdb.com/igdb/image/upload/t_cover_big/coaott.jpg" alt="" loading="lazy"></span>
         </a>
     </div>
     <div class="cat-strips">
@@ -804,50 +833,68 @@
       <p class="section-body">Every category has its own fandom — and its own dedicated app. TSUGI brings them all together, with the same tracking tools everywhere.</p>
     </div>
     <div class="cat-bento">
-        <a class="cat-tile hue-anime" href="#cat-anime-en" data-reveal="">
+        <a class="cat-tile hue-anime" href="categorie.html?cat=anime&amp;lang=en" data-reveal="">
           <span class="cat-num">01</span>
           <h3>Anime</h3>
           <p>Seasons, movies and OVAs tracked episode by episode.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="anime">50 titles</span><span class="tile-more">See more →</span></span>
+          <span class="tile-covers" data-tilekey="anime" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx181641-4BnzXGnA7CJL.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manga" href="#cat-manga-en" data-reveal="">
+        <a class="cat-tile hue-manga" href="categorie.html?cat=manga&amp;lang=en" data-reveal="">
           <span class="cat-num">02</span>
           <h3>Manga</h3>
           <p>Chapters read, series ongoing or completed.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="manga">50 titles</span><span class="tile-more">See more →</span></span>
+          <span class="tile-covers" data-tilekey="manga" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx30013-BeslEMqiPhlk.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx140475-QEGtrmdvbpOv.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manhwa" href="#cat-manhwa-en" data-reveal="">
+        <a class="cat-tile hue-manhwa" href="categorie.html?cat=manhwa&amp;lang=en" data-reveal="">
           <span class="cat-num">03</span>
           <h3>Manhwa</h3>
           <p>Korean webtoons, from one-shots to long-running series.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="manhwa">50 titles</span><span class="tile-more">See more →</span></span>
+          <span class="tile-covers" data-tilekey="manhwa" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx120980-RZ9WLd0o9hyo.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx159441-9W8201jAT9Yv.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx183376-Cw3VnZAItw2a.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manhua" href="#cat-manhua-en" data-reveal="">
+        <a class="cat-tile hue-manhua" href="categorie.html?cat=manhua&amp;lang=en" data-reveal="">
           <span class="cat-num">04</span>
           <h3>Manhua</h3>
           <p>Chinese comics, cultivation and fantasy.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="manhua">50 titles</span><span class="tile-more">See more →</span></span>
+          <span class="tile-covers" data-tilekey="manhua" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/b167372-zfQUGcQMWiAI.png" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx160980-KAM0gr3dSMvB.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx116353-DYuIigXuPwpZ.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-webtoon" href="#cat-webtoon-en" data-reveal="">
+        <a class="cat-tile hue-webtoon" href="categorie.html?cat=webtoon&amp;lang=en" data-reveal="">
           <span class="cat-num">05</span>
           <h3>Webtoon</h3>
           <p>Vertical format, updated as new episodes drop.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="webtoon">50 titles</span><span class="tile-more">See more →</span></span>
+          <span class="tile-covers" data-tilekey="webtoon" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx119257-Pi21aq3ey9GG.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx128067-wnLBg6Cy1ncs.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx103156-yTVWAW2N8uGi.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-series" href="#cat-series-en" data-reveal="">
+        <a class="cat-tile hue-series" href="categorie.html?cat=series&amp;lang=en" data-reveal="">
           <span class="cat-num">06</span>
           <h3>Series</h3>
           <p>Renewals tracked, even when a date changes.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="series">50 titles</span><span class="tile-more">See more →</span></span>
+          <span class="tile-covers" data-tilekey="series" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/tgGsACYKoMAtclxXkBkHhl3EvYa.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/zNH0vo3rvRTklF0gui5Ntr4DBAA.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/pQKofoTaTnwQopuU1crUEEqtAfg.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-drama" href="#cat-drama-en" data-reveal="">
+        <a class="cat-tile hue-drama" href="categorie.html?cat=drama&amp;lang=en" data-reveal="">
           <span class="cat-num">07</span>
           <h3>Dramas</h3>
           <p>K-drama, J-drama and C-drama, currently airing.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="drama">18 titles</span><span class="tile-more">See more →</span></span>
+          <span class="tile-covers" data-tilekey="drama" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/5SzLNVXBqpukDEwYkkocXZy8dd.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/cWXBisC8gIrGB8UfxKXaoHLxBH2.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/3L8El6VH4CL1pdz9JgnGsHXeGra.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-movie" href="#cat-movie-en" data-reveal="">
+        <a class="cat-tile hue-movie" href="categorie.html?cat=movie&amp;lang=en" data-reveal="">
           <span class="cat-num">08</span>
           <h3>Movies</h3>
           <p>Upcoming releases, from festival premieres to theaters.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="movie">50 titles</span><span class="tile-more">See more →</span></span>
+          <span class="tile-covers" data-tilekey="movie" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/pICoWjcKSet6sA3yzxOkP8ChwYI.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/tGdFDoA9qyt0t6Qr9MFnOl8Z2Jz.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-game" href="#cat-game-en" data-reveal="">
+        <a class="cat-tile hue-game" href="categorie.html?cat=game&amp;lang=en" data-reveal="">
           <span class="cat-num">09</span>
           <h3>Games</h3>
           <p>Confirmed release dates, even years out.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="game">50 titles</span><span class="tile-more">See more →</span></span>
+          <span class="tile-covers" data-tilekey="game" aria-hidden="true"><img src="https://images.igdb.com/igdb/image/upload/t_cover_big/cobc6d.jpg" alt="" loading="lazy"><img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co95i0.jpg" alt="" loading="lazy"><img src="https://images.igdb.com/igdb/image/upload/t_cover_big/coaott.jpg" alt="" loading="lazy"></span>
         </a>
     </div>
     <div class="cat-strips">
@@ -1211,50 +1258,68 @@
       <p class="section-body">Elke categorie heeft zijn eigen fandom — en zijn eigen app. TSUGI brengt ze allemaal samen, met overal dezelfde volgtools.</p>
     </div>
     <div class="cat-bento">
-        <a class="cat-tile hue-anime" href="#cat-anime-nl" data-reveal="">
+        <a class="cat-tile hue-anime" href="categorie.html?cat=anime&amp;lang=nl" data-reveal="">
           <span class="cat-num">01</span>
           <h3>Anime</h3>
           <p>Seizoenen, films en OVA's, episode per episode gevolgd.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="anime">50 titels</span><span class="tile-more">Meer zien →</span></span>
+          <span class="tile-covers" data-tilekey="anime" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx181641-4BnzXGnA7CJL.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manga" href="#cat-manga-nl" data-reveal="">
+        <a class="cat-tile hue-manga" href="categorie.html?cat=manga&amp;lang=nl" data-reveal="">
           <span class="cat-num">02</span>
           <h3>Manga</h3>
           <p>Gelezen hoofdstukken, lopende of afgeronde series.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="manga">50 titels</span><span class="tile-more">Meer zien →</span></span>
+          <span class="tile-covers" data-tilekey="manga" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx30013-BeslEMqiPhlk.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx140475-QEGtrmdvbpOv.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manhwa" href="#cat-manhwa-nl" data-reveal="">
+        <a class="cat-tile hue-manhwa" href="categorie.html?cat=manhwa&amp;lang=nl" data-reveal="">
           <span class="cat-num">03</span>
           <h3>Manhwa</h3>
           <p>Koreaanse webtoons, van oneshot tot langlopende serie.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="manhwa">50 titels</span><span class="tile-more">Meer zien →</span></span>
+          <span class="tile-covers" data-tilekey="manhwa" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx120980-RZ9WLd0o9hyo.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx159441-9W8201jAT9Yv.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx183376-Cw3VnZAItw2a.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manhua" href="#cat-manhua-nl" data-reveal="">
+        <a class="cat-tile hue-manhua" href="categorie.html?cat=manhua&amp;lang=nl" data-reveal="">
           <span class="cat-num">04</span>
           <h3>Manhua</h3>
           <p>Chinese strips, cultivation en fantasy.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="manhua">50 titels</span><span class="tile-more">Meer zien →</span></span>
+          <span class="tile-covers" data-tilekey="manhua" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/b167372-zfQUGcQMWiAI.png" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx160980-KAM0gr3dSMvB.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx116353-DYuIigXuPwpZ.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-webtoon" href="#cat-webtoon-nl" data-reveal="">
+        <a class="cat-tile hue-webtoon" href="categorie.html?cat=webtoon&amp;lang=nl" data-reveal="">
           <span class="cat-num">05</span>
           <h3>Webtoon</h3>
           <p>Verticaal formaat, bijgewerkt bij elke nieuwe release.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="webtoon">50 titels</span><span class="tile-more">Meer zien →</span></span>
+          <span class="tile-covers" data-tilekey="webtoon" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx119257-Pi21aq3ey9GG.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx128067-wnLBg6Cy1ncs.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx103156-yTVWAW2N8uGi.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-series" href="#cat-series-nl" data-reveal="">
+        <a class="cat-tile hue-series" href="categorie.html?cat=series&amp;lang=nl" data-reveal="">
           <span class="cat-num">06</span>
           <h3>Series</h3>
           <p>Verlengingen gevolgd, ook als een datum verandert.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="series">50 titels</span><span class="tile-more">Meer zien →</span></span>
+          <span class="tile-covers" data-tilekey="series" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/tgGsACYKoMAtclxXkBkHhl3EvYa.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/zNH0vo3rvRTklF0gui5Ntr4DBAA.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/pQKofoTaTnwQopuU1crUEEqtAfg.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-drama" href="#cat-drama-nl" data-reveal="">
+        <a class="cat-tile hue-drama" href="categorie.html?cat=drama&amp;lang=nl" data-reveal="">
           <span class="cat-num">07</span>
           <h3>Dramas</h3>
           <p>K-drama, J-drama en C-drama, nu in uitzending.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="drama">18 titels</span><span class="tile-more">Meer zien →</span></span>
+          <span class="tile-covers" data-tilekey="drama" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/5SzLNVXBqpukDEwYkkocXZy8dd.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/cWXBisC8gIrGB8UfxKXaoHLxBH2.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/3L8El6VH4CL1pdz9JgnGsHXeGra.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-movie" href="#cat-movie-nl" data-reveal="">
+        <a class="cat-tile hue-movie" href="categorie.html?cat=movie&amp;lang=nl" data-reveal="">
           <span class="cat-num">08</span>
           <h3>Films</h3>
           <p>Aankomende releases, van festival tot bioscoop.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="movie">50 titels</span><span class="tile-more">Meer zien →</span></span>
+          <span class="tile-covers" data-tilekey="movie" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/pICoWjcKSet6sA3yzxOkP8ChwYI.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/tGdFDoA9qyt0t6Qr9MFnOl8Z2Jz.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-game" href="#cat-game-nl" data-reveal="">
+        <a class="cat-tile hue-game" href="categorie.html?cat=game&amp;lang=nl" data-reveal="">
           <span class="cat-num">09</span>
           <h3>Games</h3>
           <p>Bevestigde releasedata, zelfs jaren vooruit.</p>
+          <span class="tile-foot"><span class="tile-count" data-tilekey="game">50 titels</span><span class="tile-more">Meer zien →</span></span>
+          <span class="tile-covers" data-tilekey="game" aria-hidden="true"><img src="https://images.igdb.com/igdb/image/upload/t_cover_big/cobc6d.jpg" alt="" loading="lazy"><img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co95i0.jpg" alt="" loading="lazy"><img src="https://images.igdb.com/igdb/image/upload/t_cover_big/coaott.jpg" alt="" loading="lazy"></span>
         </a>
     </div>
     <div class="cat-strips">

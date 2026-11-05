@@ -142,10 +142,10 @@
   .section-body { margin-top: 16px; color: var(--ink-dim); font-size: 16px; }
 
   /* ---------- category bento ---------- */
-  .cat-bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+  .cat-bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
   .cat-tile {
-    grid-column: span 2; position: relative; padding: 22px; border-radius: var(--radius-sm);
-    background: var(--glass); border: 1px solid var(--border); overflow: hidden;
+    position: relative; display: flex; flex-direction: column; min-height: 220px; padding: 22px; border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--tile-bg), transparent 65%), var(--glass); border: 1px solid var(--border); overflow: hidden;
     transition: transform .2s, border-color .2s, background .2s;
   }
   .cat-tile:hover { transform: translateY(-3px); border-color: var(--border-strong); background: var(--glass-hover); }
@@ -155,9 +155,20 @@
   .cat-tile .cat-num { font-family: var(--font-display); font-size: 12px; color: var(--tile-c); font-weight: 700; }
   .cat-tile h3 { font-size: 19px; margin: 10px 0 6px; }
   .cat-tile p { font-size: 13.5px; color: var(--ink-dim); }
-  .cat-tile:nth-child(1) { grid-column: span 3; grid-row: span 2; padding: 28px; }
-  .cat-tile:nth-child(1) h3 { font-size: 26px; }
-  .cat-tile:nth-child(6) { grid-column: span 3; }
+  .cat-tile h3, .cat-tile p { max-width: 58%; }
+  .cat-tile:hover { border-color: var(--tile-c); }
+  .tile-foot { margin-top: auto; padding-top: 18px; display: flex; flex-direction: column; gap: 2px; }
+  .tile-count { font-size: 12px; color: var(--ink-faint); }
+  .tile-more { font-size: 13px; font-weight: 700; color: var(--tile-c); }
+  /* three real covers of the category, fanned out (filled by build.js) */
+  .tile-covers { position: absolute; right: 18px; bottom: 18px; width: 150px; height: 140px; }
+  .tile-covers img { position: absolute; bottom: 0; width: 72px; aspect-ratio: 2/3; object-fit: cover; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 10px 24px -8px rgba(0,0,0,0.7); transition: transform .25s; }
+  .tile-covers img:nth-child(1) { right: 64px; transform: rotate(-10deg); }
+  .tile-covers img:nth-child(2) { right: 34px; transform: rotate(-2deg) translateY(-8px); z-index: 1; }
+  .tile-covers img:nth-child(3) { right: 0; transform: rotate(8deg); z-index: 2; }
+  .cat-tile:hover .tile-covers img:nth-child(1) { transform: rotate(-14deg) translateX(-6px); }
+  .cat-tile:hover .tile-covers img:nth-child(3) { transform: rotate(12deg) translateX(6px); }
 
   .hue-anime { --tile-c: var(--c-anime); --tile-bg: var(--c-anime-bg); }
   .hue-manga { --tile-c: var(--c-manga); --tile-bg: var(--c-manga-bg); }
@@ -274,8 +285,8 @@
     .hero-art { height: 320px; order: -1; }
     .hero-art .phone { width: 160px; }
     .phone-a { left: 60px; } .phone-b { left: 170px; top: 30px; } .phone-c { left: -20px; }
-    .cat-bento { grid-template-columns: repeat(2, 1fr); }
-    .cat-tile, .cat-tile:nth-child(1), .cat-tile:nth-child(6) { grid-column: span 2; grid-row: auto; }
+    .cat-bento { grid-template-columns: 1fr; }
+    .cat-tile { min-height: 190px; }
     .cat-grid { grid-template-columns: repeat(2, 1fr); }
     .feat-grid { grid-template-columns: 1fr; }
     .feat-card, .feat-wide { grid-column: span 1; }
