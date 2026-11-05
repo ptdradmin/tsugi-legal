@@ -79,6 +79,20 @@ const LOCAL_REGIONS = ['BE', 'FR'];
 // Countries shown in the detail page's "release by continent" table (fiche.html groups them).
 const WORLD_COUNTRIES = ['BE', 'FR', 'NL', 'GB', 'DE', 'ES', 'IT', 'US', 'CA', 'MX', 'BR', 'AR', 'KR', 'JP', 'CN', 'IN', 'TH', 'AU', 'NZ', 'ZA', 'MA', 'NG', 'AE'];
 
+// TMDB notes are free text ("On Youtube", "Subtitled Version", a channel name...): keep only real
+// platforms, normalized; anything else falls back to the subscription-provider lookup.
+const PLATFORMS = [
+  [/netflix/i, 'Netflix'], [/prime|amazon/i, 'Prime Video'], [/disney/i, 'Disney+'], [/apple/i, 'Apple TV'],
+  [/canal/i, 'Canal+'], [/arte/i, 'Arte.tv'], [/france\.?tv|france t[ée]l/i, 'France.tv'], [/m6/i, 'M6+'], [/tf1/i, 'TF1+'],
+  [/tv5/i, 'TV5+'], [/crunchyroll/i, 'Crunchyroll'], [/\bmax\b|hbo/i, 'Max'], [/paramount/i, 'Paramount+'],
+  [/mubi/i, 'MUBI'], [/youtube/i, 'YouTube'], [/vrt/i, 'VRT MAX'], [/auvio|rtbf/i, 'RTBF Auvio'], [/streamz/i, 'Streamz'],
+  [/goplay/i, 'GoPlay'], [/pickx|proximus/i, 'Pickx'], [/sky/i, 'SkyShowtime'], [/universcin/i, 'UniversCiné'],
+];
+function platformName(note) {
+  const hit = PLATFORMS.find(([re]) => re.test(note || ''));
+  return hit ? hit[1] : null;
+}
+
 // Fallback when the digital release has no note: the BE (else FR) subscription platform.
 async function subscriptionPlatform(id) {
   try {
@@ -97,7 +111,7 @@ async function localRelease(id, types = [2, 3, 4], fromDate = null) {
       .flatMap(c => (c.release_dates || []).map(d => ({ ...d, country: c.iso_3166_1 })))
       .filter(d => types.includes(d.type) && d.release_date && (!fromDate || d.release_date.slice(0, 10) >= fromDate))
       // "Streaming" alone says nothing: TMDB's note on a digital release names the platform ("Netflix").
-      .map(d => ({ country: d.country, date: d.release_date.slice(0, 10), kind: d.type === 4 ? 'streaming' : 'cinema', platform: d.type === 4 ? (d.note || '').replace(/\s*release$/i, '').trim() || null : null }))
+      .map(d => ({ country: d.country, date: d.release_date.slice(0, 10), kind: d.type === 4 ? 'streaming' : 'cinema', platform: d.type === 4 ? platformName(d.note) : null }))
       .sort((a, b) => a.date.localeCompare(b.date));
     const local = firstOf(LOCAL_REGIONS)[0];
     // The world table always shows every release kind, whatever filter picked the local date.
@@ -537,8 +551,12 @@ async function main() {
     fetchMangaDexWebtoons(),
   ]);
   // Films = cinema + streaming; a film in both keeps its cinema entry (ids must stay unique for fiche.html).
+  // 80 films (8 pages of 10): half cinema, half streaming, the other side filling in if one is short.
+  const FILMS_TOTAL = 80;
   const cinemaIds = new Set(cinemaMovies.map(m => m.id));
-  const movies = [...cinemaMovies, ...streamingMovies.filter(m => !cinemaIds.has(m.id))];
+  const streamOnly = streamingMovies.filter(m => !cinemaIds.has(m.id));
+  const nCinema = Math.min(cinemaMovies.length, Math.max(FILMS_TOTAL / 2, FILMS_TOTAL - streamOnly.length));
+  const movies = [...cinemaMovies.slice(0, nCinema), ...streamOnly.slice(0, FILMS_TOTAL - nCinema)];
   log('FETCH', `Films: ${cinemaMovies.length} cinema + ${streamingMovies.length} streaming`);
   // AniList rate-limits bursts: the three comic queries go one after another.
   const manga = await fetchAniListComics('JP', 'manga');
