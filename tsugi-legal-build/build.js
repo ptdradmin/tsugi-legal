@@ -11,23 +11,26 @@ import fs from 'fs';
 import path from 'path';
 
 // ========== CONFIGURATION ==========
+// Secrets pasted into GitHub with a trailing newline/space broke the IGDB call ("Invalid character
+// in header content") — every value is trimmed so that can't happen again.
+const env = (name) => process.env[name]?.trim() || undefined;
 const CONFIG = {
   // API Keys (set via GitHub Secrets)
-  TMDB_API_KEY: process.env.TMDB_API_KEY,
-  ANILIST_CLIENT_ID: process.env.ANILIST_CLIENT_ID,
-  ANILIST_CLIENT_SECRET: process.env.ANILIST_CLIENT_SECRET,
-  IGDB_CLIENT_ID: process.env.IGDB_CLIENT_ID,
-  IGDB_CLIENT_SECRET: process.env.IGDB_CLIENT_SECRET,
-  BETASERIES_API_KEY: process.env.BETASERIES_API_KEY,
-  BETASERIES_TOKEN: process.env.BETASERIES_TOKEN,
+  TMDB_API_KEY: env('TMDB_API_KEY'),
+  ANILIST_CLIENT_ID: env('ANILIST_CLIENT_ID'),
+  ANILIST_CLIENT_SECRET: env('ANILIST_CLIENT_SECRET'),
+  IGDB_CLIENT_ID: env('IGDB_CLIENT_ID'),
+  IGDB_CLIENT_SECRET: env('IGDB_CLIENT_SECRET'),
+  BETASERIES_API_KEY: env('BETASERIES_API_KEY'),
+  BETASERIES_TOKEN: env('BETASERIES_TOKEN'),
   // Same Supabase project the Android app uses, for the IGDB proxy (games have no free direct API).
   // SUPABASE_ANON_KEY is the public/RLS-protected key — same one already shipped inside the app's
   // compiled APK — but it's read from env like every other credential here, not hardcoded.
-  SUPABASE_URL: process.env.SUPABASE_URL,
-  SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+  SUPABASE_URL: env('SUPABASE_URL'),
+  SUPABASE_ANON_KEY: env('SUPABASE_ANON_KEY'),
   // Optional: AI for descriptions
-  OPENAI_API_KEY: process.env.OPENAI_API_KEY,
-  ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
+  OPENAI_API_KEY: env('OPENAI_API_KEY'),
+  ANTHROPIC_API_KEY: env('ANTHROPIC_API_KEY'),
   
   // Filters
   DAYS_AHEAD: 30, // Calendar covers 30 days, Feed shows 30+ days
@@ -57,11 +60,12 @@ function esc(s) {
 // TMDB
 async function fetchTMDBUpcomingMovies() {
   if (!CONFIG.TMDB_API_KEY) return [];
-  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&region=BE&sort_by=release_date.asc&include_adult=false&include_video=false&page=1&release_date.gte=${getDateOffset(CONFIG.DAYS_AHEAD)}&release_date.lte=${getDateOffset(365)}`;
+  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&region=BE&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${getDateOffset(CONFIG.DAYS_AHEAD)}&release_date.lte=${getDateOffset(365)}`;
   try {
     const res = await fetch(url);
     const data = await res.json();
-    return (data.results || []).slice(0, CONFIG.LIMIT_PER_CATEGORY).map(m => ({
+    return (data.results || []).slice(0, CONFIG.LIMIT_PER_CATEGORY)
+      .sort((a, b) => (a.release_date || '').localeCompare(b.release_date || '')).map(m => ({
       type: 'movie',
       title: m.title,
       original_title: m.original_title,
@@ -78,13 +82,38 @@ async function fetchTMDBUpcomingMovies() {
   }
 }
 
+const ASIAN_LANGS = ['ko', 'ja', 'zh', 'cn'];
+
+// Dramas: TMDB Korean/Japanese/Chinese live-action series, same source as the app's Dramas tab
+// (BetaSeries' planning/upcoming endpoint is dead — it answers "No entry ..." as plain text).
+async function fetchTMDBDramas() {
+  if (!CONFIG.TMDB_API_KEY) return [];
+  const url = `https://api.themoviedb.org/3/discover/tv?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&page=1&first_air_date.gte=${getDateOffset(CONFIG.DAYS_AHEAD)}&first_air_date.lte=${getDateOffset(365)}&with_original_language=ko|ja|zh&without_genres=16,10763,10764,10766,10767`;
+  try {
+    const data = await (await fetch(url)).json();
+    return (data.results || []).slice(0, CONFIG.LIMIT_PER_CATEGORY)
+      .sort((a, b) => (a.first_air_date || '').localeCompare(b.first_air_date || '')).map(s => ({
+        type: 'drama',
+        name: s.name,
+        first_air_date: s.first_air_date,
+        overview: s.overview,
+        poster_path: s.poster_path ? `https://image.tmdb.org/t/p/w342${s.poster_path}` : null,
+        id: s.id,
+      }));
+  } catch (e) {
+    log('TMDB-DRAMA', `Error: ${e.message}`);
+    return [];
+  }
+}
+
 async function fetchTMDBUpcomingTV() {
   if (!CONFIG.TMDB_API_KEY) return [];
-  const url = `https://api.themoviedb.org/3/discover/tv?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&sort_by=first_air_date.asc&include_adult=false&page=1&first_air_date.gte=${getDateOffset(CONFIG.DAYS_AHEAD)}&first_air_date.lte=${getDateOffset(365)}&without_genres=16,10763,10764,10766,10767`;
+  const url = `https://api.themoviedb.org/3/discover/tv?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&page=1&first_air_date.gte=${getDateOffset(CONFIG.DAYS_AHEAD)}&first_air_date.lte=${getDateOffset(365)}&without_genres=16,10763,10764,10766,10767`;
   try {
     const res = await fetch(url);
     const data = await res.json();
-    return (data.results || []).slice(0, CONFIG.LIMIT_PER_CATEGORY).map(s => ({
+    return (data.results || []).filter(s => !ASIAN_LANGS.includes(s.original_language)).slice(0, CONFIG.LIMIT_PER_CATEGORY)
+      .sort((a, b) => (a.first_air_date || '').localeCompare(b.first_air_date || '')).map(s => ({
       type: 'series',
       name: s.name,
       original_name: s.original_name,
@@ -156,7 +185,8 @@ async function fetchIGDBGames() {
     return [];
   }
   const nowSec = Math.floor(Date.now() / 1000);
-  const query = `fields name, first_release_date, summary, cover.url, cover.image_id; where first_release_date >= ${nowSec}; sort first_release_date asc; limit ${CONFIG.LIMIT_PER_CATEGORY};`;
+  const fromSec = nowSec + CONFIG.DAYS_AHEAD * 86400;
+  const query = `fields name, first_release_date, summary, cover.url, cover.image_id, hypes; where first_release_date >= ${fromSec} & hypes > 0 & cover != null; sort hypes desc; limit ${CONFIG.LIMIT_PER_CATEGORY};`;
   try {
     const res = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/rpc/igdb_proxy`, {
       method: 'POST',
@@ -168,7 +198,8 @@ async function fetchIGDBGames() {
       body: JSON.stringify({ p_endpoint: 'games', p_query: query }),
     });
     const data = await res.json();
-    const games = Array.isArray(data) ? data : [];
+    if (!Array.isArray(data)) log('IGDB', `Unexpected response: ${JSON.stringify(data).slice(0, 200)}`);
+    const games = (Array.isArray(data) ? data : []).sort((a, b) => (a.first_release_date || 0) - (b.first_release_date || 0));
     return games.slice(0, CONFIG.LIMIT_PER_CATEGORY).map(g => ({
       type: 'game',
       title: g.name,
@@ -179,32 +210,6 @@ async function fetchIGDBGames() {
     }));
   } catch (e) {
     log('IGDB', `Error: ${e.message}`);
-    return [];
-  }
-}
-
-// BetaSeries — dramas & series planning
-async function fetchBetaSeriesUpcoming() {
-  if (!CONFIG.BETASERIES_API_KEY) return [];
-  try {
-    const res = await fetch('https://api.betaseries.com/planning/upcoming', {
-      headers: {
-        'X-BetaSeries-Key': CONFIG.BETASERIES_API_KEY,
-        'X-BetaSeries-Version': '3.0',
-      },
-    });
-    const data = await res.json();
-    const items = data.episodes || data.planning || [];
-    return items.filter(it => it.show).slice(0, CONFIG.LIMIT_PER_CATEGORY).map(it => ({
-      type: 'drama',
-      title: it.show.title,
-      release_date: it.date ? it.date.split(' ')[0] : null,
-      overview: it.show.description,
-      poster_path: it.show.poster || it.show.images?.poster,
-      id: it.show.id,
-    }));
-  } catch (e) {
-    log('BetaSeries', `Error: ${e.message}`);
     return [];
   }
 }
@@ -277,6 +282,9 @@ function generateCategoryHTML(items, category, lang) {
     const sd = item.startDate;
     const date = item.release_date || item.first_air_date ||
       (sd && sd.year && sd.month && sd.day ? `${sd.year}-${String(sd.month).padStart(2,'0')}-${String(sd.day).padStart(2,'0')}` : null);
+    const partial = !date && sd && sd.year
+      ? (sd.month ? new Date(sd.year, sd.month - 1, 1).toLocaleDateString({ fr: 'fr-FR', en: 'en-US', nl: 'nl-NL' }[lang], { month: 'long', year: 'numeric' }) : String(sd.year))
+      : null;
     const rawTitle = item.title || item.name || item.romaji || 'Sans titre';
     const title = esc(rawTitle);
     const poster = item.poster_path || item.coverImage;
@@ -293,7 +301,7 @@ function generateCategoryHTML(items, category, lang) {
         <span class="idx">${String(i+1).padStart(2,'0')}</span>
         <h3>${title}</h3>
         ${media}
-        <p class="release-date">${label} · ${dateFormatter(date)}</p>
+        <p class="release-date">${label} · ${partial || dateFormatter(date)}</p>
         <p class="blurb">${blurb.slice(0, 120)}${blurb.length > 120 ? '…' : ''}</p>
       </div>
     `;
@@ -311,7 +319,7 @@ async function main() {
     fetchTMDBUpcomingTV(),
     fetchAniListUpcoming(),
     fetchIGDBGames(),
-    fetchBetaSeriesUpcoming(),
+    fetchTMDBDramas(),
   ]);
 
   log('FETCH', `Got ${movies.length} movies, ${series.length} series, ${anime.length} anime, ${games.length} games, ${dramas.length} dramas`);
