@@ -187,6 +187,11 @@
   .pager { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 32px 0 60px; color: var(--ink-dim); font-size: 14px; }
   .pager .btn:disabled { opacity: .35; cursor: default; }
   .cp-empty { color: var(--ink-dim); text-align: center; padding: 40px 0; }
+  .kind-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .kind-chips[hidden] { display: none; }
+  .kind-chip { font: inherit; font-size: 13px; font-weight: 700; padding: 8px 14px; border-radius: 999px; cursor: pointer;
+    background: var(--glass); border: 1px solid var(--border); color: var(--ink-dim); }
+  .kind-chip.active { background: var(--tile-c, var(--brand)); border-color: transparent; color: #0a0a0f; }
   a.cat-card { display: block; color: inherit; text-decoration: none; }
   /* detail page */
   .fiche-body { display: grid; grid-template-columns: minmax(220px, 340px) 1fr; gap: 40px; align-items: start; }

@@ -90,16 +90,18 @@ async function subscriptionPlatform(id) {
 
 // First BE/FR release, in cinemas (TMDB types 2 limited / 3 theatrical) or on streaming (4 digital),
 // plus each listed country's first release for the detail page.
-async function localRelease(id) {
+async function localRelease(id, types = [2, 3, 4], fromDate = null) {
   try {
     const data = await (await fetch(`https://api.themoviedb.org/3/movie/${id}/release_dates?api_key=${CONFIG.TMDB_API_KEY}`)).json();
     const firstOf = (countries) => (data.results || []).filter(c => countries.includes(c.iso_3166_1))
       .flatMap(c => (c.release_dates || []).map(d => ({ ...d, country: c.iso_3166_1 })))
-      .filter(d => [2, 3, 4].includes(d.type) && d.release_date)
+      .filter(d => types.includes(d.type) && d.release_date && (!fromDate || d.release_date.slice(0, 10) >= fromDate))
       // "Streaming" alone says nothing: TMDB's note on a digital release names the platform ("Netflix").
-      .map(d => ({ country: d.country, date: d.release_date.slice(0, 10), kind: d.type === 4 ? 'streaming' : 'cinema', platform: d.type === 4 ? (d.note || '').trim() || null : null }))
+      .map(d => ({ country: d.country, date: d.release_date.slice(0, 10), kind: d.type === 4 ? 'streaming' : 'cinema', platform: d.type === 4 ? (d.note || '').replace(/\s*release$/i, '').trim() || null : null }))
       .sort((a, b) => a.date.localeCompare(b.date));
     const local = firstOf(LOCAL_REGIONS)[0];
+    // The world table always shows every release kind, whatever filter picked the local date.
+    if (types.length < 3 || fromDate) { types = [2, 3, 4]; fromDate = null; }
     if (!local) return null;
     if (local.kind === 'streaming' && !local.platform) local.platform = await subscriptionPlatform(id);
     const world = [];
@@ -314,6 +316,38 @@ async function fetchMangaDexWebtoons() {
   }
 }
 
+async function fetchTMDBStreamingMovies() {
+  if (!CONFIG.TMDB_API_KEY) return [];
+  try {
+    const seen = new Set();
+    const candidates = [];
+    for (const region of LOCAL_REGIONS) {
+      const url = `https://api.themoviedb.org/3/discover/movie?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&region=${region}&with_release_type=4&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${getDateOffset(0)}&release_date.lte=${getDateOffset(365)}`;
+      for (const m of await tmdbResults(url, 5)) if (!seen.has(m.id)) { seen.add(m.id); candidates.push(m); }
+    }
+    candidates.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+    const out = [];
+    for (let k = 0; k < candidates.length && out.length < CONFIG.FULL_LIMIT; k += 10) {
+      const batch = candidates.slice(k, k + 10);
+      const releases = await Promise.all(batch.map(m => localRelease(m.id, [4], getDateOffset(0))));
+      batch.forEach((m, n) => {
+        const local = releases[n];
+        if (!local || out.length >= CONFIG.FULL_LIMIT) return;
+        out.push({
+          type: 'movie', title: m.title, original_title: m.original_title, release_date: local.date,
+          releaseKind: 'streaming', platform: local.platform, world: local.world, overview: m.overview,
+          poster_path: m.poster_path ? `https://image.tmdb.org/t/p/w342${m.poster_path}` : null,
+          genre_ids: m.genre_ids, vote_average: m.vote_average, id: m.id,
+        });
+      });
+    }
+    return out;
+  } catch (e) {
+    log('TMDB-Streaming', `Error: ${e.message}`);
+    return [];
+  }
+}
+
 // IGDB, via the same Supabase RPC proxy the Android app uses (games have no free direct API).
 async function fetchIGDBGames() {
   if (!CONFIG.SUPABASE_URL || !CONFIG.SUPABASE_ANON_KEY) {
@@ -455,6 +489,7 @@ function toPublicItem(item, category) {
     poster: item.poster_path || item.coverImage || null,
     blurb: (item.overview || item.description || '').slice(0, 1500),
     url: sourceUrl(item, category),
+    ...(item.releaseKind ? { kind: item.releaseKind } : {}),
     ...(item.world ? { world: item.world.map(w => ({ c: w.country, d: w.date, k: w.kind, ...(w.platform ? { p: w.platform } : {}) })) } : {}),
     date: { fr: itemDateLabel(item, category, 'fr'), en: itemDateLabel(item, category, 'en'), nl: itemDateLabel(item, category, 'nl') },
   };
@@ -492,14 +527,19 @@ async function main() {
   
   // Fetch all data in parallel
   log('FETCH', 'Calling APIs...');
-  const [movies, series, anime, games, dramas, webtoons] = await Promise.all([
+  const [cinemaMovies, series, streamingMovies, anime, games, dramas, webtoons] = await Promise.all([
     fetchTMDBUpcomingMovies(),
     fetchTMDBUpcomingTV(),
+    fetchTMDBStreamingMovies(),
     fetchAniListUpcoming(),
     fetchIGDBGames(),
     fetchTMDBDramas(),
     fetchMangaDexWebtoons(),
   ]);
+  // Films = cinema + streaming; a film in both keeps its cinema entry (ids must stay unique for fiche.html).
+  const cinemaIds = new Set(cinemaMovies.map(m => m.id));
+  const movies = [...cinemaMovies, ...streamingMovies.filter(m => !cinemaIds.has(m.id))];
+  log('FETCH', `Films: ${cinemaMovies.length} cinema + ${streamingMovies.length} streaming`);
   // AniList rate-limits bursts: the three comic queries go one after another.
   const manga = await fetchAniListComics('JP', 'manga');
   const manhwa = await fetchAniListComics('KR', 'manhwa');
@@ -545,7 +585,9 @@ async function main() {
         // Yesterday's run already injected .dynamic cards into this same committed index.html —
         // without clearing them first, every successful run piles more on top of the last forever.
         catGrid.find('.cat-card.dynamic').remove();
-        const landing = byDate(items.slice(0, CONFIG.LIMIT_PER_CATEGORY));
+        // Films: up to two streaming releases, the rest of the four from cinema.
+        const streamPick = catKey === 'movie' ? items.filter(m => m.releaseKind === 'streaming').slice(0, 2) : [];
+        const landing = byDate([...streamPick, ...items.filter(m => !streamPick.includes(m)).slice(0, CONFIG.LIMIT_PER_CATEGORY - streamPick.length)]);
         catGrid.append(generateCategoryHTML(landing, catKey, lang));
         log('INJECT', `Injected ${landing.length} ${catKey} items into ${lang}`);
       }
