@@ -222,22 +222,34 @@ async function fetchAniListComics(country, type) {
 // Webtoon: MangaDex's "Long Strip" tag is the vertical-scroll format itself, most-followed ongoing first.
 async function fetchMangaDexWebtoons() {
   const LONG_STRIP = '3e2b8dae-350e-4ab8-a8ce-016e844b9f0d';
-  const url = `https://api.mangadex.org/manga?limit=70&includedTags[]=${LONG_STRIP}&status[]=ongoing&order[followedCount]=desc&includes[]=cover_art&contentRating[]=safe&contentRating[]=suggestive&availableTranslatedLanguage[]=en`;
+  const url = `https://api.mangadex.org/manga?limit=70&includedTags[]=${LONG_STRIP}&status[]=ongoing&order[followedCount]=desc&contentRating[]=safe&contentRating[]=suggestive&availableTranslatedLanguage[]=en`;
   try {
     const data = await (await fetch(url, { headers: { 'User-Agent': 'tsugi-legal-build' } })).json();
-    return (data.data || []).map(m => {
-      const cover = m.relationships?.find(r => r.type === 'cover_art')?.attributes?.fileName;
+    const list = (data.data || []).map(m => {
       const t = m.attributes?.title || {};
-      // Main title is often the romanized original; the English one sits in altTitles (longest = not an acronym like "TBATE").
       return {
         type: 'webtoon',
+        // Main title is often the romanized original; the English one sits in altTitles (longest = not an acronym like "TBATE").
         title: t.en || (m.attributes?.altTitles || []).map(a => a.en).filter(Boolean).sort((a, b) => b.length - a.length)[0] || Object.values(t)[0] || '',
-        coverImage: cover ? `https://uploads.mangadex.org/covers/${m.id}/${cover}.512.jpg` : null,
         overview: m.attributes?.description?.fr || m.attributes?.description?.en || '',
         statusKey: 'ongoing',
+        alId: parseInt(m.attributes?.links?.al, 10) || null,
         id: m.id,
       };
-    }).filter(w => w.title && w.coverImage).slice(0, CONFIG.FULL_LIMIT);
+    }).filter(w => w.title && w.alId);
+    // Covers come from AniList (via MangaDex's own AniList link): uploads.mangadex.org serves a
+    // "read it on mangadex.org" placeholder instead of the cover when embedded on another site.
+    const covers = {};
+    const ids = list.map(w => w.alId);
+    for (let k = 0; k < ids.length; k += 50) {
+      const res = await fetch('https://graphql.anilist.co', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: 'query ($ids: [Int]) { Page(perPage: 50) { media(id_in: $ids, type: MANGA) { id coverImage { large } } } }', variables: { ids: ids.slice(k, k + 50) } }),
+      });
+      for (const m of (await res.json()).data?.Page?.media || []) if (m.coverImage?.large) covers[m.id] = m.coverImage.large;
+    }
+    return list.map(w => ({ ...w, coverImage: covers[w.alId] || null })).filter(w => w.coverImage).slice(0, CONFIG.FULL_LIMIT);
   } catch (e) {
     log('MangaDex', `Error: ${e.message}`);
     return [];
