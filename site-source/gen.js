@@ -18,6 +18,11 @@ const CATS = [
 // lands in the right strip. Comics (manga/manhwa/manhua/webtoon) have no release dates, so their
 // strip shows trending ongoing titles under a "popular" pill instead of "upcoming".
 
+// Same map as build.js / pages.js / app.js (CAT_SLUGS) — keep in sync.
+const CAT_SLUGS = { anime: 'anime', manga: 'manga', manhwa: 'manhwa', manhua: 'manhua', webtoon: 'webtoon', series: 'series', drama: 'dramas', movie: 'films', game: 'jeux' };
+const LANG_PREFIX = { fr: '', en: '/en', nl: '/nl' };
+const catUrl = (key, lang) => `${LANG_PREFIX[lang]}/${CAT_SLUGS[key]}/`;
+
 const T = {
   fr: {
     nav: ['Catégories', 'Fonctionnalités', 'FAQ', 'Confidentialité'],
@@ -206,7 +211,7 @@ function categoriesHtml(lang) {
   const tiles = CATS.map(c => {
     const [name, desc] = t.cats[c.key];
     return `
-        <a class="cat-tile hue-${c.hue}" href="categorie.html?cat=${c.key}&amp;lang=${lang}" data-reveal>
+        <a class="cat-tile hue-${c.hue}" href="${catUrl(c.key, lang)}" data-reveal>
           <span class="cat-num">${c.num}</span>
           <h3>${esc(name)}</h3>
           <p>${esc(desc)}</p>
@@ -217,7 +222,7 @@ function categoriesHtml(lang) {
   const COMICS = ['manga', 'manhwa', 'manhua', 'webtoon'];
   const strips = CATS.map(c => `
         <div class="cat-strip hue-${c.hue}" id="cat-${c.key}-${lang}">
-          <div class="cat-strip-head"><span class="cat-num">${c.num}</span><h3>${esc(t.cats[c.key][0])}</h3><span class="pill">${esc(COMICS.includes(c.key) ? t.popularLabel : t.upcomingLabel)}</span><a class="see-more" href="categorie.html?cat=${c.key}&amp;lang=${lang}">${esc(t.seeMore)} →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">${c.num}</span><h3>${esc(t.cats[c.key][0])}</h3><span class="pill">${esc(COMICS.includes(c.key) ? t.popularLabel : t.upcomingLabel)}</span><a class="see-more" href="${catUrl(c.key, lang)}">${esc(t.seeMore)} →</a></div>
           <div class="cat-grid" data-catkey="${c.key}"></div>
         </div>`).join('');
   return `
@@ -350,7 +355,8 @@ ${langs.map(joinHtml).join('')}
 ${langs.map(footerBrand).join('')}
 </footer>
 
-<script>document.querySelectorAll('.year').forEach(function(e){e.textContent=new Date().getFullYear();});</script>
+<script>document.querySelectorAll('.year').forEach(function(e){e.textContent=new Date().getFullYear();});
+var m = location.hash.match(/-(fr|en|nl)$/); if (m) { var r = document.getElementById('lang-' + m[1]); if (r) r.checked = true; }</script>
 </body></html>
 `;
 
@@ -364,245 +370,26 @@ const pageI18n = Object.fromEntries(langs.map(l => [l, {
   backCat: T[l].backCat, synopsis: T[l].synopsis, source: T[l].source, follow: T[l].follow, notFound: T[l].notFound,
   world: T[l].world, worldNote: T[l].worldNote, continents: T[l].continents, kinds: T[l].kinds, filterAll: T[l].filterAll,
 }]));
-const catPage = `<!DOCTYPE html><html lang="fr"><head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
-<title>TSUGI — Catégorie</title>
-<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-${style}
-</style>
-</head>
-<body>
-<header class="site-nav">
-  <a class="brand" href="index.html"><span class="glyph">次</span><strong>TSUGI</strong></a>
-  <div class="nav-right">
-    <div class="lang-switch" id="cp-langs"><a data-l="fr">FR</a><a data-l="en">EN</a><a data-l="nl">NL</a></div>
-    <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=app.tsugi.android">Google Play</a>
-  </div>
-</header>
-<main class="section cat-page" id="cp">
-  <a class="see-more cp-back" id="cp-back" href="index.html"></a>
-  <div class="cat-strip-head" id="cp-head"><span class="cat-num" id="cp-num"></span><h1 id="cp-title"></h1><span class="pill" id="cp-pill"></span></div>
-  <div class="kind-chips" id="cp-kinds" hidden></div>
-  <div class="cat-grid page-grid" id="cp-grid"></div>
-  <p class="cp-empty" id="cp-empty" hidden></p>
-  <nav class="pager" id="cp-pager" hidden>
-    <button class="btn btn-ghost" id="cp-prev"></button><span id="cp-info"></span><button class="btn btn-ghost" id="cp-next"></button>
-  </nav>
-</main>
-<script>
-(function () {
-  var I18N = ${JSON.stringify(pageI18n)};
-  var CATS = ${JSON.stringify(CATS.map(c => ({ key: c.key, num: c.num })))};
-  var COMICS = ['manga', 'manhwa', 'manhua', 'webtoon'];
-  var PER_PAGE = 10;
-  var q = new URLSearchParams(location.search);
-  var lang = I18N[q.get('lang')] ? q.get('lang') : 'fr';
-  var cat = CATS.filter(function (c) { return c.key === q.get('cat'); })[0] || CATS[0];
-  var t = I18N[lang];
-  var items = [];
-  var page = Math.max(1, parseInt(q.get('page'), 10) || 1);
-  function el(id) { return document.getElementById(id); }
-  function text(tag, cls, value) { var e = document.createElement(tag); if (cls) e.className = cls; e.textContent = value; return e; }
+// Shared assets for the clean-URL pages written by pages.js.
+fs.mkdirSync(new URL('../assets/', import.meta.url), { recursive: true });
+fs.writeFileSync(new URL('../assets/site.css', import.meta.url), style);
+fs.copyFileSync(new URL('./app.js', import.meta.url), new URL('../assets/app.js', import.meta.url));
+fs.writeFileSync(new URL('../assets/i18n.json', import.meta.url), JSON.stringify(pageI18n));
+fs.writeFileSync(new URL('../assets/i18n.js', import.meta.url), `window.TSUGI_I18N = ${JSON.stringify(pageI18n)};\n`);
 
-  document.documentElement.lang = lang;
-  document.title = 'TSUGI — ' + t.cats[cat.key];
-  el('cp').className += ' hue-' + cat.key;
-  el('cp-back').textContent = '← ' + t.backHome;
-  el('cp-back').href = 'index.html#categories-' + lang;
-  el('cp-num').textContent = cat.num;
-  el('cp-title').textContent = t.cats[cat.key];
-  el('cp-pill').textContent = COMICS.indexOf(cat.key) >= 0 ? t.popular : t.upcoming;
-  el('cp-prev').textContent = '← ' + t.prev;
-  el('cp-next').textContent = t.next + ' →';
-  [].forEach.call(el('cp-langs').children, function (a) {
-    a.href = 'categorie.html?cat=' + cat.key + '&lang=' + a.dataset.l;
-    if (a.dataset.l === lang) a.className = 'active';
-  });
-
-  // Films only: All / In cinemas / Streaming.
-  // Films: All / In cinemas / Streaming — Dramas: All / Series / Films.
-  var FILTERS = { movie: { def: 'cinema', keys: ['cinema', 'streaming'] }, drama: { def: 'series', keys: ['series', 'film'] } };
-  var F = FILTERS[cat.key];
-  var kind = q.get('kind') || 'all';
-  function kindOf(it) { return it.kind || (F && F.def); }
-  function shown() { return kind === 'all' || !F ? items : items.filter(function (it) { return kindOf(it) === kind; }); }
-  function chips() {
-    if (!F) return;
-    var box = el('cp-kinds'); box.textContent = ''; box.hidden = false;
-    [['all', t.filterAll]].concat(F.keys.map(function (k) { return [k, t.kinds[k]]; })).forEach(function (k) {
-      var n = k[0] === 'all' ? items.length : items.filter(function (it) { return kindOf(it) === k[0]; }).length;
-      var b = document.createElement('button');
-      b.className = 'kind-chip' + (kind === k[0] ? ' active' : '');
-      b.textContent = k[1] + ' (' + n + ')';
-      b.onclick = function () { kind = k[0]; page = 1; chips(); render(); };
-      box.appendChild(b);
-    });
-  }
-
-  function render() {
-    var list = shown();
-    var pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
-    page = Math.min(page, pages);
-    var grid = el('cp-grid');
-    grid.textContent = '';
-    list.slice((page - 1) * PER_PAGE, page * PER_PAGE).forEach(function (it, i) {
-      var card = document.createElement('a');
-      card.className = 'cat-card';
-      card.href = 'fiche.html?cat=' + cat.key + '&id=' + encodeURIComponent(it.id) + '&lang=' + lang;
-      card.appendChild(text('span', 'idx', String((page - 1) * PER_PAGE + i + 1).padStart(2, '0')));
-      card.appendChild(text('h3', '', it.title));
-      if (it.poster) {
-        var img = document.createElement('img');
-        img.src = it.poster; img.alt = it.title; img.loading = 'lazy';
-        card.appendChild(img);
-      } else {
-        card.appendChild(text('div', 'cat-card-fallback', (it.title || '?').charAt(0).toUpperCase()));
-      }
-      card.appendChild(text('p', 'release-date', it.date[lang] || it.date.fr));
-      if (it.blurb) card.appendChild(text('p', 'blurb', it.blurb.length > 140 ? it.blurb.slice(0, 140) + '…' : it.blurb));
-      grid.appendChild(card);
-    });
-    el('cp-info').textContent = t.pageOf.replace('{p}', page).replace('{n}', pages);
-    el('cp-prev').disabled = page <= 1;
-    el('cp-next').disabled = page >= pages;
-    el('cp-pager').hidden = pages <= 1;
-    var url = new URL(location.href);
-    url.searchParams.set('cat', cat.key); url.searchParams.set('lang', lang); url.searchParams.set('page', page);
-    if (F) url.searchParams.set('kind', kind);
-    history.replaceState(null, '', url);
-  }
-  function go(delta) { page += delta; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-  el('cp-prev').onclick = function () { go(-1); };
-  el('cp-next').onclick = function () { go(1); };
-
-  fetch('data/' + cat.key + '.json', { cache: 'no-cache' })
-    .then(function (r) { return r.ok ? r.json() : []; })
-    .catch(function () { return []; })
-    .then(function (list) {
-      items = Array.isArray(list) ? list : [];
-      if (!items.length) { el('cp-empty').textContent = t.empty; el('cp-empty').hidden = false; }
-      chips();
-      render();
-    });
-})();
-</script>
-</body></html>
-`;
-fs.writeFileSync(new URL('../categorie.html', import.meta.url), catPage);
-
-// Detail page: same data file as the category page, item picked by its source id.
-const head = catPage.slice(0, catPage.indexOf('</head>')).replace('<title>TSUGI — Catégorie</title>', '<title>TSUGI</title>');
-const fichePage = `${head}</head>
-<body>
-<header class="site-nav">
-  <a class="brand" href="index.html"><span class="glyph">次</span><strong>TSUGI</strong></a>
-  <div class="nav-right">
-    <div class="lang-switch" id="fp-langs"><a data-l="fr">FR</a><a data-l="en">EN</a><a data-l="nl">NL</a></div>
-    <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=app.tsugi.android">Google Play</a>
-  </div>
-</header>
-<main class="section cat-page fiche" id="fp">
-  <a class="see-more cp-back" id="fp-back" href="index.html"></a>
-  <article class="fiche-body" id="fp-body" hidden>
-    <div class="fiche-poster" id="fp-poster"></div>
-    <div class="fiche-info">
-      <span class="pill" id="fp-cat"></span>
-      <h1 id="fp-title"></h1>
-      <p class="release-date" id="fp-date"></p>
-      <h2 class="fiche-h2" id="fp-syn-h"></h2>
-      <p class="fiche-blurb" id="fp-blurb"></p>
-      <section class="fiche-world" id="fp-world" hidden>
-        <h2 class="fiche-h2" id="fp-world-h"></h2>
-        <p class="fiche-note" id="fp-world-note"></p>
-        <div class="world-grid" id="fp-world-grid"></div>
-      </section>
-      <div class="fiche-actions">
-        <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=app.tsugi.android" id="fp-follow"></a>
-        <a class="btn btn-ghost" id="fp-source" target="_blank" rel="noopener" hidden></a>
-      </div>
-    </div>
-  </article>
-  <p class="cp-empty" id="fp-missing" hidden></p>
-</main>
-<script>
-(function () {
-  var I18N = ${JSON.stringify(pageI18n)};
-  var KEYS = ${JSON.stringify(CATS.map(c => c.key))};
-  var q = new URLSearchParams(location.search);
-  var lang = I18N[q.get('lang')] ? q.get('lang') : 'fr';
-  var cat = KEYS.indexOf(q.get('cat')) >= 0 ? q.get('cat') : KEYS[0];
-  var id = q.get('id') || '';
-  var t = I18N[lang];
-  function el(x) { return document.getElementById(x); }
-  document.documentElement.lang = lang;
-  el('fp').className += ' hue-' + cat;
-  el('fp-back').textContent = '← ' + t.backCat + ' · ' + t.cats[cat];
-  el('fp-back').href = 'categorie.html?cat=' + cat + '&lang=' + lang;
-  [].forEach.call(el('fp-langs').children, function (a) {
-    a.href = 'fiche.html?cat=' + cat + '&id=' + encodeURIComponent(id) + '&lang=' + a.dataset.l;
-    if (a.dataset.l === lang) a.className = 'active';
-  });
-  fetch('data/' + cat + '.json', { cache: 'no-cache' })
-    .then(function (r) { return r.ok ? r.json() : []; })
-    .catch(function () { return []; })
-    .then(function (list) {
-      var it = (Array.isArray(list) ? list : []).filter(function (x) { return String(x.id) === id; })[0];
-      if (!it) { el('fp-missing').textContent = t.notFound; el('fp-missing').hidden = false; return; }
-      document.title = 'TSUGI — ' + it.title;
-      el('fp-cat').textContent = t.cats[cat];
-      el('fp-title').textContent = it.title;
-      el('fp-date').textContent = it.date[lang] || it.date.fr;
-      if (it.poster) {
-        var img = document.createElement('img'); img.src = it.poster; img.alt = it.title;
-        el('fp-poster').appendChild(img);
-      } else {
-        var f = document.createElement('div'); f.className = 'cat-card-fallback'; f.textContent = (it.title || '?').charAt(0).toUpperCase();
-        el('fp-poster').appendChild(f);
-      }
-      el('fp-syn-h').textContent = t.synopsis;
-      el('fp-syn-h').hidden = !it.blurb;
-      el('fp-blurb').textContent = it.blurb || '';
-      el('fp-follow').textContent = t.follow;
-      if (it.url) { el('fp-source').href = it.url; el('fp-source').textContent = t.source + ' ↗'; el('fp-source').hidden = false; }
-      if (it.world && it.world.length) {
-        var CONT = { BE: 'eu', FR: 'eu', NL: 'eu', GB: 'eu', DE: 'eu', ES: 'eu', IT: 'eu', US: 'am', CA: 'am', MX: 'am', BR: 'am', AR: 'am',
-                     KR: 'as', JP: 'as', CN: 'as', IN: 'as', TH: 'as', AU: 'oc', NZ: 'oc', ZA: 'af', MA: 'af', NG: 'af', AE: 'af' };
-        var locale = { fr: 'fr-FR', en: 'en-GB', nl: 'nl-NL' }[lang];
-        var names = window.Intl && Intl.DisplayNames ? new Intl.DisplayNames([lang], { type: 'region' }) : null;
-        el('fp-world-h').textContent = t.world;
-        el('fp-world-note').textContent = t.worldNote;
-        ['eu', 'am', 'as', 'oc', 'af'].forEach(function (k) {
-          var rows = it.world.filter(function (w) { return CONT[w.c] === k; });
-          if (!rows.length) return;
-          var box = document.createElement('div'); box.className = 'world-box';
-          var h = document.createElement('h3'); h.textContent = t.continents[k]; box.appendChild(h);
-          rows.forEach(function (w) {
-            var row = document.createElement('div'); row.className = 'world-row';
-            var c = document.createElement('span'); c.textContent = names ? names.of(w.c) : w.c;
-            var d = document.createElement('span'); d.className = 'world-date';
-            d.textContent = new Date(w.d + 'T00:00:00').toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' });
-            var kd = document.createElement('span'); kd.className = 'world-kind ' + w.k; kd.textContent = w.p || t.kinds[w.k];
-            row.appendChild(c); row.appendChild(kd); row.appendChild(d); box.appendChild(row);
-          });
-          el('fp-world-grid').appendChild(box);
-        });
-        el('fp-world').hidden = false;
-      }
-      el('fp-body').hidden = false;
-    });
-})();
-</script>
-</body></html>
-`;
-fs.writeFileSync(new URL('../fiche.html', import.meta.url), fichePage);
-console.log('Generated fiche.html', fichePage.length, 'bytes');
-console.log('Generated categorie.html', catPage.length, 'bytes');
-console.log('Generated', html.length, 'bytes');
+// Old links (categorie.html?cat=…, fiche.html?cat=…&id=…) were already shared: they redirect to the clean URLs.
+const redirectHead = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="robots" content="noindex"><title>TSUGI</title></head><body>`;
+const redirectJs = `var S = ${JSON.stringify(CAT_SLUGS)}, P = ${JSON.stringify(LANG_PREFIX)}, K = { cinema: 'cinema', streaming: 'streaming', series: 'series', film: 'films' };
+var q = new URLSearchParams(location.search), cat = S[q.get('cat')] ? q.get('cat') : 'anime', lp = P[q.get('lang')] !== undefined ? P[q.get('lang')] : '';
+var base = lp + '/' + S[cat] + '/';`;
+fs.writeFileSync(new URL('../categorie.html', import.meta.url), `${redirectHead}<script>${redirectJs}
+var kind = K[q.get('kind')] ? K[q.get('kind')] + '/' : '', page = parseInt(q.get('page'), 10) > 1 ? parseInt(q.get('page'), 10) + '/' : '';
+location.replace(base + kind + page);</script></body></html>
+`);
+fs.writeFileSync(new URL('../fiche.html', import.meta.url), `${redirectHead}<script>${redirectJs}
+fetch('/data/' + cat + '.json').then(function (r) { return r.json(); }).catch(function () { return []; }).then(function (list) {
+  var it = (list || []).filter(function (x) { return String(x.id) === q.get('id'); })[0];
+  location.replace(it ? base + it.slug + '/' : base);
+});</script></body></html>
+`);
+console.log('Generated', html.length, 'bytes + assets');

@@ -401,7 +401,7 @@ async function fetchIGDBGames() {
       title: g.name,
       release_date: g.first_release_date ? new Date(g.first_release_date * 1000).toISOString().split('T')[0] : null,
       overview: g.summary,
-      slug: g.slug,
+      igdbSlug: g.slug,
       poster_path: g.cover?.url ? `https:${g.cover.url.replace('t_thumb', 't_cover_big')}` : null,
       id: g.id,
     }));
@@ -459,6 +459,36 @@ async function generateAIBlurb(item, lang) {
   return item.overview || item.description || prompts[lang];
 }
 
+// ========== URLS ==========
+// Clean URLs: /anime/, /films/streaming/2/, /jeux/silver-palace/, /en/... (site-source/pages.js writes them).
+// Same map as site-source/gen.js (CAT_SLUGS) — keep both in sync.
+const CAT_SLUGS = { anime: 'anime', manga: 'manga', manhwa: 'manhwa', manhua: 'manhua', webtoon: 'webtoon', series: 'series', drama: 'dramas', movie: 'films', game: 'jeux' };
+const LANG_PREFIX = { fr: '', en: '/en', nl: '/nl' };
+// Path segments an item slug must never take: page numbers and filter names live at the same level.
+const RESERVED = new Set(['cinema', 'streaming', 'series', 'films']);
+
+function slugify(text) {
+  return String(text || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+    .replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70).replace(/-+$/, '');
+}
+
+// Unique within the category; titles with no Latin letters (신의 구슬) fall back to the id.
+function assignSlugs(items, category) {
+  const used = new Set();
+  for (const it of items) {
+    let base = slugify(it.title || it.name || it.romaji);
+    if (!base || /^\d+$/.test(base) || RESERVED.has(base)) base = `${category}-${String(it.id).replace(/[^a-z0-9]/gi, '')}`;
+    let slug = base;
+    for (let n = 2; used.has(slug); n++) slug = `${base}-${n}`;
+    used.add(slug);
+    it.pageSlug = slug;
+  }
+}
+
+function itemPath(item, category, lang) {
+  return `${LANG_PREFIX[lang]}/${CAT_SLUGS[category]}/${item.pageSlug}/`;
+}
+
 // ========== HTML GENERATOR ==========
 const CAT_LABELS = {
   fr: { movie: 'Film', series: 'Série', anime: 'Anime', drama: 'Drama', game: 'Jeu', manga: 'Manga', manhwa: 'Manhwa', manhua: 'Manhua', webtoon: 'Webtoon' },
@@ -506,7 +536,7 @@ function sourceUrl(item, category) {
     case 'anime': return `https://anilist.co/anime/${item.id}`;
     case 'manga': case 'manhwa': case 'manhua': return `https://anilist.co/manga/${item.id}`;
     case 'webtoon': return `https://mangadex.org/title/${item.id}`;
-    case 'game': return item.slug ? `https://www.igdb.com/games/${item.slug}` : null;
+    case 'game': return item.igdbSlug ? `https://www.igdb.com/games/${item.igdbSlug}` : null;
     default: return null;
   }
 }
@@ -514,6 +544,7 @@ function sourceUrl(item, category) {
 function toPublicItem(item, category) {
   return {
     id: String(item.id),
+    slug: item.pageSlug,
     title: item.title || item.name || item.romaji || '',
     poster: item.poster_path || item.coverImage || null,
     blurb: (item.overview || item.description || '').slice(0, 1500),
@@ -539,7 +570,7 @@ function generateCategoryHTML(items, category, lang) {
       : `<div class="cat-card-fallback">${esc(rawTitle.charAt(0).toUpperCase())}</div>`;
 
     return `
-      <a class="cat-card dynamic" data-cat="${category}" data-reveal style="grid-column: span 1;" href="fiche.html?cat=${category}&amp;id=${encodeURIComponent(String(item.id))}&amp;lang=${lang}">
+      <a class="cat-card dynamic" data-cat="${category}" data-reveal style="grid-column: span 1;" href="${itemPath(item, category, lang)}">
         <span class="idx">${String(i+1).padStart(2,'0')}</span>
         <h3>${title}</h3>
         ${media}
@@ -597,6 +628,8 @@ async function main() {
     manhua,
     webtoon: webtoons,
   };
+
+  for (const [catKey, items] of Object.entries(categories)) assignSlugs(items, catKey);
 
   for (const lang of langs) {
     for (const [catKey, items] of Object.entries(categories)) {

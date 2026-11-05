@@ -200,6 +200,8 @@
   .page-grid { grid-template-columns: repeat(5, 1fr); }
   .pager { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 32px 0 60px; color: var(--ink-dim); font-size: 14px; }
   .pager .btn:disabled { opacity: .35; cursor: default; }
+  .pager .btn.disabled { opacity: .35; cursor: default; pointer-events: none; }
+  .kind-chip { text-decoration: none; display: inline-block; }
   .cp-empty { color: var(--ink-dim); text-align: center; padding: 40px 0; }
   .kind-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
   .kind-chips[hidden] { display: none; }
@@ -423,63 +425,63 @@
       <p class="section-body">Chaque catégorie a son propre univers de fans — et sa propre app dédiée. TSUGI les réunit toutes, avec les mêmes outils de suivi partout.</p>
     </div>
     <div class="cat-bento">
-        <a class="cat-tile hue-anime" href="categorie.html?cat=anime&amp;lang=fr" data-reveal="">
+        <a class="cat-tile hue-anime" href="/anime/" data-reveal="">
           <span class="cat-num">01</span>
           <h3>Anime</h3>
           <p>Saisons, films et OAV suivis épisode par épisode.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="anime">50 titres</span><span class="tile-more">Voir plus →</span></span>
           <span class="tile-covers" data-tilekey="anime" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx181641-4BnzXGnA7CJL.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manga" href="categorie.html?cat=manga&amp;lang=fr" data-reveal="">
+        <a class="cat-tile hue-manga" href="/manga/" data-reveal="">
           <span class="cat-num">02</span>
           <h3>Manga</h3>
           <p>Chapitres lus, séries en cours ou terminées.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="manga">50 titres</span><span class="tile-more">Voir plus →</span></span>
-          <span class="tile-covers" data-tilekey="manga" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx30013-BeslEMqiPhlk.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx140475-QEGtrmdvbpOv.jpg" alt="" loading="lazy"></span>
+          <span class="tile-covers" data-tilekey="manga" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx30013-BeslEMqiPhlk.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx140475-QEGtrmdvbpOv.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manhwa" href="categorie.html?cat=manhwa&amp;lang=fr" data-reveal="">
+        <a class="cat-tile hue-manhwa" href="/manhwa/" data-reveal="">
           <span class="cat-num">03</span>
           <h3>Manhwa</h3>
           <p>Webtoons coréens, du one-shot à la série longue.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="manhwa">50 titres</span><span class="tile-more">Voir plus →</span></span>
           <span class="tile-covers" data-tilekey="manhwa" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx120980-RZ9WLd0o9hyo.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx159441-9W8201jAT9Yv.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx183376-Cw3VnZAItw2a.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manhua" href="categorie.html?cat=manhua&amp;lang=fr" data-reveal="">
+        <a class="cat-tile hue-manhua" href="/manhua/" data-reveal="">
           <span class="cat-num">04</span>
           <h3>Manhua</h3>
           <p>Bande dessinée chinoise, cultivation et fantasy.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="manhua">50 titres</span><span class="tile-more">Voir plus →</span></span>
           <span class="tile-covers" data-tilekey="manhua" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/b167372-zfQUGcQMWiAI.png" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx160980-KAM0gr3dSMvB.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx116353-DYuIigXuPwpZ.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-webtoon" href="categorie.html?cat=webtoon&amp;lang=fr" data-reveal="">
+        <a class="cat-tile hue-webtoon" href="/webtoon/" data-reveal="">
           <span class="cat-num">05</span>
           <h3>Webtoon</h3>
           <p>Format vertical, mise à jour au fil des sorties.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="webtoon">50 titres</span><span class="tile-more">Voir plus →</span></span>
           <span class="tile-covers" data-tilekey="webtoon" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx119257-Pi21aq3ey9GG.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx128067-wnLBg6Cy1ncs.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx103156-yTVWAW2N8uGi.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-series" href="categorie.html?cat=series&amp;lang=fr" data-reveal="">
+        <a class="cat-tile hue-series" href="/series/" data-reveal="">
           <span class="cat-num">06</span>
           <h3>Séries</h3>
           <p>Renouvellements suivis, même quand une date change.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="series">50 titres</span><span class="tile-more">Voir plus →</span></span>
           <span class="tile-covers" data-tilekey="series" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/tgGsACYKoMAtclxXkBkHhl3EvYa.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/zNH0vo3rvRTklF0gui5Ntr4DBAA.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/pQKofoTaTnwQopuU1crUEEqtAfg.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-drama" href="categorie.html?cat=drama&amp;lang=fr" data-reveal="">
+        <a class="cat-tile hue-drama" href="/dramas/" data-reveal="">
           <span class="cat-num">07</span>
           <h3>Dramas</h3>
           <p>K-drama, J-drama et C-drama, diffusion en cours.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="drama">50 titres</span><span class="tile-more">Voir plus →</span></span>
           <span class="tile-covers" data-tilekey="drama" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/5SzLNVXBqpukDEwYkkocXZy8dd.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/cWXBisC8gIrGB8UfxKXaoHLxBH2.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/3L8El6VH4CL1pdz9JgnGsHXeGra.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-movie" href="categorie.html?cat=movie&amp;lang=fr" data-reveal="">
+        <a class="cat-tile hue-movie" href="/films/" data-reveal="">
           <span class="cat-num">08</span>
           <h3>Films</h3>
           <p>Sorties à venir, du festival à la salle obscure.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="movie">80 titres</span><span class="tile-more">Voir plus →</span></span>
           <span class="tile-covers" data-tilekey="movie" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/ttsFxxHKwCHrtAGJt58rpNqHdFw.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/cCUxE6EJ9zi1YfdsxU8rWLgqQnN.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-game" href="categorie.html?cat=game&amp;lang=fr" data-reveal="">
+        <a class="cat-tile hue-game" href="/jeux/" data-reveal="">
           <span class="cat-num">09</span>
           <h3>Jeux</h3>
           <p>Dates de sortie confirmées, jusqu'à plusieurs années.</p>
@@ -489,9 +491,9 @@
     </div>
     <div class="cat-strips">
         <div class="cat-strip hue-anime" id="cat-anime-fr">
-          <div class="cat-strip-head"><span class="cat-num">01</span><h3>Anime</h3><span class="pill">À venir</span><a class="see-more" href="categorie.html?cat=anime&amp;lang=fr">Voir plus →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">01</span><h3>Anime</h3><span class="pill">À venir</span><a class="see-more" href="/anime/">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="anime">
-      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=209939&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="/anime/sousou-no-frieren-3rd-season/">
         <span class="idx">01</span>
         <h3>Sousou no Frieren 3rd Season</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx209939-g2Njkml1rheG.jpg" alt="Sousou no Frieren 3rd Season" loading="lazy">
@@ -500,7 +502,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=198966&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="/anime/dandadan-3rd-season/">
         <span class="idx">02</span>
         <h3>Dandadan 3rd Season</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="Dandadan 3rd Season" loading="lazy">
@@ -509,7 +511,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=181641&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="/anime/tokidoki-bosotto-rossiya-go-de-dereru-tonari-no-alya-san-season-2/">
         <span class="idx">03</span>
         <h3>Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx181641-4BnzXGnA7CJL.jpg" alt="Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2" loading="lazy">
@@ -518,7 +520,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=171952&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="/anime/kage-no-jitsuryokusha-ni-naritakute-zankyou-hen/">
         <span class="idx">04</span>
         <h3>Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen" loading="lazy">
@@ -528,9 +530,9 @@
     </div>
         </div>
         <div class="cat-strip hue-manga" id="cat-manga-fr">
-          <div class="cat-strip-head"><span class="cat-num">02</span><h3>Manga</h3><span class="pill">Populaire</span><a class="see-more" href="categorie.html?cat=manga&amp;lang=fr">Voir plus →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">02</span><h3>Manga</h3><span class="pill">Populaire</span><a class="see-more" href="/manga/">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="manga">
-      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=30013&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="/manga/one-piece/">
         <span class="idx">01</span>
         <h3>One Piece</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx30013-BeslEMqiPhlk.jpg" alt="One Piece" loading="lazy">
@@ -539,17 +541,8 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=99324&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="/manga/the-fragrant-flower-blooms-with-dignity/">
         <span class="idx">02</span>
-        <h3>Welcome to Demon School! Iruma-kun</h3>
-        <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="Welcome to Demon School! Iruma-kun" loading="lazy">
-        <p class="release-date">Manga · En cours</p>
-        <p class="blurb">Iruma Suzuki has always been eager to please, even at the cost of his well-being. Worst yet, he's the son of two selfish…</p>
-      </a>
-    
-
-      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=140475&amp;lang=fr">
-        <span class="idx">03</span>
         <h3>The Fragrant Flower Blooms With Dignity</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx140475-QEGtrmdvbpOv.jpg" alt="The Fragrant Flower Blooms With Dignity" loading="lazy">
         <p class="release-date">Manga · En cours</p>
@@ -557,7 +550,16 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=201773&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="/manga/welcome-to-demon-school-iruma-kun/">
+        <span class="idx">03</span>
+        <h3>Welcome to Demon School! Iruma-kun</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="Welcome to Demon School! Iruma-kun" loading="lazy">
+        <p class="release-date">Manga · En cours</p>
+        <p class="blurb">Iruma Suzuki has always been eager to please, even at the cost of his well-being. Worst yet, he's the son of two selfish…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="/manga/haimiya-is-scary-cute/">
         <span class="idx">04</span>
         <h3>Haimiya Is Scary Cute</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx201773-ecGmhCRhfu05.jpg" alt="Haimiya Is Scary Cute" loading="lazy">
@@ -567,9 +569,9 @@
     </div>
         </div>
         <div class="cat-strip hue-manhwa" id="cat-manhwa-fr">
-          <div class="cat-strip-head"><span class="cat-num">03</span><h3>Manhwa</h3><span class="pill">Populaire</span><a class="see-more" href="categorie.html?cat=manhwa&amp;lang=fr">Voir plus →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">03</span><h3>Manhwa</h3><span class="pill">Populaire</span><a class="see-more" href="/manhwa/">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="manhwa">
-      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=120980&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="/manhwa/nano-machine/">
         <span class="idx">01</span>
         <h3>Nano Machine</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx120980-RZ9WLd0o9hyo.jpg" alt="Nano Machine" loading="lazy">
@@ -578,7 +580,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=159441&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="/manhwa/pick-me-up/">
         <span class="idx">02</span>
         <h3>Pick Me Up</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx159441-9W8201jAT9Yv.jpg" alt="Pick Me Up" loading="lazy">
@@ -587,7 +589,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=183376&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="/manhwa/chronicles-of-a-doomed-prodigy/">
         <span class="idx">03</span>
         <h3>Chronicles of a Doomed Prodigy</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx183376-Cw3VnZAItw2a.jpg" alt="Chronicles of a Doomed Prodigy" loading="lazy">
@@ -596,7 +598,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=204974&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="/manhwa/murim-psychopath/">
         <span class="idx">04</span>
         <h3>Murim Psychopath</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx204974-SZoqdyhxoLRH.jpg" alt="Murim Psychopath" loading="lazy">
@@ -606,9 +608,9 @@
     </div>
         </div>
         <div class="cat-strip hue-manhua" id="cat-manhua-fr">
-          <div class="cat-strip-head"><span class="cat-num">04</span><h3>Manhua</h3><span class="pill">Populaire</span><a class="see-more" href="categorie.html?cat=manhua&amp;lang=fr">Voir plus →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">04</span><h3>Manhua</h3><span class="pill">Populaire</span><a class="see-more" href="/manhua/">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="manhua">
-      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=167372&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="/manhua/necromancer-the-ultimate-scourge/">
         <span class="idx">01</span>
         <h3>Necromancer, the Ultimate Scourge!</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/b167372-zfQUGcQMWiAI.png" alt="Necromancer, the Ultimate Scourge!" loading="lazy">
@@ -617,7 +619,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=160980&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="/manhua/log-into-the-future/">
         <span class="idx">02</span>
         <h3>Log Into The Future</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx160980-KAM0gr3dSMvB.jpg" alt="Log Into The Future" loading="lazy">
@@ -626,7 +628,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=116353&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="/manhua/the-devil-butler/">
         <span class="idx">03</span>
         <h3>The Devil Butler</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx116353-DYuIigXuPwpZ.jpg" alt="The Devil Butler" loading="lazy">
@@ -635,7 +637,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=138726&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="/manhua/rebirth-of-the-ultimate-master/">
         <span class="idx">04</span>
         <h3>Rebirth Of The Ultimate Master</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx138726-ysRy6zaQMWT8.jpg" alt="Rebirth Of The Ultimate Master" loading="lazy">
@@ -645,9 +647,9 @@
     </div>
         </div>
         <div class="cat-strip hue-webtoon" id="cat-webtoon-fr">
-          <div class="cat-strip-head"><span class="cat-num">05</span><h3>Webtoon</h3><span class="pill">Populaire</span><a class="see-more" href="categorie.html?cat=webtoon&amp;lang=fr">Voir plus →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">05</span><h3>Webtoon</h3><span class="pill">Populaire</span><a class="see-more" href="/webtoon/">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="webtoon">
-      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=9a414441-bbad-43f1-a3a7-dc262ca790a3&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="/webtoon/omniscient-reader-s-viewpoint/">
         <span class="idx">01</span>
         <h3>Omniscient Reader's Viewpoint</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx119257-Pi21aq3ey9GG.jpg" alt="Omniscient Reader's Viewpoint" loading="lazy">
@@ -656,7 +658,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=4a973243-952e-44d7-a50f-883b4b7c9cc2&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="/webtoon/sss-class-revival-hunter/">
         <span class="idx">02</span>
         <h3>SSS-Class Revival Hunter</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx128067-wnLBg6Cy1ncs.jpg" alt="SSS-Class Revival Hunter" loading="lazy">
@@ -665,7 +667,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=d993f789-e7e5-4832-92fd-37614220b427&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="/webtoon/the-skeleton-soldier-failed-to-defend-the-dungeon/">
         <span class="idx">03</span>
         <h3>The Skeleton Soldier Failed to Defend the Dungeon</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx103156-yTVWAW2N8uGi.jpg" alt="The Skeleton Soldier Failed to Defend the Dungeon" loading="lazy">
@@ -674,7 +676,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=b407de00-75a5-415a-a001-585fb41b9cf2&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="/webtoon/the-max-level-hero-strikes-back/">
         <span class="idx">04</span>
         <h3>The Max Level Hero Strikes Back</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx125636-g0gkyLZbo3Tz.png" alt="The Max Level Hero Strikes Back" loading="lazy">
@@ -684,9 +686,9 @@
     </div>
         </div>
         <div class="cat-strip hue-series" id="cat-series-fr">
-          <div class="cat-strip-head"><span class="cat-num">06</span><h3>Séries</h3><span class="pill">À venir</span><a class="see-more" href="categorie.html?cat=series&amp;lang=fr">Voir plus →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">06</span><h3>Séries</h3><span class="pill">À venir</span><a class="see-more" href="/series/">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="series">
-      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=296244&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="/series/frisco-king/">
         <span class="idx">01</span>
         <h3>Frisco King</h3>
         <img src="https://image.tmdb.org/t/p/w342/9wNdTWthGpTZZaOBKlO07pK77pU.jpg" alt="Frisco King" loading="lazy">
@@ -695,7 +697,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=224377&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="/series/harry-potter/">
         <span class="idx">02</span>
         <h3>Harry Potter</h3>
         <img src="https://image.tmdb.org/t/p/w342/zNH0vo3rvRTklF0gui5Ntr4DBAA.jpg" alt="Harry Potter" loading="lazy">
@@ -704,7 +706,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=337372&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="/series/esref-tek/">
         <span class="idx">03</span>
         <h3>Eşref Tek</h3>
         <img src="https://image.tmdb.org/t/p/w342/tgGsACYKoMAtclxXkBkHhl3EvYa.jpg" alt="Eşref Tek" loading="lazy">
@@ -713,7 +715,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=215528&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="/series/neuromancien/">
         <span class="idx">04</span>
         <h3>Neuromancien</h3>
         <img src="https://image.tmdb.org/t/p/w342/pQKofoTaTnwQopuU1crUEEqtAfg.jpg" alt="Neuromancien" loading="lazy">
@@ -723,9 +725,9 @@
     </div>
         </div>
         <div class="cat-strip hue-drama" id="cat-drama-fr">
-          <div class="cat-strip-head"><span class="cat-num">07</span><h3>Dramas</h3><span class="pill">À venir</span><a class="see-more" href="categorie.html?cat=drama&amp;lang=fr">Voir plus →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">07</span><h3>Dramas</h3><span class="pill">À venir</span><a class="see-more" href="/dramas/">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="drama">
-      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=258862&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="/dramas/sacred-jewel/">
         <span class="idx">01</span>
         <h3>Sacred Jewel</h3>
         <img src="https://image.tmdb.org/t/p/w342/cWXBisC8gIrGB8UfxKXaoHLxBH2.jpg" alt="Sacred Jewel" loading="lazy">
@@ -734,7 +736,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=256726&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="/dramas/tantara/">
         <span class="idx">02</span>
         <h3>Tantara</h3>
         <img src="https://image.tmdb.org/t/p/w342/5SzLNVXBqpukDEwYkkocXZy8dd.jpg" alt="Tantara" loading="lazy">
@@ -743,7 +745,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=m1231322&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="/dramas/the-wandering-earth-iii/">
         <span class="idx">03</span>
         <h3>The Wandering Earth III</h3>
         <img src="https://image.tmdb.org/t/p/w342/7pNAki9AIaJGhNFOs8ePTFI0lDc.jpg" alt="The Wandering Earth III" loading="lazy">
@@ -752,7 +754,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=m1577970&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="/dramas/arrested-memory/">
         <span class="idx">04</span>
         <h3>Arrested Memory</h3>
         <img src="https://image.tmdb.org/t/p/w342/yjjm0BDt91vSSb6y6CWUwDyr7FP.jpg" alt="Arrested Memory" loading="lazy">
@@ -762,9 +764,9 @@
     </div>
         </div>
         <div class="cat-strip hue-movie" id="cat-movie-fr">
-          <div class="cat-strip-head"><span class="cat-num">08</span><h3>Films</h3><span class="pill">À venir</span><a class="see-more" href="categorie.html?cat=movie&amp;lang=fr">Voir plus →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">08</span><h3>Films</h3><span class="pill">À venir</span><a class="see-more" href="/films/">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="movie">
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=791523&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="/films/wildwood-la-prophetie-de-la-foret/">
         <span class="idx">01</span>
         <h3>Wildwood : La prophétie de la forêt</h3>
         <img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="Wildwood : La prophétie de la forêt" loading="lazy">
@@ -773,7 +775,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1422041&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="/films/la-bola-negra/">
         <span class="idx">02</span>
         <h3>La bola negra</h3>
         <img src="https://image.tmdb.org/t/p/w342/ttsFxxHKwCHrtAGJt58rpNqHdFw.jpg" alt="La bola negra" loading="lazy">
@@ -782,7 +784,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=940009&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="/films/ray-gunn/">
         <span class="idx">03</span>
         <h3>Ray Gunn</h3>
         <img src="https://image.tmdb.org/t/p/w342/rpP29aOKpHy1FhX8OZQdUICEs2j.jpg" alt="Ray Gunn" loading="lazy">
@@ -791,7 +793,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1457866&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="/films/les-nouvelles-mesaventures-de-cliff-booth/">
         <span class="idx">04</span>
         <h3>Les Nouvelles Mésaventures de Cliff Booth</h3>
         <img src="https://image.tmdb.org/t/p/w342/4OX13uEfFm3x8q7995QBOquM7wI.jpg" alt="Les Nouvelles Mésaventures de Cliff Booth" loading="lazy">
@@ -801,9 +803,9 @@
     </div>
         </div>
         <div class="cat-strip hue-game" id="cat-game-fr">
-          <div class="cat-strip-head"><span class="cat-num">09</span><h3>Jeux</h3><span class="pill">À venir</span><a class="see-more" href="categorie.html?cat=game&amp;lang=fr">Voir plus →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">09</span><h3>Jeux</h3><span class="pill">À venir</span><a class="see-more" href="/jeux/">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="game">
-      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=381235&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="/jeux/tomb-raider-legacy-of-atlantis/">
         <span class="idx">01</span>
         <h3>Tomb Raider: Legacy of Atlantis</h3>
         <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/cob1kg.jpg" alt="Tomb Raider: Legacy of Atlantis" loading="lazy">
@@ -812,7 +814,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=92550&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="/jeux/fable/">
         <span class="idx">02</span>
         <h3>Fable</h3>
         <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/cobc6d.jpg" alt="Fable" loading="lazy">
@@ -821,7 +823,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=279621&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="/jeux/exodus/">
         <span class="idx">03</span>
         <h3>Exodus</h3>
         <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/coaott.jpg" alt="Exodus" loading="lazy">
@@ -830,7 +832,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=194662&amp;lang=fr">
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="/jeux/the-witcher-iv/">
         <span class="idx">04</span>
         <h3>The Witcher IV</h3>
         <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co95i0.jpg" alt="The Witcher IV" loading="lazy">
@@ -848,63 +850,63 @@
       <p class="section-body">Every category has its own fandom — and its own dedicated app. TSUGI brings them all together, with the same tracking tools everywhere.</p>
     </div>
     <div class="cat-bento">
-        <a class="cat-tile hue-anime" href="categorie.html?cat=anime&amp;lang=en" data-reveal="">
+        <a class="cat-tile hue-anime" href="/en/anime/" data-reveal="">
           <span class="cat-num">01</span>
           <h3>Anime</h3>
           <p>Seasons, movies and OVAs tracked episode by episode.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="anime">50 titles</span><span class="tile-more">See more →</span></span>
           <span class="tile-covers" data-tilekey="anime" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx181641-4BnzXGnA7CJL.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manga" href="categorie.html?cat=manga&amp;lang=en" data-reveal="">
+        <a class="cat-tile hue-manga" href="/en/manga/" data-reveal="">
           <span class="cat-num">02</span>
           <h3>Manga</h3>
           <p>Chapters read, series ongoing or completed.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="manga">50 titles</span><span class="tile-more">See more →</span></span>
-          <span class="tile-covers" data-tilekey="manga" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx30013-BeslEMqiPhlk.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx140475-QEGtrmdvbpOv.jpg" alt="" loading="lazy"></span>
+          <span class="tile-covers" data-tilekey="manga" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx30013-BeslEMqiPhlk.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx140475-QEGtrmdvbpOv.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manhwa" href="categorie.html?cat=manhwa&amp;lang=en" data-reveal="">
+        <a class="cat-tile hue-manhwa" href="/en/manhwa/" data-reveal="">
           <span class="cat-num">03</span>
           <h3>Manhwa</h3>
           <p>Korean webtoons, from one-shots to long-running series.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="manhwa">50 titles</span><span class="tile-more">See more →</span></span>
           <span class="tile-covers" data-tilekey="manhwa" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx120980-RZ9WLd0o9hyo.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx159441-9W8201jAT9Yv.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx183376-Cw3VnZAItw2a.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manhua" href="categorie.html?cat=manhua&amp;lang=en" data-reveal="">
+        <a class="cat-tile hue-manhua" href="/en/manhua/" data-reveal="">
           <span class="cat-num">04</span>
           <h3>Manhua</h3>
           <p>Chinese comics, cultivation and fantasy.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="manhua">50 titles</span><span class="tile-more">See more →</span></span>
           <span class="tile-covers" data-tilekey="manhua" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/b167372-zfQUGcQMWiAI.png" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx160980-KAM0gr3dSMvB.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx116353-DYuIigXuPwpZ.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-webtoon" href="categorie.html?cat=webtoon&amp;lang=en" data-reveal="">
+        <a class="cat-tile hue-webtoon" href="/en/webtoon/" data-reveal="">
           <span class="cat-num">05</span>
           <h3>Webtoon</h3>
           <p>Vertical format, updated as new episodes drop.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="webtoon">50 titles</span><span class="tile-more">See more →</span></span>
           <span class="tile-covers" data-tilekey="webtoon" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx119257-Pi21aq3ey9GG.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx128067-wnLBg6Cy1ncs.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx103156-yTVWAW2N8uGi.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-series" href="categorie.html?cat=series&amp;lang=en" data-reveal="">
+        <a class="cat-tile hue-series" href="/en/series/" data-reveal="">
           <span class="cat-num">06</span>
           <h3>Series</h3>
           <p>Renewals tracked, even when a date changes.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="series">50 titles</span><span class="tile-more">See more →</span></span>
           <span class="tile-covers" data-tilekey="series" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/tgGsACYKoMAtclxXkBkHhl3EvYa.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/zNH0vo3rvRTklF0gui5Ntr4DBAA.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/pQKofoTaTnwQopuU1crUEEqtAfg.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-drama" href="categorie.html?cat=drama&amp;lang=en" data-reveal="">
+        <a class="cat-tile hue-drama" href="/en/dramas/" data-reveal="">
           <span class="cat-num">07</span>
           <h3>Dramas</h3>
           <p>K-drama, J-drama and C-drama, currently airing.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="drama">50 titles</span><span class="tile-more">See more →</span></span>
           <span class="tile-covers" data-tilekey="drama" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/5SzLNVXBqpukDEwYkkocXZy8dd.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/cWXBisC8gIrGB8UfxKXaoHLxBH2.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/3L8El6VH4CL1pdz9JgnGsHXeGra.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-movie" href="categorie.html?cat=movie&amp;lang=en" data-reveal="">
+        <a class="cat-tile hue-movie" href="/en/films/" data-reveal="">
           <span class="cat-num">08</span>
           <h3>Movies</h3>
           <p>Upcoming releases, from festival premieres to theaters.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="movie">80 titles</span><span class="tile-more">See more →</span></span>
           <span class="tile-covers" data-tilekey="movie" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/ttsFxxHKwCHrtAGJt58rpNqHdFw.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/cCUxE6EJ9zi1YfdsxU8rWLgqQnN.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-game" href="categorie.html?cat=game&amp;lang=en" data-reveal="">
+        <a class="cat-tile hue-game" href="/en/jeux/" data-reveal="">
           <span class="cat-num">09</span>
           <h3>Games</h3>
           <p>Confirmed release dates, even years out.</p>
@@ -914,9 +916,9 @@
     </div>
     <div class="cat-strips">
         <div class="cat-strip hue-anime" id="cat-anime-en">
-          <div class="cat-strip-head"><span class="cat-num">01</span><h3>Anime</h3><span class="pill">Upcoming</span><a class="see-more" href="categorie.html?cat=anime&amp;lang=en">See more →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">01</span><h3>Anime</h3><span class="pill">Upcoming</span><a class="see-more" href="/en/anime/">See more →</a></div>
           <div class="cat-grid" data-catkey="anime">
-      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=209939&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="/en/anime/sousou-no-frieren-3rd-season/">
         <span class="idx">01</span>
         <h3>Sousou no Frieren 3rd Season</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx209939-g2Njkml1rheG.jpg" alt="Sousou no Frieren 3rd Season" loading="lazy">
@@ -925,7 +927,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=198966&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="/en/anime/dandadan-3rd-season/">
         <span class="idx">02</span>
         <h3>Dandadan 3rd Season</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="Dandadan 3rd Season" loading="lazy">
@@ -934,7 +936,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=181641&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="/en/anime/tokidoki-bosotto-rossiya-go-de-dereru-tonari-no-alya-san-season-2/">
         <span class="idx">03</span>
         <h3>Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx181641-4BnzXGnA7CJL.jpg" alt="Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2" loading="lazy">
@@ -943,7 +945,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=171952&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="/en/anime/kage-no-jitsuryokusha-ni-naritakute-zankyou-hen/">
         <span class="idx">04</span>
         <h3>Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen" loading="lazy">
@@ -953,9 +955,9 @@
     </div>
         </div>
         <div class="cat-strip hue-manga" id="cat-manga-en">
-          <div class="cat-strip-head"><span class="cat-num">02</span><h3>Manga</h3><span class="pill">Popular</span><a class="see-more" href="categorie.html?cat=manga&amp;lang=en">See more →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">02</span><h3>Manga</h3><span class="pill">Popular</span><a class="see-more" href="/en/manga/">See more →</a></div>
           <div class="cat-grid" data-catkey="manga">
-      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=30013&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="/en/manga/one-piece/">
         <span class="idx">01</span>
         <h3>One Piece</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx30013-BeslEMqiPhlk.jpg" alt="One Piece" loading="lazy">
@@ -964,17 +966,8 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=99324&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="/en/manga/the-fragrant-flower-blooms-with-dignity/">
         <span class="idx">02</span>
-        <h3>Welcome to Demon School! Iruma-kun</h3>
-        <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="Welcome to Demon School! Iruma-kun" loading="lazy">
-        <p class="release-date">Manga · Ongoing</p>
-        <p class="blurb">Iruma Suzuki has always been eager to please, even at the cost of his well-being. Worst yet, he's the son of two selfish…</p>
-      </a>
-    
-
-      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=140475&amp;lang=en">
-        <span class="idx">03</span>
         <h3>The Fragrant Flower Blooms With Dignity</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx140475-QEGtrmdvbpOv.jpg" alt="The Fragrant Flower Blooms With Dignity" loading="lazy">
         <p class="release-date">Manga · Ongoing</p>
@@ -982,7 +975,16 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=201773&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="/en/manga/welcome-to-demon-school-iruma-kun/">
+        <span class="idx">03</span>
+        <h3>Welcome to Demon School! Iruma-kun</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="Welcome to Demon School! Iruma-kun" loading="lazy">
+        <p class="release-date">Manga · Ongoing</p>
+        <p class="blurb">Iruma Suzuki has always been eager to please, even at the cost of his well-being. Worst yet, he's the son of two selfish…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="/en/manga/haimiya-is-scary-cute/">
         <span class="idx">04</span>
         <h3>Haimiya Is Scary Cute</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx201773-ecGmhCRhfu05.jpg" alt="Haimiya Is Scary Cute" loading="lazy">
@@ -992,9 +994,9 @@
     </div>
         </div>
         <div class="cat-strip hue-manhwa" id="cat-manhwa-en">
-          <div class="cat-strip-head"><span class="cat-num">03</span><h3>Manhwa</h3><span class="pill">Popular</span><a class="see-more" href="categorie.html?cat=manhwa&amp;lang=en">See more →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">03</span><h3>Manhwa</h3><span class="pill">Popular</span><a class="see-more" href="/en/manhwa/">See more →</a></div>
           <div class="cat-grid" data-catkey="manhwa">
-      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=120980&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="/en/manhwa/nano-machine/">
         <span class="idx">01</span>
         <h3>Nano Machine</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx120980-RZ9WLd0o9hyo.jpg" alt="Nano Machine" loading="lazy">
@@ -1003,7 +1005,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=159441&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="/en/manhwa/pick-me-up/">
         <span class="idx">02</span>
         <h3>Pick Me Up</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx159441-9W8201jAT9Yv.jpg" alt="Pick Me Up" loading="lazy">
@@ -1012,7 +1014,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=183376&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="/en/manhwa/chronicles-of-a-doomed-prodigy/">
         <span class="idx">03</span>
         <h3>Chronicles of a Doomed Prodigy</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx183376-Cw3VnZAItw2a.jpg" alt="Chronicles of a Doomed Prodigy" loading="lazy">
@@ -1021,7 +1023,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=204974&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="/en/manhwa/murim-psychopath/">
         <span class="idx">04</span>
         <h3>Murim Psychopath</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx204974-SZoqdyhxoLRH.jpg" alt="Murim Psychopath" loading="lazy">
@@ -1031,9 +1033,9 @@
     </div>
         </div>
         <div class="cat-strip hue-manhua" id="cat-manhua-en">
-          <div class="cat-strip-head"><span class="cat-num">04</span><h3>Manhua</h3><span class="pill">Popular</span><a class="see-more" href="categorie.html?cat=manhua&amp;lang=en">See more →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">04</span><h3>Manhua</h3><span class="pill">Popular</span><a class="see-more" href="/en/manhua/">See more →</a></div>
           <div class="cat-grid" data-catkey="manhua">
-      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=167372&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="/en/manhua/necromancer-the-ultimate-scourge/">
         <span class="idx">01</span>
         <h3>Necromancer, the Ultimate Scourge!</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/b167372-zfQUGcQMWiAI.png" alt="Necromancer, the Ultimate Scourge!" loading="lazy">
@@ -1042,7 +1044,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=160980&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="/en/manhua/log-into-the-future/">
         <span class="idx">02</span>
         <h3>Log Into The Future</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx160980-KAM0gr3dSMvB.jpg" alt="Log Into The Future" loading="lazy">
@@ -1051,7 +1053,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=116353&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="/en/manhua/the-devil-butler/">
         <span class="idx">03</span>
         <h3>The Devil Butler</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx116353-DYuIigXuPwpZ.jpg" alt="The Devil Butler" loading="lazy">
@@ -1060,7 +1062,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=138726&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="/en/manhua/rebirth-of-the-ultimate-master/">
         <span class="idx">04</span>
         <h3>Rebirth Of The Ultimate Master</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx138726-ysRy6zaQMWT8.jpg" alt="Rebirth Of The Ultimate Master" loading="lazy">
@@ -1070,9 +1072,9 @@
     </div>
         </div>
         <div class="cat-strip hue-webtoon" id="cat-webtoon-en">
-          <div class="cat-strip-head"><span class="cat-num">05</span><h3>Webtoon</h3><span class="pill">Popular</span><a class="see-more" href="categorie.html?cat=webtoon&amp;lang=en">See more →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">05</span><h3>Webtoon</h3><span class="pill">Popular</span><a class="see-more" href="/en/webtoon/">See more →</a></div>
           <div class="cat-grid" data-catkey="webtoon">
-      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=9a414441-bbad-43f1-a3a7-dc262ca790a3&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="/en/webtoon/omniscient-reader-s-viewpoint/">
         <span class="idx">01</span>
         <h3>Omniscient Reader's Viewpoint</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx119257-Pi21aq3ey9GG.jpg" alt="Omniscient Reader's Viewpoint" loading="lazy">
@@ -1081,7 +1083,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=4a973243-952e-44d7-a50f-883b4b7c9cc2&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="/en/webtoon/sss-class-revival-hunter/">
         <span class="idx">02</span>
         <h3>SSS-Class Revival Hunter</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx128067-wnLBg6Cy1ncs.jpg" alt="SSS-Class Revival Hunter" loading="lazy">
@@ -1090,7 +1092,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=d993f789-e7e5-4832-92fd-37614220b427&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="/en/webtoon/the-skeleton-soldier-failed-to-defend-the-dungeon/">
         <span class="idx">03</span>
         <h3>The Skeleton Soldier Failed to Defend the Dungeon</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx103156-yTVWAW2N8uGi.jpg" alt="The Skeleton Soldier Failed to Defend the Dungeon" loading="lazy">
@@ -1099,7 +1101,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=b407de00-75a5-415a-a001-585fb41b9cf2&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="/en/webtoon/the-max-level-hero-strikes-back/">
         <span class="idx">04</span>
         <h3>The Max Level Hero Strikes Back</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx125636-g0gkyLZbo3Tz.png" alt="The Max Level Hero Strikes Back" loading="lazy">
@@ -1109,9 +1111,9 @@
     </div>
         </div>
         <div class="cat-strip hue-series" id="cat-series-en">
-          <div class="cat-strip-head"><span class="cat-num">06</span><h3>Series</h3><span class="pill">Upcoming</span><a class="see-more" href="categorie.html?cat=series&amp;lang=en">See more →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">06</span><h3>Series</h3><span class="pill">Upcoming</span><a class="see-more" href="/en/series/">See more →</a></div>
           <div class="cat-grid" data-catkey="series">
-      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=296244&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="/en/series/frisco-king/">
         <span class="idx">01</span>
         <h3>Frisco King</h3>
         <img src="https://image.tmdb.org/t/p/w342/9wNdTWthGpTZZaOBKlO07pK77pU.jpg" alt="Frisco King" loading="lazy">
@@ -1120,7 +1122,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=224377&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="/en/series/harry-potter/">
         <span class="idx">02</span>
         <h3>Harry Potter</h3>
         <img src="https://image.tmdb.org/t/p/w342/zNH0vo3rvRTklF0gui5Ntr4DBAA.jpg" alt="Harry Potter" loading="lazy">
@@ -1129,7 +1131,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=337372&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="/en/series/esref-tek/">
         <span class="idx">03</span>
         <h3>Eşref Tek</h3>
         <img src="https://image.tmdb.org/t/p/w342/tgGsACYKoMAtclxXkBkHhl3EvYa.jpg" alt="Eşref Tek" loading="lazy">
@@ -1138,7 +1140,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=215528&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="/en/series/neuromancien/">
         <span class="idx">04</span>
         <h3>Neuromancien</h3>
         <img src="https://image.tmdb.org/t/p/w342/pQKofoTaTnwQopuU1crUEEqtAfg.jpg" alt="Neuromancien" loading="lazy">
@@ -1148,9 +1150,9 @@
     </div>
         </div>
         <div class="cat-strip hue-drama" id="cat-drama-en">
-          <div class="cat-strip-head"><span class="cat-num">07</span><h3>Dramas</h3><span class="pill">Upcoming</span><a class="see-more" href="categorie.html?cat=drama&amp;lang=en">See more →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">07</span><h3>Dramas</h3><span class="pill">Upcoming</span><a class="see-more" href="/en/dramas/">See more →</a></div>
           <div class="cat-grid" data-catkey="drama">
-      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=258862&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="/en/dramas/sacred-jewel/">
         <span class="idx">01</span>
         <h3>Sacred Jewel</h3>
         <img src="https://image.tmdb.org/t/p/w342/cWXBisC8gIrGB8UfxKXaoHLxBH2.jpg" alt="Sacred Jewel" loading="lazy">
@@ -1159,7 +1161,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=256726&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="/en/dramas/tantara/">
         <span class="idx">02</span>
         <h3>Tantara</h3>
         <img src="https://image.tmdb.org/t/p/w342/5SzLNVXBqpukDEwYkkocXZy8dd.jpg" alt="Tantara" loading="lazy">
@@ -1168,7 +1170,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=m1231322&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="/en/dramas/the-wandering-earth-iii/">
         <span class="idx">03</span>
         <h3>The Wandering Earth III</h3>
         <img src="https://image.tmdb.org/t/p/w342/7pNAki9AIaJGhNFOs8ePTFI0lDc.jpg" alt="The Wandering Earth III" loading="lazy">
@@ -1177,7 +1179,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=m1577970&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="/en/dramas/arrested-memory/">
         <span class="idx">04</span>
         <h3>Arrested Memory</h3>
         <img src="https://image.tmdb.org/t/p/w342/yjjm0BDt91vSSb6y6CWUwDyr7FP.jpg" alt="Arrested Memory" loading="lazy">
@@ -1187,9 +1189,9 @@
     </div>
         </div>
         <div class="cat-strip hue-movie" id="cat-movie-en">
-          <div class="cat-strip-head"><span class="cat-num">08</span><h3>Movies</h3><span class="pill">Upcoming</span><a class="see-more" href="categorie.html?cat=movie&amp;lang=en">See more →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">08</span><h3>Movies</h3><span class="pill">Upcoming</span><a class="see-more" href="/en/films/">See more →</a></div>
           <div class="cat-grid" data-catkey="movie">
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=791523&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="/en/films/wildwood-la-prophetie-de-la-foret/">
         <span class="idx">01</span>
         <h3>Wildwood : La prophétie de la forêt</h3>
         <img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="Wildwood : La prophétie de la forêt" loading="lazy">
@@ -1198,7 +1200,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1422041&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="/en/films/la-bola-negra/">
         <span class="idx">02</span>
         <h3>La bola negra</h3>
         <img src="https://image.tmdb.org/t/p/w342/ttsFxxHKwCHrtAGJt58rpNqHdFw.jpg" alt="La bola negra" loading="lazy">
@@ -1207,7 +1209,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=940009&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="/en/films/ray-gunn/">
         <span class="idx">03</span>
         <h3>Ray Gunn</h3>
         <img src="https://image.tmdb.org/t/p/w342/rpP29aOKpHy1FhX8OZQdUICEs2j.jpg" alt="Ray Gunn" loading="lazy">
@@ -1216,7 +1218,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1457866&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="/en/films/les-nouvelles-mesaventures-de-cliff-booth/">
         <span class="idx">04</span>
         <h3>Les Nouvelles Mésaventures de Cliff Booth</h3>
         <img src="https://image.tmdb.org/t/p/w342/4OX13uEfFm3x8q7995QBOquM7wI.jpg" alt="Les Nouvelles Mésaventures de Cliff Booth" loading="lazy">
@@ -1226,9 +1228,9 @@
     </div>
         </div>
         <div class="cat-strip hue-game" id="cat-game-en">
-          <div class="cat-strip-head"><span class="cat-num">09</span><h3>Games</h3><span class="pill">Upcoming</span><a class="see-more" href="categorie.html?cat=game&amp;lang=en">See more →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">09</span><h3>Games</h3><span class="pill">Upcoming</span><a class="see-more" href="/en/jeux/">See more →</a></div>
           <div class="cat-grid" data-catkey="game">
-      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=381235&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="/en/jeux/tomb-raider-legacy-of-atlantis/">
         <span class="idx">01</span>
         <h3>Tomb Raider: Legacy of Atlantis</h3>
         <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/cob1kg.jpg" alt="Tomb Raider: Legacy of Atlantis" loading="lazy">
@@ -1237,7 +1239,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=92550&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="/en/jeux/fable/">
         <span class="idx">02</span>
         <h3>Fable</h3>
         <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/cobc6d.jpg" alt="Fable" loading="lazy">
@@ -1246,7 +1248,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=279621&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="/en/jeux/exodus/">
         <span class="idx">03</span>
         <h3>Exodus</h3>
         <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/coaott.jpg" alt="Exodus" loading="lazy">
@@ -1255,7 +1257,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=194662&amp;lang=en">
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="/en/jeux/the-witcher-iv/">
         <span class="idx">04</span>
         <h3>The Witcher IV</h3>
         <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co95i0.jpg" alt="The Witcher IV" loading="lazy">
@@ -1273,63 +1275,63 @@
       <p class="section-body">Elke categorie heeft zijn eigen fandom — en zijn eigen app. TSUGI brengt ze allemaal samen, met overal dezelfde volgtools.</p>
     </div>
     <div class="cat-bento">
-        <a class="cat-tile hue-anime" href="categorie.html?cat=anime&amp;lang=nl" data-reveal="">
+        <a class="cat-tile hue-anime" href="/nl/anime/" data-reveal="">
           <span class="cat-num">01</span>
           <h3>Anime</h3>
           <p>Seizoenen, films en OVA's, episode per episode gevolgd.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="anime">50 titels</span><span class="tile-more">Meer zien →</span></span>
           <span class="tile-covers" data-tilekey="anime" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx181641-4BnzXGnA7CJL.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manga" href="categorie.html?cat=manga&amp;lang=nl" data-reveal="">
+        <a class="cat-tile hue-manga" href="/nl/manga/" data-reveal="">
           <span class="cat-num">02</span>
           <h3>Manga</h3>
           <p>Gelezen hoofdstukken, lopende of afgeronde series.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="manga">50 titels</span><span class="tile-more">Meer zien →</span></span>
-          <span class="tile-covers" data-tilekey="manga" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx30013-BeslEMqiPhlk.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx140475-QEGtrmdvbpOv.jpg" alt="" loading="lazy"></span>
+          <span class="tile-covers" data-tilekey="manga" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx30013-BeslEMqiPhlk.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx140475-QEGtrmdvbpOv.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manhwa" href="categorie.html?cat=manhwa&amp;lang=nl" data-reveal="">
+        <a class="cat-tile hue-manhwa" href="/nl/manhwa/" data-reveal="">
           <span class="cat-num">03</span>
           <h3>Manhwa</h3>
           <p>Koreaanse webtoons, van oneshot tot langlopende serie.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="manhwa">50 titels</span><span class="tile-more">Meer zien →</span></span>
           <span class="tile-covers" data-tilekey="manhwa" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx120980-RZ9WLd0o9hyo.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx159441-9W8201jAT9Yv.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx183376-Cw3VnZAItw2a.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-manhua" href="categorie.html?cat=manhua&amp;lang=nl" data-reveal="">
+        <a class="cat-tile hue-manhua" href="/nl/manhua/" data-reveal="">
           <span class="cat-num">04</span>
           <h3>Manhua</h3>
           <p>Chinese strips, cultivation en fantasy.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="manhua">50 titels</span><span class="tile-more">Meer zien →</span></span>
           <span class="tile-covers" data-tilekey="manhua" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/b167372-zfQUGcQMWiAI.png" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx160980-KAM0gr3dSMvB.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx116353-DYuIigXuPwpZ.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-webtoon" href="categorie.html?cat=webtoon&amp;lang=nl" data-reveal="">
+        <a class="cat-tile hue-webtoon" href="/nl/webtoon/" data-reveal="">
           <span class="cat-num">05</span>
           <h3>Webtoon</h3>
           <p>Verticaal formaat, bijgewerkt bij elke nieuwe release.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="webtoon">50 titels</span><span class="tile-more">Meer zien →</span></span>
           <span class="tile-covers" data-tilekey="webtoon" aria-hidden="true"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx119257-Pi21aq3ey9GG.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx128067-wnLBg6Cy1ncs.jpg" alt="" loading="lazy"><img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx103156-yTVWAW2N8uGi.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-series" href="categorie.html?cat=series&amp;lang=nl" data-reveal="">
+        <a class="cat-tile hue-series" href="/nl/series/" data-reveal="">
           <span class="cat-num">06</span>
           <h3>Series</h3>
           <p>Verlengingen gevolgd, ook als een datum verandert.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="series">50 titels</span><span class="tile-more">Meer zien →</span></span>
           <span class="tile-covers" data-tilekey="series" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/tgGsACYKoMAtclxXkBkHhl3EvYa.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/zNH0vo3rvRTklF0gui5Ntr4DBAA.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/pQKofoTaTnwQopuU1crUEEqtAfg.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-drama" href="categorie.html?cat=drama&amp;lang=nl" data-reveal="">
+        <a class="cat-tile hue-drama" href="/nl/dramas/" data-reveal="">
           <span class="cat-num">07</span>
           <h3>Dramas</h3>
           <p>K-drama, J-drama en C-drama, nu in uitzending.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="drama">50 titels</span><span class="tile-more">Meer zien →</span></span>
           <span class="tile-covers" data-tilekey="drama" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/5SzLNVXBqpukDEwYkkocXZy8dd.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/cWXBisC8gIrGB8UfxKXaoHLxBH2.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/3L8El6VH4CL1pdz9JgnGsHXeGra.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-movie" href="categorie.html?cat=movie&amp;lang=nl" data-reveal="">
+        <a class="cat-tile hue-movie" href="/nl/films/" data-reveal="">
           <span class="cat-num">08</span>
           <h3>Films</h3>
           <p>Aankomende releases, van festival tot bioscoop.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="movie">80 titels</span><span class="tile-more">Meer zien →</span></span>
           <span class="tile-covers" data-tilekey="movie" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/ttsFxxHKwCHrtAGJt58rpNqHdFw.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/cCUxE6EJ9zi1YfdsxU8rWLgqQnN.jpg" alt="" loading="lazy"></span>
         </a>
-        <a class="cat-tile hue-game" href="categorie.html?cat=game&amp;lang=nl" data-reveal="">
+        <a class="cat-tile hue-game" href="/nl/jeux/" data-reveal="">
           <span class="cat-num">09</span>
           <h3>Games</h3>
           <p>Bevestigde releasedata, zelfs jaren vooruit.</p>
@@ -1339,9 +1341,9 @@
     </div>
     <div class="cat-strips">
         <div class="cat-strip hue-anime" id="cat-anime-nl">
-          <div class="cat-strip-head"><span class="cat-num">01</span><h3>Anime</h3><span class="pill">Binnenkort</span><a class="see-more" href="categorie.html?cat=anime&amp;lang=nl">Meer zien →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">01</span><h3>Anime</h3><span class="pill">Binnenkort</span><a class="see-more" href="/nl/anime/">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="anime">
-      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=209939&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="/nl/anime/sousou-no-frieren-3rd-season/">
         <span class="idx">01</span>
         <h3>Sousou no Frieren 3rd Season</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx209939-g2Njkml1rheG.jpg" alt="Sousou no Frieren 3rd Season" loading="lazy">
@@ -1350,7 +1352,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=198966&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="/nl/anime/dandadan-3rd-season/">
         <span class="idx">02</span>
         <h3>Dandadan 3rd Season</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="Dandadan 3rd Season" loading="lazy">
@@ -1359,7 +1361,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=181641&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="/nl/anime/tokidoki-bosotto-rossiya-go-de-dereru-tonari-no-alya-san-season-2/">
         <span class="idx">03</span>
         <h3>Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx181641-4BnzXGnA7CJL.jpg" alt="Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2" loading="lazy">
@@ -1368,7 +1370,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=171952&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="/nl/anime/kage-no-jitsuryokusha-ni-naritakute-zankyou-hen/">
         <span class="idx">04</span>
         <h3>Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen" loading="lazy">
@@ -1378,9 +1380,9 @@
     </div>
         </div>
         <div class="cat-strip hue-manga" id="cat-manga-nl">
-          <div class="cat-strip-head"><span class="cat-num">02</span><h3>Manga</h3><span class="pill">Populair</span><a class="see-more" href="categorie.html?cat=manga&amp;lang=nl">Meer zien →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">02</span><h3>Manga</h3><span class="pill">Populair</span><a class="see-more" href="/nl/manga/">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="manga">
-      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=30013&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="/nl/manga/one-piece/">
         <span class="idx">01</span>
         <h3>One Piece</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx30013-BeslEMqiPhlk.jpg" alt="One Piece" loading="lazy">
@@ -1389,17 +1391,8 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=99324&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="/nl/manga/the-fragrant-flower-blooms-with-dignity/">
         <span class="idx">02</span>
-        <h3>Welcome to Demon School! Iruma-kun</h3>
-        <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="Welcome to Demon School! Iruma-kun" loading="lazy">
-        <p class="release-date">Manga · Lopend</p>
-        <p class="blurb">Iruma Suzuki has always been eager to please, even at the cost of his well-being. Worst yet, he's the son of two selfish…</p>
-      </a>
-    
-
-      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=140475&amp;lang=nl">
-        <span class="idx">03</span>
         <h3>The Fragrant Flower Blooms With Dignity</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx140475-QEGtrmdvbpOv.jpg" alt="The Fragrant Flower Blooms With Dignity" loading="lazy">
         <p class="release-date">Manga · Lopend</p>
@@ -1407,7 +1400,16 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=201773&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="/nl/manga/welcome-to-demon-school-iruma-kun/">
+        <span class="idx">03</span>
+        <h3>Welcome to Demon School! Iruma-kun</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="Welcome to Demon School! Iruma-kun" loading="lazy">
+        <p class="release-date">Manga · Lopend</p>
+        <p class="blurb">Iruma Suzuki has always been eager to please, even at the cost of his well-being. Worst yet, he's the son of two selfish…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="/nl/manga/haimiya-is-scary-cute/">
         <span class="idx">04</span>
         <h3>Haimiya Is Scary Cute</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx201773-ecGmhCRhfu05.jpg" alt="Haimiya Is Scary Cute" loading="lazy">
@@ -1417,9 +1419,9 @@
     </div>
         </div>
         <div class="cat-strip hue-manhwa" id="cat-manhwa-nl">
-          <div class="cat-strip-head"><span class="cat-num">03</span><h3>Manhwa</h3><span class="pill">Populair</span><a class="see-more" href="categorie.html?cat=manhwa&amp;lang=nl">Meer zien →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">03</span><h3>Manhwa</h3><span class="pill">Populair</span><a class="see-more" href="/nl/manhwa/">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="manhwa">
-      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=120980&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="/nl/manhwa/nano-machine/">
         <span class="idx">01</span>
         <h3>Nano Machine</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx120980-RZ9WLd0o9hyo.jpg" alt="Nano Machine" loading="lazy">
@@ -1428,7 +1430,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=159441&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="/nl/manhwa/pick-me-up/">
         <span class="idx">02</span>
         <h3>Pick Me Up</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx159441-9W8201jAT9Yv.jpg" alt="Pick Me Up" loading="lazy">
@@ -1437,7 +1439,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=183376&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="/nl/manhwa/chronicles-of-a-doomed-prodigy/">
         <span class="idx">03</span>
         <h3>Chronicles of a Doomed Prodigy</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx183376-Cw3VnZAItw2a.jpg" alt="Chronicles of a Doomed Prodigy" loading="lazy">
@@ -1446,7 +1448,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=204974&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="/nl/manhwa/murim-psychopath/">
         <span class="idx">04</span>
         <h3>Murim Psychopath</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx204974-SZoqdyhxoLRH.jpg" alt="Murim Psychopath" loading="lazy">
@@ -1456,9 +1458,9 @@
     </div>
         </div>
         <div class="cat-strip hue-manhua" id="cat-manhua-nl">
-          <div class="cat-strip-head"><span class="cat-num">04</span><h3>Manhua</h3><span class="pill">Populair</span><a class="see-more" href="categorie.html?cat=manhua&amp;lang=nl">Meer zien →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">04</span><h3>Manhua</h3><span class="pill">Populair</span><a class="see-more" href="/nl/manhua/">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="manhua">
-      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=167372&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="/nl/manhua/necromancer-the-ultimate-scourge/">
         <span class="idx">01</span>
         <h3>Necromancer, the Ultimate Scourge!</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/b167372-zfQUGcQMWiAI.png" alt="Necromancer, the Ultimate Scourge!" loading="lazy">
@@ -1467,7 +1469,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=160980&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="/nl/manhua/log-into-the-future/">
         <span class="idx">02</span>
         <h3>Log Into The Future</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx160980-KAM0gr3dSMvB.jpg" alt="Log Into The Future" loading="lazy">
@@ -1476,7 +1478,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=116353&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="/nl/manhua/the-devil-butler/">
         <span class="idx">03</span>
         <h3>The Devil Butler</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx116353-DYuIigXuPwpZ.jpg" alt="The Devil Butler" loading="lazy">
@@ -1485,7 +1487,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=138726&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="/nl/manhua/rebirth-of-the-ultimate-master/">
         <span class="idx">04</span>
         <h3>Rebirth Of The Ultimate Master</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx138726-ysRy6zaQMWT8.jpg" alt="Rebirth Of The Ultimate Master" loading="lazy">
@@ -1495,9 +1497,9 @@
     </div>
         </div>
         <div class="cat-strip hue-webtoon" id="cat-webtoon-nl">
-          <div class="cat-strip-head"><span class="cat-num">05</span><h3>Webtoon</h3><span class="pill">Populair</span><a class="see-more" href="categorie.html?cat=webtoon&amp;lang=nl">Meer zien →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">05</span><h3>Webtoon</h3><span class="pill">Populair</span><a class="see-more" href="/nl/webtoon/">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="webtoon">
-      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=9a414441-bbad-43f1-a3a7-dc262ca790a3&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="/nl/webtoon/omniscient-reader-s-viewpoint/">
         <span class="idx">01</span>
         <h3>Omniscient Reader's Viewpoint</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx119257-Pi21aq3ey9GG.jpg" alt="Omniscient Reader's Viewpoint" loading="lazy">
@@ -1506,7 +1508,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=4a973243-952e-44d7-a50f-883b4b7c9cc2&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="/nl/webtoon/sss-class-revival-hunter/">
         <span class="idx">02</span>
         <h3>SSS-Class Revival Hunter</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx128067-wnLBg6Cy1ncs.jpg" alt="SSS-Class Revival Hunter" loading="lazy">
@@ -1515,7 +1517,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=d993f789-e7e5-4832-92fd-37614220b427&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="/nl/webtoon/the-skeleton-soldier-failed-to-defend-the-dungeon/">
         <span class="idx">03</span>
         <h3>The Skeleton Soldier Failed to Defend the Dungeon</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx103156-yTVWAW2N8uGi.jpg" alt="The Skeleton Soldier Failed to Defend the Dungeon" loading="lazy">
@@ -1524,7 +1526,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=b407de00-75a5-415a-a001-585fb41b9cf2&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="/nl/webtoon/the-max-level-hero-strikes-back/">
         <span class="idx">04</span>
         <h3>The Max Level Hero Strikes Back</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx125636-g0gkyLZbo3Tz.png" alt="The Max Level Hero Strikes Back" loading="lazy">
@@ -1534,9 +1536,9 @@
     </div>
         </div>
         <div class="cat-strip hue-series" id="cat-series-nl">
-          <div class="cat-strip-head"><span class="cat-num">06</span><h3>Series</h3><span class="pill">Binnenkort</span><a class="see-more" href="categorie.html?cat=series&amp;lang=nl">Meer zien →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">06</span><h3>Series</h3><span class="pill">Binnenkort</span><a class="see-more" href="/nl/series/">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="series">
-      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=296244&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="/nl/series/frisco-king/">
         <span class="idx">01</span>
         <h3>Frisco King</h3>
         <img src="https://image.tmdb.org/t/p/w342/9wNdTWthGpTZZaOBKlO07pK77pU.jpg" alt="Frisco King" loading="lazy">
@@ -1545,7 +1547,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=224377&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="/nl/series/harry-potter/">
         <span class="idx">02</span>
         <h3>Harry Potter</h3>
         <img src="https://image.tmdb.org/t/p/w342/zNH0vo3rvRTklF0gui5Ntr4DBAA.jpg" alt="Harry Potter" loading="lazy">
@@ -1554,7 +1556,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=337372&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="/nl/series/esref-tek/">
         <span class="idx">03</span>
         <h3>Eşref Tek</h3>
         <img src="https://image.tmdb.org/t/p/w342/tgGsACYKoMAtclxXkBkHhl3EvYa.jpg" alt="Eşref Tek" loading="lazy">
@@ -1563,7 +1565,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=215528&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="/nl/series/neuromancien/">
         <span class="idx">04</span>
         <h3>Neuromancien</h3>
         <img src="https://image.tmdb.org/t/p/w342/pQKofoTaTnwQopuU1crUEEqtAfg.jpg" alt="Neuromancien" loading="lazy">
@@ -1573,9 +1575,9 @@
     </div>
         </div>
         <div class="cat-strip hue-drama" id="cat-drama-nl">
-          <div class="cat-strip-head"><span class="cat-num">07</span><h3>Dramas</h3><span class="pill">Binnenkort</span><a class="see-more" href="categorie.html?cat=drama&amp;lang=nl">Meer zien →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">07</span><h3>Dramas</h3><span class="pill">Binnenkort</span><a class="see-more" href="/nl/dramas/">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="drama">
-      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=258862&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="/nl/dramas/sacred-jewel/">
         <span class="idx">01</span>
         <h3>Sacred Jewel</h3>
         <img src="https://image.tmdb.org/t/p/w342/cWXBisC8gIrGB8UfxKXaoHLxBH2.jpg" alt="Sacred Jewel" loading="lazy">
@@ -1584,7 +1586,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=256726&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="/nl/dramas/tantara/">
         <span class="idx">02</span>
         <h3>Tantara</h3>
         <img src="https://image.tmdb.org/t/p/w342/5SzLNVXBqpukDEwYkkocXZy8dd.jpg" alt="Tantara" loading="lazy">
@@ -1593,7 +1595,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=m1231322&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="/nl/dramas/the-wandering-earth-iii/">
         <span class="idx">03</span>
         <h3>The Wandering Earth III</h3>
         <img src="https://image.tmdb.org/t/p/w342/7pNAki9AIaJGhNFOs8ePTFI0lDc.jpg" alt="The Wandering Earth III" loading="lazy">
@@ -1602,7 +1604,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=m1577970&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="/nl/dramas/arrested-memory/">
         <span class="idx">04</span>
         <h3>Arrested Memory</h3>
         <img src="https://image.tmdb.org/t/p/w342/yjjm0BDt91vSSb6y6CWUwDyr7FP.jpg" alt="Arrested Memory" loading="lazy">
@@ -1612,9 +1614,9 @@
     </div>
         </div>
         <div class="cat-strip hue-movie" id="cat-movie-nl">
-          <div class="cat-strip-head"><span class="cat-num">08</span><h3>Films</h3><span class="pill">Binnenkort</span><a class="see-more" href="categorie.html?cat=movie&amp;lang=nl">Meer zien →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">08</span><h3>Films</h3><span class="pill">Binnenkort</span><a class="see-more" href="/nl/films/">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="movie">
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=791523&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="/nl/films/wildwood-la-prophetie-de-la-foret/">
         <span class="idx">01</span>
         <h3>Wildwood : La prophétie de la forêt</h3>
         <img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="Wildwood : La prophétie de la forêt" loading="lazy">
@@ -1623,7 +1625,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1422041&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="/nl/films/la-bola-negra/">
         <span class="idx">02</span>
         <h3>La bola negra</h3>
         <img src="https://image.tmdb.org/t/p/w342/ttsFxxHKwCHrtAGJt58rpNqHdFw.jpg" alt="La bola negra" loading="lazy">
@@ -1632,7 +1634,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=940009&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="/nl/films/ray-gunn/">
         <span class="idx">03</span>
         <h3>Ray Gunn</h3>
         <img src="https://image.tmdb.org/t/p/w342/rpP29aOKpHy1FhX8OZQdUICEs2j.jpg" alt="Ray Gunn" loading="lazy">
@@ -1641,7 +1643,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1457866&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="/nl/films/les-nouvelles-mesaventures-de-cliff-booth/">
         <span class="idx">04</span>
         <h3>Les Nouvelles Mésaventures de Cliff Booth</h3>
         <img src="https://image.tmdb.org/t/p/w342/4OX13uEfFm3x8q7995QBOquM7wI.jpg" alt="Les Nouvelles Mésaventures de Cliff Booth" loading="lazy">
@@ -1651,9 +1653,9 @@
     </div>
         </div>
         <div class="cat-strip hue-game" id="cat-game-nl">
-          <div class="cat-strip-head"><span class="cat-num">09</span><h3>Games</h3><span class="pill">Binnenkort</span><a class="see-more" href="categorie.html?cat=game&amp;lang=nl">Meer zien →</a></div>
+          <div class="cat-strip-head"><span class="cat-num">09</span><h3>Games</h3><span class="pill">Binnenkort</span><a class="see-more" href="/nl/jeux/">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="game">
-      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=381235&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="/nl/jeux/tomb-raider-legacy-of-atlantis/">
         <span class="idx">01</span>
         <h3>Tomb Raider: Legacy of Atlantis</h3>
         <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/cob1kg.jpg" alt="Tomb Raider: Legacy of Atlantis" loading="lazy">
@@ -1662,7 +1664,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=92550&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="/nl/jeux/fable/">
         <span class="idx">02</span>
         <h3>Fable</h3>
         <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/cobc6d.jpg" alt="Fable" loading="lazy">
@@ -1671,7 +1673,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=279621&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="/nl/jeux/exodus/">
         <span class="idx">03</span>
         <h3>Exodus</h3>
         <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/coaott.jpg" alt="Exodus" loading="lazy">
@@ -1680,7 +1682,7 @@
       </a>
     
 
-      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=194662&amp;lang=nl">
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="/nl/jeux/the-witcher-iv/">
         <span class="idx">04</span>
         <h3>The Witcher IV</h3>
         <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co95i0.jpg" alt="The Witcher IV" loading="lazy">
@@ -2027,6 +2029,7 @@
     </div>
 </footer>
 
-<script>document.querySelectorAll('.year').forEach(function(e){e.textContent=new Date().getFullYear();});</script>
+<script>document.querySelectorAll('.year').forEach(function(e){e.textContent=new Date().getFullYear();});
+var m = location.hash.match(/-(fr|en|nl)$/); if (m) { var r = document.getElementById('lang-' + m[1]); if (r) r.checked = true; }</script>
 
 </body></html>

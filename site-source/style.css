@@ -186,6 +186,8 @@
   .page-grid { grid-template-columns: repeat(5, 1fr); }
   .pager { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 32px 0 60px; color: var(--ink-dim); font-size: 14px; }
   .pager .btn:disabled { opacity: .35; cursor: default; }
+  .pager .btn.disabled { opacity: .35; cursor: default; pointer-events: none; }
+  .kind-chip { text-decoration: none; display: inline-block; }
   .cp-empty { color: var(--ink-dim); text-align: center; padding: 40px 0; }
   .kind-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
   .kind-chips[hidden] { display: none; }
