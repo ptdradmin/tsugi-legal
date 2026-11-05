@@ -22,6 +22,9 @@ const CATS = [
 const CAT_SLUGS = { anime: 'anime', manga: 'manga', manhwa: 'manhwa', manhua: 'manhua', webtoon: 'webtoon', series: 'series', drama: 'dramas', movie: 'films', game: 'jeux' };
 const LANG_PREFIX = { fr: '', en: '/en', nl: '/nl' };
 const catUrl = (key, lang) => `${LANG_PREFIX[lang]}/${CAT_SLUGS[key]}/`;
+// Each home page (/, /en/, /nl/) shows one language: its sections get clean anchors (/en/#faq).
+let CUR = 'fr';
+const sid = (name, lang) => lang === CUR ? name : `${name}-${lang}`;
 
 const T = {
   fr: {
@@ -173,9 +176,9 @@ function navHtml(lang) {
   const t = T[lang];
   return `
     <nav class="nav-links lang-panel lang-panel-${lang}">
-      <a href="#categories-${lang}">${esc(t.nav[0])}</a>
-      <a href="#feat-${lang}">${esc(t.nav[1])}</a>
-      <a href="#faq-${lang}">${esc(t.nav[2])}</a>
+      <a href="#${sid('categories', lang)}">${esc(t.nav[0])}</a>
+      <a href="#${sid('features', lang)}">${esc(t.nav[1])}</a>
+      <a href="#${sid('faq', lang)}">${esc(t.nav[2])}</a>
       <a href="/confidentialite/">${esc(t.nav[3])}</a>
     </nav>`;
 }
@@ -191,7 +194,7 @@ function heroHtml(lang) {
       <div class="hero-cta">
         <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=app.tsugi.android">${esc(t.ctaPlay)}</a>
         <span class="btn btn-soon" aria-disabled="true">${esc(t.appStoreSoon)}</span>
-        <a class="btn btn-ghost" href="#categories-${lang}">${esc(t.ctaCats)}</a>
+        <a class="btn btn-ghost" href="#${sid('categories', lang)}">${esc(t.ctaCats)}</a>
       </div>
       <div class="social-proof">
         <div class="avatars" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -226,7 +229,7 @@ function categoriesHtml(lang) {
           <div class="cat-grid" data-catkey="${c.key}"></div>
         </div>`).join('');
   return `
-  <section id="categories-${lang}" class="lang-panel lang-panel-${lang}">
+  <section id="${sid('categories', lang)}" class="lang-panel lang-panel-${lang}">
     <div class="section-head">
       <p class="kicker">${esc(t.catsKicker)}</p>
       <h2>${esc(t.catsTitle)}</h2>
@@ -248,7 +251,7 @@ function featuresHtml(lang) {
           <p>${esc(f[1])}</p>
         </div>`).join('');
   return `
-  <section id="feat-${lang}" class="lang-panel lang-panel-${lang}">
+  <section id="${sid('features', lang)}" class="lang-panel lang-panel-${lang}">
     <div class="section-head">
       <p class="kicker">${esc(t.featKicker)}</p>
       <h2>${esc(t.featTitle)}</h2>
@@ -266,7 +269,7 @@ function faqHtml(lang) {
           <p>${esc(a)}</p>
         </details>`).join('');
   return `
-  <section id="faq-${lang}" class="lang-panel lang-panel-${lang}">
+  <section id="${sid('faq', lang)}" class="lang-panel lang-panel-${lang}">
     <div class="section-head">
       <p class="kicker">${esc(t.faqKicker)}</p>
       <h2>${esc(t.faqTitle)}</h2>
@@ -299,7 +302,7 @@ function footerBrand(lang) {
       <span class="glyph">次</span>
       <span>© <span class="year"></span> TSUGI — <a href="mailto:contact-tsugi@stud-in.be">contact-tsugi@stud-in.be</a></span>
       <nav class="foot-links">
-        <a href="#faq-${lang}">${esc(t.footLinks[0])}</a>
+        <a href="#${sid('faq', lang)}">${esc(t.footLinks[0])}</a>
         <a href="/confidentialite/">${esc(t.footLinks[1])}</a>
         <a href="/conditions/">${esc(t.footLinks[2])}</a>
       </nav>
@@ -309,15 +312,17 @@ function footerBrand(lang) {
 const langs = ['fr', 'en', 'nl'];
 const style = fs.readFileSync(new URL('./style.css', import.meta.url), 'utf-8');
 
-const html = `<!DOCTYPE html><html lang="fr"><head>
+function homeHtml(cur) {
+CUR = cur;
+return `<!DOCTYPE html><html lang="${cur}"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <title>TSUGI — Un hub, pas dix apps</title>
-<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
-<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/img/favicon-192.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <meta name="description" content="Anime, manga, manhwa, manhua, webtoons, series, dramas, movies and video games — tracked, rated and updated in one place, on every device.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -328,16 +333,14 @@ ${style}
 </head>
 <body>
 
-<input type="radio" name="lang" id="lang-fr" checked>
-<input type="radio" name="lang" id="lang-en">
-<input type="radio" name="lang" id="lang-nl">
+${langs.map(l => `<input type="radio" name="lang" id="lang-${l}"${l === cur ? ' checked' : ''}>`).join('\n')}
 
 <header class="site-nav">
   <a class="brand" href="#top"><span class="glyph">次</span><strong>TSUGI</strong></a>
 ${langs.map(navHtml).join('')}
   <div class="nav-right">
     <div class="lang-switch">
-      <label for="lang-fr">FR</label><label for="lang-en">EN</label><label for="lang-nl">NL</label>
+      ${langs.map(l => `<a href="${LANG_PREFIX[l]}/"${l === cur ? ' class="active"' : ''}>${l.toUpperCase()}</a>`).join('')}
     </div>
     <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=app.tsugi.android">Google Play</a>
   </div>
@@ -356,11 +359,22 @@ ${langs.map(footerBrand).join('')}
 </footer>
 
 <script>document.querySelectorAll('.year').forEach(function(e){e.textContent=new Date().getFullYear();});
-var m = location.hash.match(/-(fr|en|nl)$/); if (m) { var r = document.getElementById('lang-' + m[1]); if (r) r.checked = true; }</script>
+// Old anchors (/#faq-en, /#feat-nl…) -> the language's own page with a clean anchor (/en/#faq).
+var m = location.hash.match(/^#(categories|feat|faq)-(fr|en|nl)$/);
+if (m) location.replace(${JSON.stringify(LANG_PREFIX)}[m[2]] + '/#' + ({ feat: 'features' }[m[1]] || m[1]));</script>
 </body></html>
 `;
+}
 
-fs.writeFileSync(new URL('../index.html', import.meta.url), html);
+// build.js injects the dynamic cards into all three.
+const HOME_FILES = { fr: '../index.html', en: '../en/index.html', nl: '../nl/index.html' };
+let html = '';
+for (const l of langs) {
+  html = homeHtml(l);
+  fs.mkdirSync(new URL(HOME_FILES[l].replace('index.html', ''), import.meta.url), { recursive: true });
+  fs.writeFileSync(new URL(HOME_FILES[l], import.meta.url), html);
+}
+CUR = 'fr';
 
 // Only what the page needs, per language: category names + its UI strings.
 const pageI18n = Object.fromEntries(langs.map(l => [l, {

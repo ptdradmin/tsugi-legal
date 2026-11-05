@@ -38,8 +38,8 @@ const CONFIG = {
   FULL_LIMIT: 50, // How many items each category's "Voir plus" page lists (paginated client-side)
   
   // Paths
-  TEMPLATE_PATH: path.resolve('../index.html'),
-  OUTPUT_PATH: path.resolve('../index.html'),
+  // One home page per language (/, /en/, /nl/), written by site-source/gen.js; cards are injected into each.
+  HOME_PAGES: ['../index.html', '../en/index.html', '../nl/index.html'].map(p => path.resolve(p)),
   DATA_DIR: path.resolve('../data'),
 };
 
@@ -611,10 +611,6 @@ async function main() {
 
   log('FETCH', `Got ${movies.length} movies, ${series.length} series, ${anime.length} anime, ${games.length} games, ${dramas.length} dramas, ${manga.length} manga, ${manhwa.length} manhwa, ${manhua.length} manhua, ${webtoons.length} webtoons`);
 
-  // Load template
-  let html = fs.readFileSync(CONFIG.TEMPLATE_PATH, 'utf-8');
-  const $ = cheerio.load(html);
-
   // Inject into each language panel
   const langs = ['fr', 'en', 'nl'];
   const categories = {
@@ -631,9 +627,11 @@ async function main() {
 
   for (const [catKey, items] of Object.entries(categories)) assignSlugs(items, catKey);
 
+  for (const homePath of CONFIG.HOME_PAGES) {
+  const $ = cheerio.load(fs.readFileSync(homePath, 'utf-8'));
   for (const lang of langs) {
     for (const [catKey, items] of Object.entries(categories)) {
-      const sectionId = `#categories-${lang}`;
+      const sectionId = `.lang-panel-${lang}`;
       // Each category has its own strip/.cat-grid (data-catkey="movie"/"anime"/etc.) — grabbing
       // just the first .cat-grid in the section used to dump every category's cards into whichever
       // one happened to come first in the markup.
@@ -656,9 +654,14 @@ async function main() {
           : catKey === 'drama' ? items.filter(m => m.dramaKind === 'film').slice(0, 2) : [];
         const landing = byDate([...streamPick, ...items.filter(m => !streamPick.includes(m)).slice(0, CONFIG.LIMIT_PER_CATEGORY - streamPick.length)]);
         catGrid.append(generateCategoryHTML(landing, catKey, lang));
-        log('INJECT', `Injected ${landing.length} ${catKey} items into ${lang}`);
       }
     }
+  }
+  // Last updated timestamp — remove yesterday's before adding today's.
+  $('footer .foot-brand .last-updated').remove();
+  $('footer .foot-brand').prepend(`<span class="last-updated" style="margin-right:16px;font-size:11px;color:var(--ink-faint);">Mis à jour: ${new Date().toISOString().slice(0, 10)}</span>`);
+  fs.writeFileSync(homePath, $.html());
+  log('BUILD', `Written to ${homePath}`);
   }
 
   // "Voir plus" pages read these. An empty fetch keeps yesterday's file rather than blanking the page.
@@ -669,14 +672,6 @@ async function main() {
     log('DATA', `${catKey}: ${items.length} items`);
   }
 
-  // Add last updated timestamp — remove yesterday's before adding today's, same reason as above.
-  const now = new Date().toISOString();
-  $('footer .foot-brand .last-updated').remove();
-  $('footer .foot-brand').prepend(`<span class="last-updated" style="margin-right:16px;font-size:11px;color:var(--ink-faint);">Mis à jour: ${now.slice(0,10)}</span>`);
-  
-  // Write output
-  fs.writeFileSync(CONFIG.OUTPUT_PATH, $.html());
-  log('BUILD', `Written to ${CONFIG.OUTPUT_PATH}`);
   log('BUILD', 'Done!');
 }
 

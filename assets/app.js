@@ -44,8 +44,7 @@
     var pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
     var page = Math.min(Math.max(1, C.page || 1), pages);
 
-    // The home page is one multilingual page at /: the anchor picks the language (see index.html's script).
-    app.appendChild(link('see-more cp-back', '/#categories-' + C.lang, '← ' + t.backHome));
+    app.appendChild(link('see-more cp-back', LANG_PREFIX[C.lang] + '/#categories', '← ' + t.backHome));
     var head = node('div', 'cat-strip-head');
     head.appendChild(node('span', 'cat-num', NUMS[C.cat]));
     head.appendChild(node('h1', '', t.cats[C.cat]));

@@ -16,7 +16,7 @@ const langs = Object.keys(LANG_PREFIX);
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-for (const dir of [...Object.values(CAT_SLUGS), 'en', 'nl']) fs.rmSync(new URL(dir, root), { recursive: true, force: true });
+for (const lp of Object.values(LANG_PREFIX)) for (const dir of Object.values(CAT_SLUGS)) fs.rmSync(new URL(lp + dir, root), { recursive: true, force: true });
 
 function page(relPath, lang, config, title, description) {
   // Language switch: the same page in the other languages.
@@ -38,7 +38,7 @@ function page(relPath, lang, config, title, description) {
 </head>
 <body>
 <header class="site-nav">
-  <a class="brand" href="/#categories-${lang}"><span class="glyph">次</span><strong>TSUGI</strong></a>
+  <a class="brand" href="/${LANG_PREFIX[lang]}#categories"><span class="glyph">次</span><strong>TSUGI</strong></a>
   <div class="nav-right">
     <div class="lang-switch">${switcher}</div>
     <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=app.tsugi.android">Google Play</a>

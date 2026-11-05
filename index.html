@@ -3,10 +3,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <title>TSUGI — Un hub, pas dix apps</title>
-<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
-<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/img/favicon-192.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <meta name="description" content="Anime, manga, manhwa, manhua, webtoons, series, dramas, movies and video games — tracked, rated and updated in one place, on every device.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -327,26 +327,26 @@
   <a class="brand" href="#top"><span class="glyph">次</span><strong>TSUGI</strong></a>
 
     <nav class="nav-links lang-panel lang-panel-fr">
-      <a href="#categories-fr">Catégories</a>
-      <a href="#feat-fr">Fonctionnalités</a>
-      <a href="#faq-fr">FAQ</a>
+      <a href="#categories">Catégories</a>
+      <a href="#features">Fonctionnalités</a>
+      <a href="#faq">FAQ</a>
       <a href="/confidentialite/">Confidentialité</a>
     </nav>
     <nav class="nav-links lang-panel lang-panel-en">
       <a href="#categories-en">Categories</a>
-      <a href="#feat-en">Features</a>
+      <a href="#features-en">Features</a>
       <a href="#faq-en">FAQ</a>
       <a href="/confidentialite/">Privacy</a>
     </nav>
     <nav class="nav-links lang-panel lang-panel-nl">
       <a href="#categories-nl">Categorieën</a>
-      <a href="#feat-nl">Functies</a>
+      <a href="#features-nl">Functies</a>
       <a href="#faq-nl">FAQ</a>
       <a href="/confidentialite/">Privacy</a>
     </nav>
   <div class="nav-right">
     <div class="lang-switch">
-      <label for="lang-fr">FR</label><label for="lang-en">EN</label><label for="lang-nl">NL</label>
+      <a href="/" class="active">FR</a><a href="/en/">EN</a><a href="/nl/">NL</a>
     </div>
     <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=app.tsugi.android">Google Play</a>
   </div>
@@ -362,7 +362,7 @@
       <div class="hero-cta">
         <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=app.tsugi.android">Voir sur Google Play</a>
         <span class="btn btn-soon" aria-disabled="true">App Store — bientôt</span>
-        <a class="btn btn-ghost" href="#categories-fr">Voir les catégories</a>
+        <a class="btn btn-ghost" href="#categories">Voir les catégories</a>
       </div>
       <div class="social-proof">
         <div class="avatars" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -418,7 +418,7 @@
     </div>
   </section>
 
-  <section id="categories-fr" class="lang-panel lang-panel-fr">
+  <section id="categories" class="lang-panel lang-panel-fr">
     <div class="section-head">
       <p class="kicker">Neuf mondes, un seul hub</p>
       <h2>Arrêtez de jongler entre dix applications.</h2>
@@ -1694,7 +1694,7 @@
     </div>
   </section>
 
-  <section id="feat-fr" class="lang-panel lang-panel-fr">
+  <section id="features" class="lang-panel lang-panel-fr">
     <div class="section-head">
       <p class="kicker">Pourquoi TSUGI</p>
       <h2>Pensé pour qu'on ne rate plus une sortie.</h2>
@@ -1727,7 +1727,7 @@
         </div>
     </div>
   </section>
-  <section id="feat-en" class="lang-panel lang-panel-en">
+  <section id="features-en" class="lang-panel lang-panel-en">
     <div class="section-head">
       <p class="kicker">Why TSUGI</p>
       <h2>Built so you never miss a release again.</h2>
@@ -1760,7 +1760,7 @@
         </div>
     </div>
   </section>
-  <section id="feat-nl" class="lang-panel lang-panel-nl">
+  <section id="features-nl" class="lang-panel lang-panel-nl">
     <div class="section-head">
       <p class="kicker">Waarom TSUGI</p>
       <h2>Gemaakt zodat je nooit meer een release mist.</h2>
@@ -1794,7 +1794,7 @@
     </div>
   </section>
 
-  <section id="faq-fr" class="lang-panel lang-panel-fr">
+  <section id="faq" class="lang-panel lang-panel-fr">
     <div class="section-head">
       <p class="kicker">Questions fréquentes</p>
       <h2>Ce qu’on nous demande le plus.</h2>
@@ -2004,7 +2004,7 @@
       <span class="glyph">次</span>
       <span>© <span class="year"></span> TSUGI — <a href="mailto:contact-tsugi@stud-in.be">contact-tsugi@stud-in.be</a></span>
       <nav class="foot-links">
-        <a href="#faq-fr">FAQ</a>
+        <a href="#faq">FAQ</a>
         <a href="/confidentialite/">Politique de confidentialité</a>
         <a href="/conditions/">Conditions d’utilisation</a>
       </nav>
@@ -2030,6 +2030,8 @@
 </footer>
 
 <script>document.querySelectorAll('.year').forEach(function(e){e.textContent=new Date().getFullYear();});
-var m = location.hash.match(/-(fr|en|nl)$/); if (m) { var r = document.getElementById('lang-' + m[1]); if (r) r.checked = true; }</script>
+// Old anchors (/#faq-en, /#feat-nl…) -> the language's own page with a clean anchor (/en/#faq).
+var m = location.hash.match(/^#(categories|feat|faq)-(fr|en|nl)$/);
+if (m) location.replace({"fr":"","en":"/en","nl":"/nl"}[m[2]] + '/#' + ({ feat: 'features' }[m[1]] || m[1]));</script>
 
 </body></html>
