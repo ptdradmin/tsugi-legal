@@ -5,12 +5,17 @@ on:
     - cron: '0 6 * * *'  # Every day at 06:00 UTC
   workflow_dispatch:      # Manual trigger
   push:
-    paths:
-      - 'index.html'
+    paths:  # sources only: triggering on the generated index.html made pushes race the bot's own run
+      - 'site-source/**'
+      - 'tsugi-legal-build/**'
       - '.github/workflows/daily-rebuild.yml'
 
 permissions:
-  contents: write  # Needed to commit/push updated index.html
+  contents: write  # Needed to commit/push the regenerated pages
+
+concurrency:  # never two rebuilds at once
+  group: daily-rebuild
+  cancel-in-progress: false
 
 jobs:
   rebuild:
@@ -36,48 +41,26 @@ jobs:
           cd tsugi-legal-build
           npm ci
       
-      - name: Build landing page
+      # Pages are regenerated from site-source/ every run (never patched in place), so nothing from a
+      # previous run can pile up. On a rejected push the run starts over from the latest master instead
+      # of merging two generated HTML files hunk by hunk (that once duplicated cards and dropped links).
+      - name: Build and publish
         env:
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
-          ANILIST_CLIENT_ID: ${{ secrets.ANILIST_CLIENT_ID }}
-          ANILIST_CLIENT_SECRET: ${{ secrets.ANILIST_CLIENT_SECRET }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-          BETASERIES_API_KEY: ${{ secrets.BETASERIES_API_KEY }}
-          BETASERIES_TOKEN: ${{ secrets.BETASERIES_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          cd tsugi-legal-build
-          node build.js
-      
-      - name: Check for changes
-        id: changes
-        run: |
-          if git diff --quiet -- index.html data; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-            echo "No changes to index.html"
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-            echo "Changes detected in index.html"
-          fi
-      
-      - name: Commit and push updates
-        if: steps.changes.outputs.changed == 'true'
-        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html data
-          git commit -m "🤖 Daily rebuild: $(date -u +'%Y-%m-%d') - Updated upcoming releases"
-          # A push to master while this job ran used to reject the push. On conflict the remote copy wins
-          # (ours = upstream during a rebase): never clobber a newer manual edit, tomorrow rebuilds anyway.
-          git pull --rebase -X ours origin master
-          git push
-      
-      - name: Deploy to GitHub Pages (optional)
-        if: steps.changes.outputs.changed == 'true'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          keep_files: true
+          for attempt in 1 2 3; do
+            (cd site-source && node gen.js) && (cd tsugi-legal-build && node build.js)
+            git add index.html categorie.html fiche.html data
+            if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+            git commit -m "🤖 Daily rebuild: $(date -u +'%Y-%m-%d') - Updated upcoming releases"
+            if git push; then exit 0; fi
+            echo "Push rejected (attempt $attempt), rebuilding on top of the latest master"
+            git fetch origin master && git reset --hard origin/master
+          done
+          exit 1
