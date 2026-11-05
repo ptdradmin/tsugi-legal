@@ -38,7 +38,7 @@ const T = {
       movie: ['Films', "Sorties à venir, du festival à la salle obscure."],
       game: ['Jeux', "Dates de sortie confirmées, jusqu'à plusieurs années."],
     },
-    upcomingLabel: 'À venir', popularLabel: 'Populaire', seeMore: 'Voir plus', backCat: 'Toute la catégorie', synopsis: 'Synopsis', source: 'Voir la source', follow: 'Suivre dans l’app', notFound: 'Annonce introuvable.', backHome: 'Accueil', prev: 'Précédent', next: 'Suivant', pageOf: 'Page {p} sur {n}', emptyCat: 'Aucune annonce pour le moment.',
+    upcomingLabel: 'À venir', popularLabel: 'Populaire', seeMore: 'Voir plus', backCat: 'Toute la catégorie', synopsis: 'Synopsis', source: 'Voir la source', follow: 'Suivre dans l’app', notFound: 'Annonce introuvable.', world: 'Sorties dans le monde', worldNote: 'Date de première sortie dans chaque pays.', continents: { eu: 'Europe', am: 'Amériques', as: 'Asie', oc: 'Océanie', af: 'Afrique & Moyen-Orient' }, kinds: { cinema: 'Cinéma', streaming: 'Streaming' }, backHome: 'Accueil', prev: 'Précédent', next: 'Suivant', pageOf: 'Page {p} sur {n}', emptyCat: 'Aucune annonce pour le moment.',
     featKicker: 'Pourquoi TSUGI', featTitle: "Pensé pour qu'on ne rate plus une sortie.",
     feats: [
       ['Alertes de sortie', "Un nouvel épisode, chapitre ou une nouvelle saison sort ? TSUGI vous notifie directement, sans avoir à vérifier dix sites."],
@@ -85,7 +85,7 @@ const T = {
       movie: ['Movies', 'Upcoming releases, from festival premieres to theaters.'],
       game: ['Games', 'Confirmed release dates, even years out.'],
     },
-    upcomingLabel: 'Upcoming', popularLabel: 'Popular', seeMore: 'See more', backCat: 'Whole category', synopsis: 'Synopsis', source: 'View source', follow: 'Follow it in the app', notFound: 'Announcement not found.', backHome: 'Home', prev: 'Previous', next: 'Next', pageOf: 'Page {p} of {n}', emptyCat: 'Nothing announced yet.',
+    upcomingLabel: 'Upcoming', popularLabel: 'Popular', seeMore: 'See more', backCat: 'Whole category', synopsis: 'Synopsis', source: 'View source', follow: 'Follow it in the app', notFound: 'Announcement not found.', world: 'Release around the world', worldNote: 'First release date in each country.', continents: { eu: 'Europe', am: 'Americas', as: 'Asia', oc: 'Oceania', af: 'Africa & Middle East' }, kinds: { cinema: 'Cinema', streaming: 'Streaming' }, backHome: 'Home', prev: 'Previous', next: 'Next', pageOf: 'Page {p} of {n}', emptyCat: 'Nothing announced yet.',
     featKicker: 'Why TSUGI', featTitle: 'Built so you never miss a release again.',
     feats: [
       ['Release alerts', 'A new episode, chapter, or season drops? TSUGI notifies you directly — no need to check ten different sites.'],
@@ -132,7 +132,7 @@ const T = {
       movie: ['Films', 'Aankomende releases, van festival tot bioscoop.'],
       game: ['Games', 'Bevestigde releasedata, zelfs jaren vooruit.'],
     },
-    upcomingLabel: 'Binnenkort', popularLabel: 'Populair', seeMore: 'Meer zien', backCat: 'Hele categorie', synopsis: 'Synopsis', source: 'Bron bekijken', follow: 'Volg het in de app', notFound: 'Aankondiging niet gevonden.', backHome: 'Home', prev: 'Vorige', next: 'Volgende', pageOf: 'Pagina {p} van {n}', emptyCat: 'Nog niets aangekondigd.',
+    upcomingLabel: 'Binnenkort', popularLabel: 'Populair', seeMore: 'Meer zien', backCat: 'Hele categorie', synopsis: 'Synopsis', source: 'Bron bekijken', follow: 'Volg het in de app', notFound: 'Aankondiging niet gevonden.', world: 'Releases wereldwijd', worldNote: 'Eerste releasedatum per land.', continents: { eu: 'Europa', am: 'Amerika', as: 'Azië', oc: 'Oceanië', af: 'Afrika & Midden-Oosten' }, kinds: { cinema: 'Bioscoop', streaming: 'Streaming' }, backHome: 'Home', prev: 'Vorige', next: 'Volgende', pageOf: 'Pagina {p} van {n}', emptyCat: 'Nog niets aangekondigd.',
     featKicker: 'Waarom TSUGI', featTitle: 'Gemaakt zodat je nooit meer een release mist.',
     feats: [
       ['Releasemeldingen', 'Een nieuwe episode, hoofdstuk of seizoen verschijnt? TSUGI stuurt je direct een melding — geen tien sites meer checken.'],
@@ -362,6 +362,7 @@ const pageI18n = Object.fromEntries(langs.map(l => [l, {
   upcoming: T[l].upcomingLabel, popular: T[l].popularLabel, backHome: T[l].backHome,
   prev: T[l].prev, next: T[l].next, pageOf: T[l].pageOf, empty: T[l].emptyCat,
   backCat: T[l].backCat, synopsis: T[l].synopsis, source: T[l].source, follow: T[l].follow, notFound: T[l].notFound,
+  world: T[l].world, worldNote: T[l].worldNote, continents: T[l].continents, kinds: T[l].kinds,
 }]));
 const catPage = `<!DOCTYPE html><html lang="fr"><head>
 <meta charset="UTF-8">
@@ -494,6 +495,11 @@ const fichePage = `${head}</head>
       <p class="release-date" id="fp-date"></p>
       <h2 class="fiche-h2" id="fp-syn-h"></h2>
       <p class="fiche-blurb" id="fp-blurb"></p>
+      <section class="fiche-world" id="fp-world" hidden>
+        <h2 class="fiche-h2" id="fp-world-h"></h2>
+        <p class="fiche-note" id="fp-world-note"></p>
+        <div class="world-grid" id="fp-world-grid"></div>
+      </section>
       <div class="fiche-actions">
         <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=app.tsugi.android" id="fp-follow"></a>
         <a class="btn btn-ghost" id="fp-source" target="_blank" rel="noopener" hidden></a>
@@ -542,6 +548,30 @@ const fichePage = `${head}</head>
       el('fp-blurb').textContent = it.blurb || '';
       el('fp-follow').textContent = t.follow;
       if (it.url) { el('fp-source').href = it.url; el('fp-source').textContent = t.source + ' ↗'; el('fp-source').hidden = false; }
+      if (it.world && it.world.length) {
+        var CONT = { BE: 'eu', FR: 'eu', NL: 'eu', GB: 'eu', DE: 'eu', ES: 'eu', IT: 'eu', US: 'am', CA: 'am', MX: 'am', BR: 'am', AR: 'am',
+                     KR: 'as', JP: 'as', CN: 'as', IN: 'as', TH: 'as', AU: 'oc', NZ: 'oc', ZA: 'af', MA: 'af', NG: 'af', AE: 'af' };
+        var locale = { fr: 'fr-FR', en: 'en-GB', nl: 'nl-NL' }[lang];
+        var names = window.Intl && Intl.DisplayNames ? new Intl.DisplayNames([lang], { type: 'region' }) : null;
+        el('fp-world-h').textContent = t.world;
+        el('fp-world-note').textContent = t.worldNote;
+        ['eu', 'am', 'as', 'oc', 'af'].forEach(function (k) {
+          var rows = it.world.filter(function (w) { return CONT[w.c] === k; });
+          if (!rows.length) return;
+          var box = document.createElement('div'); box.className = 'world-box';
+          var h = document.createElement('h3'); h.textContent = t.continents[k]; box.appendChild(h);
+          rows.forEach(function (w) {
+            var row = document.createElement('div'); row.className = 'world-row';
+            var c = document.createElement('span'); c.textContent = names ? names.of(w.c) : w.c;
+            var d = document.createElement('span'); d.className = 'world-date';
+            d.textContent = new Date(w.d + 'T00:00:00').toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' });
+            var kd = document.createElement('span'); kd.className = 'world-kind ' + w.k; kd.textContent = t.kinds[w.k];
+            row.appendChild(c); row.appendChild(kd); row.appendChild(d); box.appendChild(row);
+          });
+          el('fp-world-grid').appendChild(box);
+        });
+        el('fp-world').hidden = false;
+      }
       el('fp-body').hidden = false;
     });
 })();

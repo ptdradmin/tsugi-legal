@@ -71,21 +71,67 @@ function esc(s) {
 // ========== API CLIENTS ==========
 
 // TMDB
+// Films: what matters is when it reaches cinemas HERE, not its first release anywhere — a Korean
+// film out in July in Seoul only lands in Belgian/French theatres in October. Candidates are films
+// with a BE or FR theatrical release, minus old re-releases; each one's displayed date is its
+// earliest BE/FR theatrical date (TMDB release_dates), and the 30-day rule is applied to that date.
+const LOCAL_REGIONS = ['BE', 'FR'];
+// Countries shown in the detail page's "release by continent" table (fiche.html groups them).
+const WORLD_COUNTRIES = ['BE', 'FR', 'NL', 'GB', 'DE', 'ES', 'IT', 'US', 'CA', 'MX', 'BR', 'AR', 'KR', 'JP', 'CN', 'IN', 'TH', 'AU', 'NZ', 'ZA', 'MA', 'NG', 'AE'];
+
+// First BE/FR release, in cinemas (TMDB types 2 limited / 3 theatrical) or on streaming (4 digital),
+// plus each listed country's first release for the detail page.
+async function localRelease(id) {
+  try {
+    const data = await (await fetch(`https://api.themoviedb.org/3/movie/${id}/release_dates?api_key=${CONFIG.TMDB_API_KEY}`)).json();
+    const firstOf = (countries) => (data.results || []).filter(c => countries.includes(c.iso_3166_1))
+      .flatMap(c => (c.release_dates || []).map(d => ({ ...d, country: c.iso_3166_1 })))
+      .filter(d => [2, 3, 4].includes(d.type) && d.release_date)
+      .map(d => ({ country: d.country, date: d.release_date.slice(0, 10), kind: d.type === 4 ? 'streaming' : 'cinema' }))
+      .sort((a, b) => a.date.localeCompare(b.date));
+    const local = firstOf(LOCAL_REGIONS)[0];
+    if (!local) return null;
+    const world = [];
+    for (const r of firstOf(WORLD_COUNTRIES)) if (!world.some(w => w.country === r.country)) world.push(r);
+    return { ...local, world };
+  } catch (e) { return null; }
+}
+
 async function fetchTMDBUpcomingMovies() {
   if (!CONFIG.TMDB_API_KEY) return [];
-  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${getDateOffset(CONFIG.DAYS_AHEAD)}&release_date.lte=${getDateOffset(365)}`;
   try {
-    return (await tmdbResults(url, 3)).slice(0, CONFIG.FULL_LIMIT).map(m => ({
-      type: 'movie',
-      title: m.title,
-      original_title: m.original_title,
-      release_date: m.release_date,
-      overview: m.overview,
-      poster_path: m.poster_path ? `https://image.tmdb.org/t/p/w342${m.poster_path}` : null,
-      genre_ids: m.genre_ids,
-      vote_average: m.vote_average,
-      id: m.id,
-    }));
+    const seen = new Set();
+    const candidates = [];
+    for (const region of LOCAL_REGIONS) {
+      const url = `https://api.themoviedb.org/3/discover/movie?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&region=${region}&with_release_type=2|3|4&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${getDateOffset(0)}&release_date.lte=${getDateOffset(365)}&primary_release_date.gte=${getDateOffset(-730)}`;
+      for (const m of await tmdbResults(url, 5)) if (!seen.has(m.id)) { seen.add(m.id); candidates.push(m); }
+    }
+    candidates.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+    const minLocal = getDateOffset(CONFIG.DAYS_AHEAD);
+    const out = [];
+    for (let k = 0; k < candidates.length && out.length < CONFIG.FULL_LIMIT; k += 10) {
+      const batch = candidates.slice(k, k + 10);
+      const releases = await Promise.all(batch.map(m => localRelease(m.id)));
+      batch.forEach((m, n) => {
+        const local = releases[n];
+        // Already out in BE/FR (cinema or streaming) or within the calendar window: not "upcoming".
+        if (!local || local.date < minLocal || out.length >= CONFIG.FULL_LIMIT) return;
+        out.push({
+          type: 'movie',
+          title: m.title,
+          original_title: m.original_title,
+          release_date: local.date,
+          releaseKind: local.kind,
+          world: local.world,
+          overview: m.overview,
+          poster_path: m.poster_path ? `https://image.tmdb.org/t/p/w342${m.poster_path}` : null,
+          genre_ids: m.genre_ids,
+          vote_average: m.vote_average,
+          id: m.id,
+        });
+      });
+    }
+    return out;
   } catch (e) {
     log('TMDB-Movies', `Error: ${e.message}`);
     return [];
@@ -348,6 +394,7 @@ const CAT_LABELS = {
   nl: { movie: 'Film', series: 'Serie', anime: 'Anime', drama: 'Drama', game: 'Game', manga: 'Manga', manhwa: 'Manhwa', manhua: 'Manhua', webtoon: 'Webtoon' }
 };
 const STATUS_LABELS = { fr: { ongoing: 'En cours' }, en: { ongoing: 'Ongoing' }, nl: { ongoing: 'Lopend' } };
+const KIND_LABELS = { fr: { cinema: 'Au cinéma', streaming: 'En streaming' }, en: { cinema: 'In cinemas', streaming: 'Streaming' }, nl: { cinema: 'In de bioscoop', streaming: 'Streaming' } };
 
 // AniList's startDate often has only a year for not-yet-released anime (month/day unannounced):
 // a full date string is only built when all three parts are real ("Invalid Date" otherwise).
@@ -365,7 +412,8 @@ function itemDateLabel(item, category, lang) {
     : null;
   const dateFormatter = { fr: formatDateFR, en: formatDateEN, nl: formatDateNL }[lang];
   const when = (item.statusKey && STATUS_LABELS[lang][item.statusKey]) || partial || dateFormatter(date);
-  return `${CAT_LABELS[lang][category] || category} · ${when}`;
+  const kind = item.releaseKind ? ` · ${KIND_LABELS[lang][item.releaseKind]}` : '';
+  return `${CAT_LABELS[lang][category] || category}${kind} · ${when}`;
 }
 
 // Sort key for "soonest first"; unknown month/day sort last within their year, undated keeps rank order.
@@ -395,6 +443,7 @@ function toPublicItem(item, category) {
     poster: item.poster_path || item.coverImage || null,
     blurb: (item.overview || item.description || '').slice(0, 1500),
     url: sourceUrl(item, category),
+    ...(item.world ? { world: item.world.map(w => ({ c: w.country, d: w.date, k: w.kind })) } : {}),
     date: { fr: itemDateLabel(item, category, 'fr'), en: itemDateLabel(item, category, 'en'), nl: itemDateLabel(item, category, 'nl') },
   };
 }

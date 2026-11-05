@@ -212,6 +212,16 @@
   .fiche-h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin: 28px 0 10px; }
   .fiche-blurb { color: var(--ink-dim); line-height: 1.7; font-size: 15.5px; white-space: pre-line; max-width: 70ch; }
   .fiche-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .fiche-note { font-size: 13px; color: var(--ink-faint); margin: -4px 0 14px; }
+  .world-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+  .world-box { background: var(--glass); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; }
+  .world-box h3 { font-size: 13px; color: var(--tile-c, var(--brand)); margin-bottom: 8px; }
+  .world-row { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center; font-size: 13.5px; padding: 5px 0; border-top: 1px solid var(--border); }
+  .world-row:first-of-type { border-top: 0; }
+  .world-date { color: var(--ink-dim); font-variant-numeric: tabular-nums; }
+  .world-kind { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--glass-hover); color: var(--ink-dim); }
+  .world-kind.streaming { color: #7dd3fc; background: rgba(125,211,252,0.12); }
+  .world-kind.cinema { color: #fca5a5; background: rgba(252,165,165,0.12); }
   @media (max-width: 760px) { .fiche-body { grid-template-columns: 1fr; gap: 24px; } .fiche-poster { max-width: 260px; } }
   .lang-switch a { padding: 6px 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; border-radius: 999px; color: var(--ink-faint); transition: color .2s, background .2s; }
   .lang-switch a:hover { color: var(--ink); }
@@ -462,7 +472,7 @@
           <h3>Films</h3>
           <p>Sorties à venir, du festival à la salle obscure.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="movie">50 titres</span><span class="tile-more">Voir plus →</span></span>
-          <span class="tile-covers" data-tilekey="movie" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/pICoWjcKSet6sA3yzxOkP8ChwYI.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/tGdFDoA9qyt0t6Qr9MFnOl8Z2Jz.jpg" alt="" loading="lazy"></span>
+          <span class="tile-covers" data-tilekey="movie" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/ttsFxxHKwCHrtAGJt58rpNqHdFw.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/cCUxE6EJ9zi1YfdsxU8rWLgqQnN.jpg" alt="" loading="lazy"></span>
         </a>
         <a class="cat-tile hue-game" href="categorie.html?cat=game&amp;lang=fr" data-reveal="">
           <span class="cat-num">09</span>
@@ -749,39 +759,39 @@
         <div class="cat-strip hue-movie" id="cat-movie-fr">
           <div class="cat-strip-head"><span class="cat-num">08</span><h3>Films</h3><span class="pill">À venir</span><a class="see-more" href="categorie.html?cat=movie&amp;lang=fr">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="movie">
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1058424&amp;lang=fr">
-        <span class="idx">01</span>
-        <h3>Hope</h3>
-        <img src="https://image.tmdb.org/t/p/w342/tGdFDoA9qyt0t6Qr9MFnOl8Z2Jz.jpg" alt="Hope" loading="lazy">
-        <p class="release-date">Film · 15 juillet 2026</p>
-        <p class="blurb">Le chef de la police de Hope Harbor, un petit village situé près de la zone coréenne démilitarisée, enquêtee sur le cas …</p>
-      </a>
-    
-
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=969681&amp;lang=fr">
-        <span class="idx">02</span>
-        <h3>Spider-Man : Brand New Day</h3>
-        <img src="https://image.tmdb.org/t/p/w342/6OEtkkzoyusZDm2uMJojlWZSLR9.jpg" alt="Spider-Man : Brand New Day" loading="lazy">
-        <p class="release-date">Film · 29 juillet 2026</p>
-        <p class="blurb">Quatre ans se sont écoulés, Peter, désormais adulte, vit seul, s'est volontairement effacé de la vie et des souvenirs de…</p>
-      </a>
-    
-
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1423191&amp;lang=fr">
-        <span class="idx">03</span>
-        <h3>Resident Evil</h3>
-        <img src="https://image.tmdb.org/t/p/w342/pICoWjcKSet6sA3yzxOkP8ChwYI.jpg" alt="Resident Evil" loading="lazy">
-        <p class="release-date">Film · 16 septembre 2026</p>
-        <p class="blurb">Bryan, un coursier médical, est en train d'effectuer une livraison lorsqu'une épidémie soudaine se déclare, le forçant à…</p>
-      </a>
-    
-
       <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=791523&amp;lang=fr">
-        <span class="idx">04</span>
+        <span class="idx">01</span>
         <h3>Wildwood : La prophétie de la forêt</h3>
         <img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="Wildwood : La prophétie de la forêt" loading="lazy">
-        <p class="release-date">Film · 19 octobre 2026</p>
+        <p class="release-date">Film · Au cinéma · 9 décembre 2026</p>
         <p class="blurb">Prue, une jeune fille courageuse, part à la recherche de son petit frère, enlevé et retenu dans la forêt interdite peupl…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1170608&amp;lang=fr">
+        <span class="idx">02</span>
+        <h3>Dune : Troisième partie</h3>
+        <img src="https://image.tmdb.org/t/p/w342/zfI58QKzav88liXLsk0lvFSMCdr.jpg" alt="Dune : Troisième partie" loading="lazy">
+        <p class="release-date">Film · Au cinéma · 15 décembre 2026</p>
+        <p class="blurb">L'empereur Paul Atraides fait face aux retombées de son ascensions au pouvoir alors que des complots politiques et une g…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1422041&amp;lang=fr">
+        <span class="idx">03</span>
+        <h3>La bola negra</h3>
+        <img src="https://image.tmdb.org/t/p/w342/ttsFxxHKwCHrtAGJt58rpNqHdFw.jpg" alt="La bola negra" loading="lazy">
+        <p class="release-date">Film · Au cinéma · 16 décembre 2026</p>
+        <p class="blurb">Espagne 1932, 1937, 2017. Trois hommes. Trois époques. Un même fil invisible de désir, de douleur et d'héritage. LA BOLA…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1003596&amp;lang=fr">
+        <span class="idx">04</span>
+        <h3>Avengers : Doomsday</h3>
+        <img src="https://image.tmdb.org/t/p/w342/cCUxE6EJ9zi1YfdsxU8rWLgqQnN.jpg" alt="Avengers : Doomsday" loading="lazy">
+        <p class="release-date">Film · Au cinéma · 16 décembre 2026</p>
+        <p class="blurb">Les Avengers, les Wakandais, les Quatre Fantastiques, les New Avengers et les X-Men, tous héros issus de trois univers d…</p>
       </a>
     </div>
         </div>
@@ -887,7 +897,7 @@
           <h3>Movies</h3>
           <p>Upcoming releases, from festival premieres to theaters.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="movie">50 titles</span><span class="tile-more">See more →</span></span>
-          <span class="tile-covers" data-tilekey="movie" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/pICoWjcKSet6sA3yzxOkP8ChwYI.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/tGdFDoA9qyt0t6Qr9MFnOl8Z2Jz.jpg" alt="" loading="lazy"></span>
+          <span class="tile-covers" data-tilekey="movie" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/ttsFxxHKwCHrtAGJt58rpNqHdFw.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/cCUxE6EJ9zi1YfdsxU8rWLgqQnN.jpg" alt="" loading="lazy"></span>
         </a>
         <a class="cat-tile hue-game" href="categorie.html?cat=game&amp;lang=en" data-reveal="">
           <span class="cat-num">09</span>
@@ -1174,39 +1184,39 @@
         <div class="cat-strip hue-movie" id="cat-movie-en">
           <div class="cat-strip-head"><span class="cat-num">08</span><h3>Movies</h3><span class="pill">Upcoming</span><a class="see-more" href="categorie.html?cat=movie&amp;lang=en">See more →</a></div>
           <div class="cat-grid" data-catkey="movie">
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1058424&amp;lang=en">
-        <span class="idx">01</span>
-        <h3>Hope</h3>
-        <img src="https://image.tmdb.org/t/p/w342/tGdFDoA9qyt0t6Qr9MFnOl8Z2Jz.jpg" alt="Hope" loading="lazy">
-        <p class="release-date">Movie · Jul 15, 2026</p>
-        <p class="blurb">Le chef de la police de Hope Harbor, un petit village situé près de la zone coréenne démilitarisée, enquêtee sur le cas …</p>
-      </a>
-    
-
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=969681&amp;lang=en">
-        <span class="idx">02</span>
-        <h3>Spider-Man : Brand New Day</h3>
-        <img src="https://image.tmdb.org/t/p/w342/6OEtkkzoyusZDm2uMJojlWZSLR9.jpg" alt="Spider-Man : Brand New Day" loading="lazy">
-        <p class="release-date">Movie · Jul 29, 2026</p>
-        <p class="blurb">Quatre ans se sont écoulés, Peter, désormais adulte, vit seul, s'est volontairement effacé de la vie et des souvenirs de…</p>
-      </a>
-    
-
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1423191&amp;lang=en">
-        <span class="idx">03</span>
-        <h3>Resident Evil</h3>
-        <img src="https://image.tmdb.org/t/p/w342/pICoWjcKSet6sA3yzxOkP8ChwYI.jpg" alt="Resident Evil" loading="lazy">
-        <p class="release-date">Movie · Sep 16, 2026</p>
-        <p class="blurb">Bryan, un coursier médical, est en train d'effectuer une livraison lorsqu'une épidémie soudaine se déclare, le forçant à…</p>
-      </a>
-    
-
       <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=791523&amp;lang=en">
-        <span class="idx">04</span>
+        <span class="idx">01</span>
         <h3>Wildwood : La prophétie de la forêt</h3>
         <img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="Wildwood : La prophétie de la forêt" loading="lazy">
-        <p class="release-date">Movie · Oct 19, 2026</p>
+        <p class="release-date">Movie · In cinemas · Dec 9, 2026</p>
         <p class="blurb">Prue, une jeune fille courageuse, part à la recherche de son petit frère, enlevé et retenu dans la forêt interdite peupl…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1170608&amp;lang=en">
+        <span class="idx">02</span>
+        <h3>Dune : Troisième partie</h3>
+        <img src="https://image.tmdb.org/t/p/w342/zfI58QKzav88liXLsk0lvFSMCdr.jpg" alt="Dune : Troisième partie" loading="lazy">
+        <p class="release-date">Movie · In cinemas · Dec 15, 2026</p>
+        <p class="blurb">L'empereur Paul Atraides fait face aux retombées de son ascensions au pouvoir alors que des complots politiques et une g…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1422041&amp;lang=en">
+        <span class="idx">03</span>
+        <h3>La bola negra</h3>
+        <img src="https://image.tmdb.org/t/p/w342/ttsFxxHKwCHrtAGJt58rpNqHdFw.jpg" alt="La bola negra" loading="lazy">
+        <p class="release-date">Movie · In cinemas · Dec 16, 2026</p>
+        <p class="blurb">Espagne 1932, 1937, 2017. Trois hommes. Trois époques. Un même fil invisible de désir, de douleur et d'héritage. LA BOLA…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1003596&amp;lang=en">
+        <span class="idx">04</span>
+        <h3>Avengers : Doomsday</h3>
+        <img src="https://image.tmdb.org/t/p/w342/cCUxE6EJ9zi1YfdsxU8rWLgqQnN.jpg" alt="Avengers : Doomsday" loading="lazy">
+        <p class="release-date">Movie · In cinemas · Dec 16, 2026</p>
+        <p class="blurb">Les Avengers, les Wakandais, les Quatre Fantastiques, les New Avengers et les X-Men, tous héros issus de trois univers d…</p>
       </a>
     </div>
         </div>
@@ -1312,7 +1322,7 @@
           <h3>Films</h3>
           <p>Aankomende releases, van festival tot bioscoop.</p>
           <span class="tile-foot"><span class="tile-count" data-tilekey="movie">50 titels</span><span class="tile-more">Meer zien →</span></span>
-          <span class="tile-covers" data-tilekey="movie" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/pICoWjcKSet6sA3yzxOkP8ChwYI.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/tGdFDoA9qyt0t6Qr9MFnOl8Z2Jz.jpg" alt="" loading="lazy"></span>
+          <span class="tile-covers" data-tilekey="movie" aria-hidden="true"><img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/ttsFxxHKwCHrtAGJt58rpNqHdFw.jpg" alt="" loading="lazy"><img src="https://image.tmdb.org/t/p/w342/cCUxE6EJ9zi1YfdsxU8rWLgqQnN.jpg" alt="" loading="lazy"></span>
         </a>
         <a class="cat-tile hue-game" href="categorie.html?cat=game&amp;lang=nl" data-reveal="">
           <span class="cat-num">09</span>
@@ -1599,39 +1609,39 @@
         <div class="cat-strip hue-movie" id="cat-movie-nl">
           <div class="cat-strip-head"><span class="cat-num">08</span><h3>Films</h3><span class="pill">Binnenkort</span><a class="see-more" href="categorie.html?cat=movie&amp;lang=nl">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="movie">
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1058424&amp;lang=nl">
-        <span class="idx">01</span>
-        <h3>Hope</h3>
-        <img src="https://image.tmdb.org/t/p/w342/tGdFDoA9qyt0t6Qr9MFnOl8Z2Jz.jpg" alt="Hope" loading="lazy">
-        <p class="release-date">Film · 15 juli 2026</p>
-        <p class="blurb">Le chef de la police de Hope Harbor, un petit village situé près de la zone coréenne démilitarisée, enquêtee sur le cas …</p>
-      </a>
-    
-
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=969681&amp;lang=nl">
-        <span class="idx">02</span>
-        <h3>Spider-Man : Brand New Day</h3>
-        <img src="https://image.tmdb.org/t/p/w342/6OEtkkzoyusZDm2uMJojlWZSLR9.jpg" alt="Spider-Man : Brand New Day" loading="lazy">
-        <p class="release-date">Film · 29 juli 2026</p>
-        <p class="blurb">Quatre ans se sont écoulés, Peter, désormais adulte, vit seul, s'est volontairement effacé de la vie et des souvenirs de…</p>
-      </a>
-    
-
-      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1423191&amp;lang=nl">
-        <span class="idx">03</span>
-        <h3>Resident Evil</h3>
-        <img src="https://image.tmdb.org/t/p/w342/pICoWjcKSet6sA3yzxOkP8ChwYI.jpg" alt="Resident Evil" loading="lazy">
-        <p class="release-date">Film · 16 september 2026</p>
-        <p class="blurb">Bryan, un coursier médical, est en train d'effectuer une livraison lorsqu'une épidémie soudaine se déclare, le forçant à…</p>
-      </a>
-    
-
       <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=791523&amp;lang=nl">
-        <span class="idx">04</span>
+        <span class="idx">01</span>
         <h3>Wildwood : La prophétie de la forêt</h3>
         <img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="Wildwood : La prophétie de la forêt" loading="lazy">
-        <p class="release-date">Film · 19 oktober 2026</p>
+        <p class="release-date">Film · In de bioscoop · 9 december 2026</p>
         <p class="blurb">Prue, une jeune fille courageuse, part à la recherche de son petit frère, enlevé et retenu dans la forêt interdite peupl…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1170608&amp;lang=nl">
+        <span class="idx">02</span>
+        <h3>Dune : Troisième partie</h3>
+        <img src="https://image.tmdb.org/t/p/w342/zfI58QKzav88liXLsk0lvFSMCdr.jpg" alt="Dune : Troisième partie" loading="lazy">
+        <p class="release-date">Film · In de bioscoop · 15 december 2026</p>
+        <p class="blurb">L'empereur Paul Atraides fait face aux retombées de son ascensions au pouvoir alors que des complots politiques et une g…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1422041&amp;lang=nl">
+        <span class="idx">03</span>
+        <h3>La bola negra</h3>
+        <img src="https://image.tmdb.org/t/p/w342/ttsFxxHKwCHrtAGJt58rpNqHdFw.jpg" alt="La bola negra" loading="lazy">
+        <p class="release-date">Film · In de bioscoop · 16 december 2026</p>
+        <p class="blurb">Espagne 1932, 1937, 2017. Trois hommes. Trois époques. Un même fil invisible de désir, de douleur et d'héritage. LA BOLA…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1003596&amp;lang=nl">
+        <span class="idx">04</span>
+        <h3>Avengers : Doomsday</h3>
+        <img src="https://image.tmdb.org/t/p/w342/cCUxE6EJ9zi1YfdsxU8rWLgqQnN.jpg" alt="Avengers : Doomsday" loading="lazy">
+        <p class="release-date">Film · In de bioscoop · 16 december 2026</p>
+        <p class="blurb">Les Avengers, les Wakandais, les Quatre Fantastiques, les New Avengers et les X-Men, tous héros issus de trois univers d…</p>
       </a>
     </div>
         </div>

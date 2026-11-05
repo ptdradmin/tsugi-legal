@@ -198,6 +198,16 @@
   .fiche-h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin: 28px 0 10px; }
   .fiche-blurb { color: var(--ink-dim); line-height: 1.7; font-size: 15.5px; white-space: pre-line; max-width: 70ch; }
   .fiche-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .fiche-note { font-size: 13px; color: var(--ink-faint); margin: -4px 0 14px; }
+  .world-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+  .world-box { background: var(--glass); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; }
+  .world-box h3 { font-size: 13px; color: var(--tile-c, var(--brand)); margin-bottom: 8px; }
+  .world-row { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center; font-size: 13.5px; padding: 5px 0; border-top: 1px solid var(--border); }
+  .world-row:first-of-type { border-top: 0; }
+  .world-date { color: var(--ink-dim); font-variant-numeric: tabular-nums; }
+  .world-kind { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--glass-hover); color: var(--ink-dim); }
+  .world-kind.streaming { color: #7dd3fc; background: rgba(125,211,252,0.12); }
+  .world-kind.cinema { color: #fca5a5; background: rgba(252,165,165,0.12); }
   @media (max-width: 760px) { .fiche-body { grid-template-columns: 1fr; gap: 24px; } .fiche-poster { max-width: 260px; } }
   .lang-switch a { padding: 6px 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; border-radius: 999px; color: var(--ink-faint); transition: color .2s, background .2s; }
   .lang-switch a:hover { color: var(--ink); }
