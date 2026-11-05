@@ -14,9 +14,9 @@ const CATS = [
   { key: 'movie',   num: '08', hue: 'movie' },
   { key: 'game',    num: '09', hue: 'game' },
 ];
-// keys above match build.js's `categories` map exactly (movie/series/anime/game/drama) so the
-// dynamic injection (data-catkey) lands in the right strip — manga/manhwa/manhua/webtoon have no
-// dynamic source in build.js, so they stay bento-tile-only, no strip.
+// keys above match build.js's `categories` map exactly so the dynamic injection (data-catkey)
+// lands in the right strip. Comics (manga/manhwa/manhua/webtoon) have no release dates, so their
+// strip shows trending ongoing titles under a "popular" pill instead of "upcoming".
 
 const T = {
   fr: {
@@ -24,7 +24,7 @@ const T = {
     heroKicker: 'TSUGI — ce qui arrive',
     heroTitle: ['Tout ce que vous suivez.', 'Un seul endroit.'],
     heroBody: "Animes, mangas, manhwas, manhuas, webtoons, séries, dramas, films et jeux vidéo — une seule bibliothèque, des alertes de sortie, et une synchronisation entre tous vos appareils.",
-    ctaPlay: 'Voir sur Google Play', ctaCats: 'Voir les catégories',
+    ctaPlay: 'Voir sur Google Play', appStoreSoon: 'App Store — bientôt', ctaCats: 'Voir les catégories',
     catsKicker: 'Neuf mondes, un seul hub', catsTitle: 'Arrêtez de jongler entre dix applications.',
     catsBody: "Chaque catégorie a son propre univers de fans — et sa propre app dédiée. TSUGI les réunit toutes, avec les mêmes outils de suivi partout.",
     cats: {
@@ -38,7 +38,7 @@ const T = {
       movie: ['Films', "Sorties à venir, du festival à la salle obscure."],
       game: ['Jeux', "Dates de sortie confirmées, jusqu'à plusieurs années."],
     },
-    upcomingLabel: 'À venir',
+    upcomingLabel: 'À venir', popularLabel: 'Populaire',
     featKicker: 'Pourquoi TSUGI', featTitle: "Pensé pour qu'on ne rate plus une sortie.",
     feats: [
       ['Alertes de sortie', "Un nouvel épisode, chapitre ou une nouvelle saison sort ? TSUGI vous notifie directement, sans avoir à vérifier dix sites."],
@@ -71,7 +71,7 @@ const T = {
     heroKicker: "TSUGI — what's coming",
     heroTitle: ['Everything you follow.', 'One place.'],
     heroBody: "Anime, manga, manhwa, manhua, webtoons, series, dramas, movies and video games — one library, release alerts, and sync across all your devices.",
-    ctaPlay: 'Get it on Google Play', ctaCats: 'View categories',
+    ctaPlay: 'Get it on Google Play', appStoreSoon: 'App Store — coming soon', ctaCats: 'View categories',
     catsKicker: 'Nine worlds, one hub', catsTitle: 'Stop juggling ten different apps.',
     catsBody: "Every category has its own fandom — and its own dedicated app. TSUGI brings them all together, with the same tracking tools everywhere.",
     cats: {
@@ -85,7 +85,7 @@ const T = {
       movie: ['Movies', 'Upcoming releases, from festival premieres to theaters.'],
       game: ['Games', 'Confirmed release dates, even years out.'],
     },
-    upcomingLabel: 'Upcoming',
+    upcomingLabel: 'Upcoming', popularLabel: 'Popular',
     featKicker: 'Why TSUGI', featTitle: 'Built so you never miss a release again.',
     feats: [
       ['Release alerts', 'A new episode, chapter, or season drops? TSUGI notifies you directly — no need to check ten different sites.'],
@@ -118,7 +118,7 @@ const T = {
     heroKicker: 'TSUGI — wat eraan komt',
     heroTitle: ['Alles wat je volgt.', 'Eén plek.'],
     heroBody: 'Anime, manga, manhwa, manhua, webtoons, series, dramas, films en games — één bibliotheek, releasemeldingen, en synchronisatie op al je apparaten.',
-    ctaPlay: 'Verkrijgbaar via Google Play', ctaCats: 'Bekijk categorieën',
+    ctaPlay: 'Verkrijgbaar via Google Play', appStoreSoon: 'App Store — binnenkort', ctaCats: 'Bekijk categorieën',
     catsKicker: 'Negen werelden, één hub', catsTitle: 'Stop met jongleren tussen tien apps.',
     catsBody: 'Elke categorie heeft zijn eigen fandom — en zijn eigen app. TSUGI brengt ze allemaal samen, met overal dezelfde volgtools.',
     cats: {
@@ -132,7 +132,7 @@ const T = {
       movie: ['Films', 'Aankomende releases, van festival tot bioscoop.'],
       game: ['Games', 'Bevestigde releasedata, zelfs jaren vooruit.'],
     },
-    upcomingLabel: 'Binnenkort',
+    upcomingLabel: 'Binnenkort', popularLabel: 'Populair',
     featKicker: 'Waarom TSUGI', featTitle: 'Gemaakt zodat je nooit meer een release mist.',
     feats: [
       ['Releasemeldingen', 'Een nieuwe episode, hoofdstuk of seizoen verschijnt? TSUGI stuurt je direct een melding — geen tien sites meer checken.'],
@@ -185,6 +185,7 @@ function heroHtml(lang) {
       <p class="hero-body">${esc(t.heroBody)}</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=app.tsugi.android">${esc(t.ctaPlay)}</a>
+        <span class="btn btn-soon" aria-disabled="true">${esc(t.appStoreSoon)}</span>
         <a class="btn btn-ghost" href="#categories-${lang}">${esc(t.ctaCats)}</a>
       </div>
       <div class="social-proof">
@@ -211,9 +212,10 @@ function categoriesHtml(lang) {
           <p>${esc(desc)}</p>
         </a>`;
   }).join('');
-  const strips = CATS.filter(c => ['movie','series','anime','game','drama'].includes(c.key)).map(c => `
+  const COMICS = ['manga', 'manhwa', 'manhua', 'webtoon'];
+  const strips = CATS.map(c => `
         <div class="cat-strip hue-${c.hue}" id="cat-${c.key}-${lang}">
-          <div class="cat-strip-head"><span class="cat-num">${c.num}</span><h3>${esc(t.cats[c.key][0])}</h3><span class="pill">${esc(t.upcomingLabel)}</span></div>
+          <div class="cat-strip-head"><span class="cat-num">${c.num}</span><h3>${esc(t.cats[c.key][0])}</h3><span class="pill">${esc(COMICS.includes(c.key) ? t.popularLabel : t.upcomingLabel)}</span></div>
           <div class="cat-grid" data-catkey="${c.key}"></div>
         </div>`).join('');
   return `
@@ -276,6 +278,7 @@ function joinHtml(lang) {
       <p>${esc(t.joinBody)}</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=app.tsugi.android">${esc(t.ctaPlay)}</a>
+        <span class="btn btn-soon" aria-disabled="true">${esc(t.appStoreSoon)}</span>
         <a class="btn btn-ghost" href="mailto:contact-tsugi@stud-in.be">${esc(t.ctaContact)}</a>
       </div>
     </div>

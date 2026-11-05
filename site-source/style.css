@@ -92,6 +92,7 @@
   .btn-ghost { background: var(--glass); border-color: var(--border); color: var(--ink); }
   .btn-ghost:hover { background: var(--glass-hover); border-color: var(--border-strong); }
   .btn-play { background: var(--ink); color: #0a0a0f; padding: 9px 18px; font-size: 13px; }
+  .btn-soon { background: transparent; border: 1px dashed var(--border-strong); color: var(--ink-dim, var(--ink)); opacity: .8; cursor: default; }
 
   main { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
   section { padding: 96px 0; border-top: 1px solid var(--border); }
