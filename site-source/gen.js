@@ -176,7 +176,7 @@ function navHtml(lang) {
       <a href="#categories-${lang}">${esc(t.nav[0])}</a>
       <a href="#feat-${lang}">${esc(t.nav[1])}</a>
       <a href="#faq-${lang}">${esc(t.nav[2])}</a>
-      <a href="privacy-policy.html">${esc(t.nav[3])}</a>
+      <a href="/confidentialite/">${esc(t.nav[3])}</a>
     </nav>`;
 }
 
@@ -300,8 +300,8 @@ function footerBrand(lang) {
       <span>© <span class="year"></span> TSUGI — <a href="mailto:contact-tsugi@stud-in.be">contact-tsugi@stud-in.be</a></span>
       <nav class="foot-links">
         <a href="#faq-${lang}">${esc(t.footLinks[0])}</a>
-        <a href="privacy-policy.html">${esc(t.footLinks[1])}</a>
-        <a href="terms.html">${esc(t.footLinks[2])}</a>
+        <a href="/confidentialite/">${esc(t.footLinks[1])}</a>
+        <a href="/conditions/">${esc(t.footLinks[2])}</a>
       </nav>
     </div>`;
 }
@@ -370,6 +370,13 @@ const pageI18n = Object.fromEntries(langs.map(l => [l, {
   backCat: T[l].backCat, synopsis: T[l].synopsis, source: T[l].source, follow: T[l].follow, notFound: T[l].notFound,
   world: T[l].world, worldNote: T[l].worldNote, continents: T[l].continents, kinds: T[l].kinds, filterAll: T[l].filterAll,
 }]));
+// Legal pages at clean URLs. privacy-policy.html / terms.html stay the hand-edited sources and keep
+// serving the full page at their old address (the Play Store listing links privacy-policy.html).
+for (const [src, dir] of [['privacy-policy.html', 'confidentialite'], ['terms.html', 'conditions']]) {
+  fs.mkdirSync(new URL(`../${dir}/`, import.meta.url), { recursive: true });
+  fs.copyFileSync(new URL(`../${src}`, import.meta.url), new URL(`../${dir}/index.html`, import.meta.url));
+}
+
 // Shared assets for the clean-URL pages written by pages.js.
 fs.mkdirSync(new URL('../assets/', import.meta.url), { recursive: true });
 fs.writeFileSync(new URL('../assets/site.css', import.meta.url), style);

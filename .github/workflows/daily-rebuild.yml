@@ -57,7 +57,7 @@ jobs:
           for attempt in 1 2 3; do
             (cd site-source && node gen.js) && (cd tsugi-legal-build && node build.js) && (cd site-source && node pages.js)
             # -A: pages of announcements that left the lists are deleted, not just left behind.
-            git add -A -- index.html categorie.html fiche.html data assets en nl anime manga manhwa manhua webtoon series dramas films jeux
+            git add -A -- index.html categorie.html fiche.html confidentialite conditions data assets en nl anime manga manhwa manhua webtoon series dramas films jeux
             if git diff --cached --quiet; then echo "No changes"; exit 0; fi
             git commit -m "🤖 Daily rebuild: $(date -u +'%Y-%m-%d') - Updated upcoming releases"
             if git push; then exit 0; fi
