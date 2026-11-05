@@ -35,13 +35,26 @@ const CONFIG = {
   // Filters
   DAYS_AHEAD: 30, // Calendar covers 30 days, Feed shows 30+ days
   LIMIT_PER_CATEGORY: 4, // How many items to show per category on landing page
+  FULL_LIMIT: 50, // How many items each category's "Voir plus" page lists (paginated client-side)
   
   // Paths
   TEMPLATE_PATH: path.resolve('../index.html'),
   OUTPUT_PATH: path.resolve('../index.html'),
+  DATA_DIR: path.resolve('../data'),
 };
 
 // ========== UTILITIES ==========
+// TMDB discover returns 20 results per page — concatenates pages 1..n of the same query.
+async function tmdbResults(url, pages) {
+  const all = [];
+  for (let p = 1; p <= pages; p++) {
+    const data = await (await fetch(url.replace('&page=1&', `&page=${p}&`))).json();
+    all.push(...(data.results || []));
+    if (p >= (data.total_pages || 1)) break;
+  }
+  return all;
+}
+
 function log(stage, msg) {
   const time = new Date().toISOString().split('T')[1].slice(0, -1);
   console.log(`[${time}] [${stage}] ${msg}`);
@@ -60,12 +73,9 @@ function esc(s) {
 // TMDB
 async function fetchTMDBUpcomingMovies() {
   if (!CONFIG.TMDB_API_KEY) return [];
-  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&region=BE&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${getDateOffset(CONFIG.DAYS_AHEAD)}&release_date.lte=${getDateOffset(365)}`;
+  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${getDateOffset(CONFIG.DAYS_AHEAD)}&release_date.lte=${getDateOffset(365)}`;
   try {
-    const res = await fetch(url);
-    const data = await res.json();
-    return (data.results || []).slice(0, CONFIG.LIMIT_PER_CATEGORY)
-      .sort((a, b) => (a.release_date || '').localeCompare(b.release_date || '')).map(m => ({
+    return (await tmdbResults(url, 3)).slice(0, CONFIG.FULL_LIMIT).map(m => ({
       type: 'movie',
       title: m.title,
       original_title: m.original_title,
@@ -88,11 +98,9 @@ const ASIAN_LANGS = ['ko', 'ja', 'zh', 'cn'];
 // (BetaSeries' planning/upcoming endpoint is dead — it answers "No entry ..." as plain text).
 async function fetchTMDBDramas() {
   if (!CONFIG.TMDB_API_KEY) return [];
-  const url = `https://api.themoviedb.org/3/discover/tv?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&page=1&first_air_date.gte=${getDateOffset(CONFIG.DAYS_AHEAD)}&first_air_date.lte=${getDateOffset(365)}&with_original_language=ko|ja|zh&without_genres=16,10763,10764,10766,10767`;
+  const url = `https://api.themoviedb.org/3/discover/tv?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&page=1&first_air_date.gte=${getDateOffset(CONFIG.DAYS_AHEAD)}&first_air_date.lte=${getDateOffset(730)}&with_original_language=ko|ja|zh&without_genres=16,10763,10764,10766,10767`;
   try {
-    const data = await (await fetch(url)).json();
-    return (data.results || []).slice(0, CONFIG.LIMIT_PER_CATEGORY)
-      .sort((a, b) => (a.first_air_date || '').localeCompare(b.first_air_date || '')).map(s => ({
+    return (await tmdbResults(url, 3)).slice(0, CONFIG.FULL_LIMIT).map(s => ({
         type: 'drama',
         name: s.name,
         first_air_date: s.first_air_date,
@@ -110,10 +118,7 @@ async function fetchTMDBUpcomingTV() {
   if (!CONFIG.TMDB_API_KEY) return [];
   const url = `https://api.themoviedb.org/3/discover/tv?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&page=1&first_air_date.gte=${getDateOffset(CONFIG.DAYS_AHEAD)}&first_air_date.lte=${getDateOffset(365)}&without_genres=16,10763,10764,10766,10767`;
   try {
-    const res = await fetch(url);
-    const data = await res.json();
-    return (data.results || []).filter(s => !ASIAN_LANGS.includes(s.original_language)).slice(0, CONFIG.LIMIT_PER_CATEGORY)
-      .sort((a, b) => (a.first_air_date || '').localeCompare(b.first_air_date || '')).map(s => ({
+    return (await tmdbResults(url, 5)).filter(s => !ASIAN_LANGS.includes(s.original_language)).slice(0, CONFIG.FULL_LIMIT).map(s => ({
       type: 'series',
       name: s.name,
       original_name: s.original_name,
@@ -135,7 +140,7 @@ async function fetchTMDBUpcomingTV() {
 async function fetchAniListUpcoming() {
   const query = `
     query ($date: FuzzyDateInt) {
-      Page(perPage: 20) {
+      Page(perPage: 50) {
         media(type: ANIME, status: NOT_YET_RELEASED, sort: POPULARITY_DESC, startDate_greater: $date) {
           id
           title { romaji english native }
@@ -159,7 +164,7 @@ async function fetchAniListUpcoming() {
       body: JSON.stringify({ query, variables })
     });
     const data = await res.json();
-    return (data.data?.Page?.media || []).slice(0, CONFIG.LIMIT_PER_CATEGORY).map(a => ({
+    return (data.data?.Page?.media || []).slice(0, CONFIG.FULL_LIMIT).map(a => ({
       type: 'anime',
       title: a.title.english || a.title.romaji || a.title.native,
       romaji: a.title.romaji,
@@ -183,7 +188,7 @@ async function fetchAniListUpcoming() {
 async function fetchAniListComics(country, type) {
   const query = `
     query ($country: CountryCode) {
-      Page(perPage: 12) {
+      Page(perPage: 50) {
         media(type: MANGA, countryOfOrigin: $country, status: RELEASING, sort: TRENDING_DESC, isAdult: false) {
           id
           title { romaji english native }
@@ -200,7 +205,7 @@ async function fetchAniListComics(country, type) {
       body: JSON.stringify({ query, variables: { country } })
     });
     const data = await res.json();
-    return (data.data?.Page?.media || []).filter(m => m.coverImage?.large).slice(0, CONFIG.LIMIT_PER_CATEGORY).map(m => ({
+    return (data.data?.Page?.media || []).filter(m => m.coverImage?.large).slice(0, CONFIG.FULL_LIMIT).map(m => ({
       type,
       title: m.title.english || m.title.romaji || m.title.native,
       coverImage: m.coverImage.large,
@@ -217,7 +222,7 @@ async function fetchAniListComics(country, type) {
 // Webtoon: MangaDex's "Long Strip" tag is the vertical-scroll format itself, most-followed ongoing first.
 async function fetchMangaDexWebtoons() {
   const LONG_STRIP = '3e2b8dae-350e-4ab8-a8ce-016e844b9f0d';
-  const url = `https://api.mangadex.org/manga?limit=12&includedTags[]=${LONG_STRIP}&status[]=ongoing&order[followedCount]=desc&includes[]=cover_art&contentRating[]=safe&contentRating[]=suggestive&availableTranslatedLanguage[]=en`;
+  const url = `https://api.mangadex.org/manga?limit=70&includedTags[]=${LONG_STRIP}&status[]=ongoing&order[followedCount]=desc&includes[]=cover_art&contentRating[]=safe&contentRating[]=suggestive&availableTranslatedLanguage[]=en`;
   try {
     const data = await (await fetch(url, { headers: { 'User-Agent': 'tsugi-legal-build' } })).json();
     return (data.data || []).map(m => {
@@ -232,7 +237,7 @@ async function fetchMangaDexWebtoons() {
         statusKey: 'ongoing',
         id: m.id,
       };
-    }).filter(w => w.title && w.coverImage).slice(0, CONFIG.LIMIT_PER_CATEGORY);
+    }).filter(w => w.title && w.coverImage).slice(0, CONFIG.FULL_LIMIT);
   } catch (e) {
     log('MangaDex', `Error: ${e.message}`);
     return [];
@@ -247,7 +252,7 @@ async function fetchIGDBGames() {
   }
   const nowSec = Math.floor(Date.now() / 1000);
   const fromSec = nowSec + CONFIG.DAYS_AHEAD * 86400;
-  const query = `fields name, first_release_date, summary, cover.url, cover.image_id, hypes; where first_release_date >= ${fromSec} & hypes > 0 & cover != null; sort hypes desc; limit ${CONFIG.LIMIT_PER_CATEGORY};`;
+  const query = `fields name, slug, first_release_date, summary, cover.url, cover.image_id, hypes; where first_release_date >= ${fromSec} & hypes > 0 & cover != null; sort hypes desc; limit ${CONFIG.FULL_LIMIT};`;
   try {
     const res = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/rpc/igdb_proxy`, {
       method: 'POST',
@@ -260,12 +265,13 @@ async function fetchIGDBGames() {
     });
     const data = await res.json();
     if (!Array.isArray(data)) log('IGDB', `Unexpected response: ${JSON.stringify(data).slice(0, 200)}`);
-    const games = (Array.isArray(data) ? data : []).sort((a, b) => (a.first_release_date || 0) - (b.first_release_date || 0));
-    return games.slice(0, CONFIG.LIMIT_PER_CATEGORY).map(g => ({
+    const games = Array.isArray(data) ? data : [];
+    return games.slice(0, CONFIG.FULL_LIMIT).map(g => ({
       type: 'game',
       title: g.name,
       release_date: g.first_release_date ? new Date(g.first_release_date * 1000).toISOString().split('T')[0] : null,
       overview: g.summary,
+      slug: g.slug,
       poster_path: g.cover?.url ? `https:${g.cover.url.replace('t_thumb', 't_cover_big')}` : null,
       id: g.id,
     }));
@@ -324,29 +330,66 @@ async function generateAIBlurb(item, lang) {
 }
 
 // ========== HTML GENERATOR ==========
+const CAT_LABELS = {
+  fr: { movie: 'Film', series: 'Série', anime: 'Anime', drama: 'Drama', game: 'Jeu', manga: 'Manga', manhwa: 'Manhwa', manhua: 'Manhua', webtoon: 'Webtoon' },
+  en: { movie: 'Movie', series: 'Series', anime: 'Anime', drama: 'Drama', game: 'Game', manga: 'Manga', manhwa: 'Manhwa', manhua: 'Manhua', webtoon: 'Webtoon' },
+  nl: { movie: 'Film', series: 'Serie', anime: 'Anime', drama: 'Drama', game: 'Game', manga: 'Manga', manhwa: 'Manhwa', manhua: 'Manhua', webtoon: 'Webtoon' }
+};
+const STATUS_LABELS = { fr: { ongoing: 'En cours' }, en: { ongoing: 'Ongoing' }, nl: { ongoing: 'Lopend' } };
+
+// AniList's startDate often has only a year for not-yet-released anime (month/day unannounced):
+// a full date string is only built when all three parts are real ("Invalid Date" otherwise).
+function itemFullDate(item) {
+  const sd = item.startDate;
+  return item.release_date || item.first_air_date ||
+    (sd && sd.year && sd.month && sd.day ? `${sd.year}-${String(sd.month).padStart(2,'0')}-${String(sd.day).padStart(2,'0')}` : null);
+}
+
+function itemDateLabel(item, category, lang) {
+  const sd = item.startDate;
+  const date = itemFullDate(item);
+  const partial = !date && sd && sd.year
+    ? (sd.month ? new Date(sd.year, sd.month - 1, 1).toLocaleDateString({ fr: 'fr-FR', en: 'en-US', nl: 'nl-NL' }[lang], { month: 'long', year: 'numeric' }) : String(sd.year))
+    : null;
+  const dateFormatter = { fr: formatDateFR, en: formatDateEN, nl: formatDateNL }[lang];
+  const when = (item.statusKey && STATUS_LABELS[lang][item.statusKey]) || partial || dateFormatter(date);
+  return `${CAT_LABELS[lang][category] || category} · ${when}`;
+}
+
+// Sort key for "soonest first"; unknown month/day sort last within their year, undated keeps rank order.
+function itemSortKey(item) {
+  const sd = item.startDate;
+  return itemFullDate(item) || (sd && sd.year ? `${sd.year}-${String(sd.month || 99).padStart(2,'0')}-99` : '');
+}
+const byDate = (list) => [...list].sort((a, b) => itemSortKey(a).localeCompare(itemSortKey(b)));
+
+// Where the detail page's "source" link points, per category.
+function sourceUrl(item, category) {
+  switch (category) {
+    case 'movie': return `https://www.themoviedb.org/movie/${item.id}`;
+    case 'series': case 'drama': return `https://www.themoviedb.org/tv/${item.id}`;
+    case 'anime': return `https://anilist.co/anime/${item.id}`;
+    case 'manga': case 'manhwa': case 'manhua': return `https://anilist.co/manga/${item.id}`;
+    case 'webtoon': return `https://mangadex.org/title/${item.id}`;
+    case 'game': return item.slug ? `https://www.igdb.com/games/${item.slug}` : null;
+    default: return null;
+  }
+}
+
+function toPublicItem(item, category) {
+  return {
+    id: String(item.id),
+    title: item.title || item.name || item.romaji || '',
+    poster: item.poster_path || item.coverImage || null,
+    blurb: (item.overview || item.description || '').slice(0, 1500),
+    url: sourceUrl(item, category),
+    date: { fr: itemDateLabel(item, category, 'fr'), en: itemDateLabel(item, category, 'en'), nl: itemDateLabel(item, category, 'nl') },
+  };
+}
 function generateCategoryHTML(items, category, lang) {
   if (!items.length) return '<!-- No upcoming releases -->';
-  
-  const labels = {
-    fr: { movie: 'Film', series: 'Série', anime: 'Anime', drama: 'Drama', game: 'Jeu', manga: 'Manga', manhwa: 'Manhwa', manhua: 'Manhua', webtoon: 'Webtoon' },
-    en: { movie: 'Movie', series: 'Series', anime: 'Anime', drama: 'Drama', game: 'Game', manga: 'Manga', manhwa: 'Manhwa', manhua: 'Manhua', webtoon: 'Webtoon' },
-    nl: { movie: 'Film', series: 'Serie', anime: 'Anime', drama: 'Drama', game: 'Game', manga: 'Manga', manhwa: 'Manhwa', manhua: 'Manhua', webtoon: 'Webtoon' }
-  };
-  const statusLabels = { fr: { ongoing: 'En cours' }, en: { ongoing: 'Ongoing' }, nl: { ongoing: 'Lopend' } };
-  
-  const label = labels[lang][category] || category;
-  const dateFormatter = { fr: formatDateFR, en: formatDateEN, nl: formatDateNL }[lang];
-  
+
   return items.map((item, i) => {
-    // AniList's startDate often has only a year for not-yet-released anime (month/day still
-    // unannounced) — building a date string with a null month/day produced "Invalid Date"
-    // everywhere that happened. Only build the string when all three parts are real.
-    const sd = item.startDate;
-    const date = item.release_date || item.first_air_date ||
-      (sd && sd.year && sd.month && sd.day ? `${sd.year}-${String(sd.month).padStart(2,'0')}-${String(sd.day).padStart(2,'0')}` : null);
-    const partial = !date && sd && sd.year
-      ? (sd.month ? new Date(sd.year, sd.month - 1, 1).toLocaleDateString({ fr: 'fr-FR', en: 'en-US', nl: 'nl-NL' }[lang], { month: 'long', year: 'numeric' }) : String(sd.year))
-      : null;
     const rawTitle = item.title || item.name || item.romaji || 'Sans titre';
     const title = esc(rawTitle);
     const poster = item.poster_path || item.coverImage;
@@ -359,13 +402,13 @@ function generateCategoryHTML(items, category, lang) {
       : `<div class="cat-card-fallback">${esc(rawTitle.charAt(0).toUpperCase())}</div>`;
 
     return `
-      <div class="cat-card dynamic" data-cat="${category}" data-reveal style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="${category}" data-reveal style="grid-column: span 1;" href="fiche.html?cat=${category}&amp;id=${encodeURIComponent(String(item.id))}&amp;lang=${lang}">
         <span class="idx">${String(i+1).padStart(2,'0')}</span>
         <h3>${title}</h3>
         ${media}
-        <p class="release-date">${label} · ${(item.statusKey && statusLabels[lang][item.statusKey]) || partial || dateFormatter(date)}</p>
+        <p class="release-date">${esc(itemDateLabel(item, category, lang))}</p>
         <p class="blurb">${blurb.slice(0, 120)}${blurb.length > 120 ? '…' : ''}</p>
-      </div>
+      </a>
     `;
   }).join('\n');
 }
@@ -421,11 +464,19 @@ async function main() {
         // Yesterday's run already injected .dynamic cards into this same committed index.html —
         // without clearing them first, every successful run piles more on top of the last forever.
         catGrid.find('.cat-card.dynamic').remove();
-        const dynamicHTML = generateCategoryHTML(items, catKey, lang);
-        catGrid.append(dynamicHTML);
-        log('INJECT', `Injected ${items.length} ${catKey} items into ${lang}`);
+        const landing = byDate(items.slice(0, CONFIG.LIMIT_PER_CATEGORY));
+        catGrid.append(generateCategoryHTML(landing, catKey, lang));
+        log('INJECT', `Injected ${landing.length} ${catKey} items into ${lang}`);
       }
     }
+  }
+
+  // "Voir plus" pages read these. An empty fetch keeps yesterday's file rather than blanking the page.
+  fs.mkdirSync(CONFIG.DATA_DIR, { recursive: true });
+  for (const [catKey, items] of Object.entries(categories)) {
+    if (!items.length) { log('DATA', `${catKey}: no items, keeping previous file`); continue; }
+    fs.writeFileSync(path.join(CONFIG.DATA_DIR, `${catKey}.json`), JSON.stringify(byDate(items).map(it => toPublicItem(it, catKey))));
+    log('DATA', `${catKey}: ${items.length} items`);
   }
 
   // Add last updated timestamp — remove yesterday's before adding today's, same reason as above.

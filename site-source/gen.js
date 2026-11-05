@@ -38,7 +38,7 @@ const T = {
       movie: ['Films', "Sorties à venir, du festival à la salle obscure."],
       game: ['Jeux', "Dates de sortie confirmées, jusqu'à plusieurs années."],
     },
-    upcomingLabel: 'À venir', popularLabel: 'Populaire',
+    upcomingLabel: 'À venir', popularLabel: 'Populaire', seeMore: 'Voir plus', backCat: 'Toute la catégorie', synopsis: 'Synopsis', source: 'Voir la source', follow: 'Suivre dans l’app', notFound: 'Annonce introuvable.', backHome: 'Accueil', prev: 'Précédent', next: 'Suivant', pageOf: 'Page {p} sur {n}', emptyCat: 'Aucune annonce pour le moment.',
     featKicker: 'Pourquoi TSUGI', featTitle: "Pensé pour qu'on ne rate plus une sortie.",
     feats: [
       ['Alertes de sortie', "Un nouvel épisode, chapitre ou une nouvelle saison sort ? TSUGI vous notifie directement, sans avoir à vérifier dix sites."],
@@ -85,7 +85,7 @@ const T = {
       movie: ['Movies', 'Upcoming releases, from festival premieres to theaters.'],
       game: ['Games', 'Confirmed release dates, even years out.'],
     },
-    upcomingLabel: 'Upcoming', popularLabel: 'Popular',
+    upcomingLabel: 'Upcoming', popularLabel: 'Popular', seeMore: 'See more', backCat: 'Whole category', synopsis: 'Synopsis', source: 'View source', follow: 'Follow it in the app', notFound: 'Announcement not found.', backHome: 'Home', prev: 'Previous', next: 'Next', pageOf: 'Page {p} of {n}', emptyCat: 'Nothing announced yet.',
     featKicker: 'Why TSUGI', featTitle: 'Built so you never miss a release again.',
     feats: [
       ['Release alerts', 'A new episode, chapter, or season drops? TSUGI notifies you directly — no need to check ten different sites.'],
@@ -132,7 +132,7 @@ const T = {
       movie: ['Films', 'Aankomende releases, van festival tot bioscoop.'],
       game: ['Games', 'Bevestigde releasedata, zelfs jaren vooruit.'],
     },
-    upcomingLabel: 'Binnenkort', popularLabel: 'Populair',
+    upcomingLabel: 'Binnenkort', popularLabel: 'Populair', seeMore: 'Meer zien', backCat: 'Hele categorie', synopsis: 'Synopsis', source: 'Bron bekijken', follow: 'Volg het in de app', notFound: 'Aankondiging niet gevonden.', backHome: 'Home', prev: 'Vorige', next: 'Volgende', pageOf: 'Pagina {p} van {n}', emptyCat: 'Nog niets aangekondigd.',
     featKicker: 'Waarom TSUGI', featTitle: 'Gemaakt zodat je nooit meer een release mist.',
     feats: [
       ['Releasemeldingen', 'Een nieuwe episode, hoofdstuk of seizoen verschijnt? TSUGI stuurt je direct een melding — geen tien sites meer checken.'],
@@ -215,7 +215,7 @@ function categoriesHtml(lang) {
   const COMICS = ['manga', 'manhwa', 'manhua', 'webtoon'];
   const strips = CATS.map(c => `
         <div class="cat-strip hue-${c.hue}" id="cat-${c.key}-${lang}">
-          <div class="cat-strip-head"><span class="cat-num">${c.num}</span><h3>${esc(t.cats[c.key][0])}</h3><span class="pill">${esc(COMICS.includes(c.key) ? t.popularLabel : t.upcomingLabel)}</span></div>
+          <div class="cat-strip-head"><span class="cat-num">${c.num}</span><h3>${esc(t.cats[c.key][0])}</h3><span class="pill">${esc(COMICS.includes(c.key) ? t.popularLabel : t.upcomingLabel)}</span><a class="see-more" href="categorie.html?cat=${c.key}&amp;lang=${lang}">${esc(t.seeMore)} →</a></div>
           <div class="cat-grid" data-catkey="${c.key}"></div>
         </div>`).join('');
   return `
@@ -305,6 +305,7 @@ const style = fs.readFileSync(new URL('./style.css', import.meta.url), 'utf-8');
 const html = `<!DOCTYPE html><html lang="fr"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 <title>TSUGI — Un hub, pas dix apps</title>
 <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
@@ -352,4 +353,200 @@ ${langs.map(footerBrand).join('')}
 `;
 
 fs.writeFileSync(new URL('../index.html', import.meta.url), html);
+
+// Only what the page needs, per language: category names + its UI strings.
+const pageI18n = Object.fromEntries(langs.map(l => [l, {
+  cats: Object.fromEntries(CATS.map(c => [c.key, T[l].cats[c.key][0]])),
+  upcoming: T[l].upcomingLabel, popular: T[l].popularLabel, backHome: T[l].backHome,
+  prev: T[l].prev, next: T[l].next, pageOf: T[l].pageOf, empty: T[l].emptyCat,
+  backCat: T[l].backCat, synopsis: T[l].synopsis, source: T[l].source, follow: T[l].follow, notFound: T[l].notFound,
+}]));
+const catPage = `<!DOCTYPE html><html lang="fr"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>TSUGI — Catégorie</title>
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+${style}
+</style>
+</head>
+<body>
+<header class="site-nav">
+  <a class="brand" href="index.html"><span class="glyph">次</span><strong>TSUGI</strong></a>
+  <div class="nav-right">
+    <div class="lang-switch" id="cp-langs"><a data-l="fr">FR</a><a data-l="en">EN</a><a data-l="nl">NL</a></div>
+    <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=app.tsugi.android">Google Play</a>
+  </div>
+</header>
+<main class="section cat-page" id="cp">
+  <a class="see-more cp-back" id="cp-back" href="index.html"></a>
+  <div class="cat-strip-head" id="cp-head"><span class="cat-num" id="cp-num"></span><h1 id="cp-title"></h1><span class="pill" id="cp-pill"></span></div>
+  <div class="cat-grid page-grid" id="cp-grid"></div>
+  <p class="cp-empty" id="cp-empty" hidden></p>
+  <nav class="pager" id="cp-pager" hidden>
+    <button class="btn btn-ghost" id="cp-prev"></button><span id="cp-info"></span><button class="btn btn-ghost" id="cp-next"></button>
+  </nav>
+</main>
+<script>
+(function () {
+  var I18N = ${JSON.stringify(pageI18n)};
+  var CATS = ${JSON.stringify(CATS.map(c => ({ key: c.key, num: c.num })))};
+  var COMICS = ['manga', 'manhwa', 'manhua', 'webtoon'];
+  var PER_PAGE = 10;
+  var q = new URLSearchParams(location.search);
+  var lang = I18N[q.get('lang')] ? q.get('lang') : 'fr';
+  var cat = CATS.filter(function (c) { return c.key === q.get('cat'); })[0] || CATS[0];
+  var t = I18N[lang];
+  var items = [];
+  var page = Math.max(1, parseInt(q.get('page'), 10) || 1);
+  function el(id) { return document.getElementById(id); }
+  function text(tag, cls, value) { var e = document.createElement(tag); if (cls) e.className = cls; e.textContent = value; return e; }
+
+  document.documentElement.lang = lang;
+  document.title = 'TSUGI — ' + t.cats[cat.key];
+  el('cp').className += ' hue-' + cat.key;
+  el('cp-back').textContent = '← ' + t.backHome;
+  el('cp-back').href = 'index.html#categories-' + lang;
+  el('cp-num').textContent = cat.num;
+  el('cp-title').textContent = t.cats[cat.key];
+  el('cp-pill').textContent = COMICS.indexOf(cat.key) >= 0 ? t.popular : t.upcoming;
+  el('cp-prev').textContent = '← ' + t.prev;
+  el('cp-next').textContent = t.next + ' →';
+  [].forEach.call(el('cp-langs').children, function (a) {
+    a.href = 'categorie.html?cat=' + cat.key + '&lang=' + a.dataset.l;
+    if (a.dataset.l === lang) a.className = 'active';
+  });
+
+  function render() {
+    var pages = Math.max(1, Math.ceil(items.length / PER_PAGE));
+    page = Math.min(page, pages);
+    var grid = el('cp-grid');
+    grid.textContent = '';
+    items.slice((page - 1) * PER_PAGE, page * PER_PAGE).forEach(function (it, i) {
+      var card = document.createElement('a');
+      card.className = 'cat-card';
+      card.href = 'fiche.html?cat=' + cat.key + '&id=' + encodeURIComponent(it.id) + '&lang=' + lang;
+      card.appendChild(text('span', 'idx', String((page - 1) * PER_PAGE + i + 1).padStart(2, '0')));
+      card.appendChild(text('h3', '', it.title));
+      if (it.poster) {
+        var img = document.createElement('img');
+        img.src = it.poster; img.alt = it.title; img.loading = 'lazy';
+        card.appendChild(img);
+      } else {
+        card.appendChild(text('div', 'cat-card-fallback', (it.title || '?').charAt(0).toUpperCase()));
+      }
+      card.appendChild(text('p', 'release-date', it.date[lang] || it.date.fr));
+      if (it.blurb) card.appendChild(text('p', 'blurb', it.blurb.length > 140 ? it.blurb.slice(0, 140) + '…' : it.blurb));
+      grid.appendChild(card);
+    });
+    el('cp-info').textContent = t.pageOf.replace('{p}', page).replace('{n}', pages);
+    el('cp-prev').disabled = page <= 1;
+    el('cp-next').disabled = page >= pages;
+    el('cp-pager').hidden = pages <= 1;
+    var url = new URL(location.href);
+    url.searchParams.set('cat', cat.key); url.searchParams.set('lang', lang); url.searchParams.set('page', page);
+    history.replaceState(null, '', url);
+  }
+  function go(delta) { page += delta; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  el('cp-prev').onclick = function () { go(-1); };
+  el('cp-next').onclick = function () { go(1); };
+
+  fetch('data/' + cat.key + '.json', { cache: 'no-cache' })
+    .then(function (r) { return r.ok ? r.json() : []; })
+    .catch(function () { return []; })
+    .then(function (list) {
+      items = Array.isArray(list) ? list : [];
+      if (!items.length) { el('cp-empty').textContent = t.empty; el('cp-empty').hidden = false; }
+      render();
+    });
+})();
+</script>
+</body></html>
+`;
+fs.writeFileSync(new URL('../categorie.html', import.meta.url), catPage);
+
+// Detail page: same data file as the category page, item picked by its source id.
+const head = catPage.slice(0, catPage.indexOf('</head>')).replace('<title>TSUGI — Catégorie</title>', '<title>TSUGI</title>');
+const fichePage = `${head}</head>
+<body>
+<header class="site-nav">
+  <a class="brand" href="index.html"><span class="glyph">次</span><strong>TSUGI</strong></a>
+  <div class="nav-right">
+    <div class="lang-switch" id="fp-langs"><a data-l="fr">FR</a><a data-l="en">EN</a><a data-l="nl">NL</a></div>
+    <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=app.tsugi.android">Google Play</a>
+  </div>
+</header>
+<main class="section cat-page fiche" id="fp">
+  <a class="see-more cp-back" id="fp-back" href="index.html"></a>
+  <article class="fiche-body" id="fp-body" hidden>
+    <div class="fiche-poster" id="fp-poster"></div>
+    <div class="fiche-info">
+      <span class="pill" id="fp-cat"></span>
+      <h1 id="fp-title"></h1>
+      <p class="release-date" id="fp-date"></p>
+      <h2 class="fiche-h2" id="fp-syn-h"></h2>
+      <p class="fiche-blurb" id="fp-blurb"></p>
+      <div class="fiche-actions">
+        <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=app.tsugi.android" id="fp-follow"></a>
+        <a class="btn btn-ghost" id="fp-source" target="_blank" rel="noopener" hidden></a>
+      </div>
+    </div>
+  </article>
+  <p class="cp-empty" id="fp-missing" hidden></p>
+</main>
+<script>
+(function () {
+  var I18N = ${JSON.stringify(pageI18n)};
+  var KEYS = ${JSON.stringify(CATS.map(c => c.key))};
+  var q = new URLSearchParams(location.search);
+  var lang = I18N[q.get('lang')] ? q.get('lang') : 'fr';
+  var cat = KEYS.indexOf(q.get('cat')) >= 0 ? q.get('cat') : KEYS[0];
+  var id = q.get('id') || '';
+  var t = I18N[lang];
+  function el(x) { return document.getElementById(x); }
+  document.documentElement.lang = lang;
+  el('fp').className += ' hue-' + cat;
+  el('fp-back').textContent = '← ' + t.backCat + ' · ' + t.cats[cat];
+  el('fp-back').href = 'categorie.html?cat=' + cat + '&lang=' + lang;
+  [].forEach.call(el('fp-langs').children, function (a) {
+    a.href = 'fiche.html?cat=' + cat + '&id=' + encodeURIComponent(id) + '&lang=' + a.dataset.l;
+    if (a.dataset.l === lang) a.className = 'active';
+  });
+  fetch('data/' + cat + '.json', { cache: 'no-cache' })
+    .then(function (r) { return r.ok ? r.json() : []; })
+    .catch(function () { return []; })
+    .then(function (list) {
+      var it = (Array.isArray(list) ? list : []).filter(function (x) { return String(x.id) === id; })[0];
+      if (!it) { el('fp-missing').textContent = t.notFound; el('fp-missing').hidden = false; return; }
+      document.title = 'TSUGI — ' + it.title;
+      el('fp-cat').textContent = t.cats[cat];
+      el('fp-title').textContent = it.title;
+      el('fp-date').textContent = it.date[lang] || it.date.fr;
+      if (it.poster) {
+        var img = document.createElement('img'); img.src = it.poster; img.alt = it.title;
+        el('fp-poster').appendChild(img);
+      } else {
+        var f = document.createElement('div'); f.className = 'cat-card-fallback'; f.textContent = (it.title || '?').charAt(0).toUpperCase();
+        el('fp-poster').appendChild(f);
+      }
+      el('fp-syn-h').textContent = t.synopsis;
+      el('fp-syn-h').hidden = !it.blurb;
+      el('fp-blurb').textContent = it.blurb || '';
+      el('fp-follow').textContent = t.follow;
+      if (it.url) { el('fp-source').href = it.url; el('fp-source').textContent = t.source + ' ↗'; el('fp-source').hidden = false; }
+      el('fp-body').hidden = false;
+    });
+})();
+</script>
+</body></html>
+`;
+fs.writeFileSync(new URL('../fiche.html', import.meta.url), fichePage);
+console.log('Generated fiche.html', fichePage.length, 'bytes');
+console.log('Generated categorie.html', catPage.length, 'bytes');
 console.log('Generated', html.length, 'bytes');
