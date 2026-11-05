@@ -79,6 +79,15 @@ const LOCAL_REGIONS = ['BE', 'FR'];
 // Countries shown in the detail page's "release by continent" table (fiche.html groups them).
 const WORLD_COUNTRIES = ['BE', 'FR', 'NL', 'GB', 'DE', 'ES', 'IT', 'US', 'CA', 'MX', 'BR', 'AR', 'KR', 'JP', 'CN', 'IN', 'TH', 'AU', 'NZ', 'ZA', 'MA', 'NG', 'AE'];
 
+// Fallback when the digital release has no note: the BE (else FR) subscription platform.
+async function subscriptionPlatform(id) {
+  try {
+    const r = (await (await fetch(`https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${CONFIG.TMDB_API_KEY}`)).json()).results || {};
+    for (const c of LOCAL_REGIONS) if (r[c]?.flatrate?.length) return r[c].flatrate[0].provider_name;
+  } catch (e) {}
+  return null;
+}
+
 // First BE/FR release, in cinemas (TMDB types 2 limited / 3 theatrical) or on streaming (4 digital),
 // plus each listed country's first release for the detail page.
 async function localRelease(id) {
@@ -87,10 +96,12 @@ async function localRelease(id) {
     const firstOf = (countries) => (data.results || []).filter(c => countries.includes(c.iso_3166_1))
       .flatMap(c => (c.release_dates || []).map(d => ({ ...d, country: c.iso_3166_1 })))
       .filter(d => [2, 3, 4].includes(d.type) && d.release_date)
-      .map(d => ({ country: d.country, date: d.release_date.slice(0, 10), kind: d.type === 4 ? 'streaming' : 'cinema' }))
+      // "Streaming" alone says nothing: TMDB's note on a digital release names the platform ("Netflix").
+      .map(d => ({ country: d.country, date: d.release_date.slice(0, 10), kind: d.type === 4 ? 'streaming' : 'cinema', platform: d.type === 4 ? (d.note || '').trim() || null : null }))
       .sort((a, b) => a.date.localeCompare(b.date));
     const local = firstOf(LOCAL_REGIONS)[0];
     if (!local) return null;
+    if (local.kind === 'streaming' && !local.platform) local.platform = await subscriptionPlatform(id);
     const world = [];
     for (const r of firstOf(WORLD_COUNTRIES)) if (!world.some(w => w.country === r.country)) world.push(r);
     return { ...local, world };
@@ -122,6 +133,7 @@ async function fetchTMDBUpcomingMovies() {
           original_title: m.original_title,
           release_date: local.date,
           releaseKind: local.kind,
+          platform: local.platform,
           world: local.world,
           overview: m.overview,
           poster_path: m.poster_path ? `https://image.tmdb.org/t/p/w342${m.poster_path}` : null,
@@ -412,7 +424,7 @@ function itemDateLabel(item, category, lang) {
     : null;
   const dateFormatter = { fr: formatDateFR, en: formatDateEN, nl: formatDateNL }[lang];
   const when = (item.statusKey && STATUS_LABELS[lang][item.statusKey]) || partial || dateFormatter(date);
-  const kind = item.releaseKind ? ` · ${KIND_LABELS[lang][item.releaseKind]}` : '';
+  const kind = item.releaseKind ? ` · ${(item.releaseKind === 'streaming' && item.platform) || KIND_LABELS[lang][item.releaseKind]}` : '';
   return `${CAT_LABELS[lang][category] || category}${kind} · ${when}`;
 }
 
@@ -443,7 +455,7 @@ function toPublicItem(item, category) {
     poster: item.poster_path || item.coverImage || null,
     blurb: (item.overview || item.description || '').slice(0, 1500),
     url: sourceUrl(item, category),
-    ...(item.world ? { world: item.world.map(w => ({ c: w.country, d: w.date, k: w.kind })) } : {}),
+    ...(item.world ? { world: item.world.map(w => ({ c: w.country, d: w.date, k: w.kind, ...(w.platform ? { p: w.platform } : {}) })) } : {}),
     date: { fr: itemDateLabel(item, category, 'fr'), en: itemDateLabel(item, category, 'en'), nl: itemDateLabel(item, category, 'nl') },
   };
 }

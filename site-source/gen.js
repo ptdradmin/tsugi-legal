@@ -565,7 +565,7 @@ const fichePage = `${head}</head>
             var c = document.createElement('span'); c.textContent = names ? names.of(w.c) : w.c;
             var d = document.createElement('span'); d.className = 'world-date';
             d.textContent = new Date(w.d + 'T00:00:00').toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' });
-            var kd = document.createElement('span'); kd.className = 'world-kind ' + w.k; kd.textContent = t.kinds[w.k];
+            var kd = document.createElement('span'); kd.className = 'world-kind ' + w.k; kd.textContent = w.p || t.kinds[w.k];
             row.appendChild(c); row.appendChild(kd); row.appendChild(d); box.appendChild(row);
           });
           el('fp-world-grid').appendChild(box);
