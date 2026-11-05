@@ -1,6 +1,7 @@
 <!DOCTYPE html><html lang="fr"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 <title>TSUGI — Un hub, pas dix apps</title>
 <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
@@ -178,6 +179,32 @@
   .cat-strip-head .pill { margin-left: auto; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--tile-c); background: var(--tile-bg); padding: 5px 12px; border-radius: 999px; }
   .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; min-height: 4px; }
   .cat-grid:empty { display: none; }
+  .see-more { font-size: 13px; font-weight: 700; color: var(--tile-c, var(--brand)); white-space: nowrap; }
+  .see-more:hover { text-decoration: underline; }
+  .cat-strip-head .pill + .see-more { margin-left: 4px; }
+  /* "Voir plus" page: 10 per page = 2 rows of 5 */
+  .cat-page { padding-top: 110px; max-width: 1200px; margin: 0 auto; }
+  .cat-page .cat-strip-head h1 { font-size: 28px; }
+  .cp-back { display: inline-block; margin-bottom: 18px; }
+  .page-grid { grid-template-columns: repeat(5, 1fr); }
+  .pager { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 32px 0 60px; color: var(--ink-dim); font-size: 14px; }
+  .pager .btn:disabled { opacity: .35; cursor: default; }
+  .cp-empty { color: var(--ink-dim); text-align: center; padding: 40px 0; }
+  a.cat-card { display: block; color: inherit; text-decoration: none; }
+  /* detail page */
+  .fiche-body { display: grid; grid-template-columns: minmax(220px, 340px) 1fr; gap: 40px; align-items: start; }
+  .fiche-body[hidden] { display: none; }
+  .fiche-poster img, .fiche-poster .cat-card-fallback { width: 100%; aspect-ratio: 2/3; object-fit: cover; border-radius: 16px; border: 1px solid var(--border); }
+  .fiche-info .pill { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--tile-c); background: var(--tile-bg); padding: 5px 12px; border-radius: 999px; }
+  .fiche-info h1 { font-size: clamp(28px, 4vw, 44px); margin: 14px 0 8px; line-height: 1.1; }
+  .fiche-info .release-date { color: var(--tile-c, var(--brand)); font-weight: 700; font-size: 15px; }
+  .fiche-h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin: 28px 0 10px; }
+  .fiche-blurb { color: var(--ink-dim); line-height: 1.7; font-size: 15.5px; white-space: pre-line; max-width: 70ch; }
+  .fiche-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  @media (max-width: 760px) { .fiche-body { grid-template-columns: 1fr; gap: 24px; } .fiche-poster { max-width: 260px; } }
+  .lang-switch a { padding: 6px 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; border-radius: 999px; color: var(--ink-faint); transition: color .2s, background .2s; }
+  .lang-switch a:hover { color: var(--ink); }
+  .lang-switch a.active { background: var(--ink); color: #08080c; }
   .cat-card {
     background: var(--glass); border: 1px solid var(--border); border-radius: var(--radius-sm);
     padding: 14px; transition: transform .2s, border-color .2s;
@@ -418,7 +445,7 @@
     </div>
     <div class="cat-strips">
         <div class="cat-strip hue-anime" id="cat-anime-fr">
-          <div class="cat-strip-head"><span class="cat-num">01</span><h3>Anime</h3><span class="pill">À venir</span></div>
+          <div class="cat-strip-head"><span class="cat-num">01</span><h3>Anime</h3><span class="pill">À venir</span><a class="see-more" href="categorie.html?cat=anime&amp;lang=fr">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="anime">
       
     
@@ -1269,42 +1296,42 @@
     
       <div class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;">
         <span class="idx">01</span>
-        <h3>Dandadan 3rd Season</h3>
-        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="Dandadan 3rd Season" loading="lazy">
-        <p class="release-date">Anime · 2027</p>
-        <p class="blurb"></p>
-      </div>
-    
-
-      <div class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;">
-        <span class="idx">02</span>
-        <h3>Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2</h3>
-        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx181641-4BnzXGnA7CJL.jpg" alt="Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2" loading="lazy">
-        <p class="release-date">Anime · 2027</p>
-        <p class="blurb"></p>
-      </div>
-    
-
-      <div class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;">
-        <span class="idx">03</span>
-        <h3>Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen</h3>
-        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen" loading="lazy">
-        <p class="release-date">Anime · 2027</p>
-        <p class="blurb"></p>
-      </div>
-    
-
-      <div class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;">
-        <span class="idx">04</span>
         <h3>Sousou no Frieren 3rd Season</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx209939-g2Njkml1rheG.jpg" alt="Sousou no Frieren 3rd Season" loading="lazy">
         <p class="release-date">Anime · octobre 2027</p>
         <p class="blurb"></p>
-      </div>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=198966&amp;lang=fr">
+        <span class="idx">02</span>
+        <h3>Dandadan 3rd Season</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="Dandadan 3rd Season" loading="lazy">
+        <p class="release-date">Anime · 2027</p>
+        <p class="blurb"></p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=181641&amp;lang=fr">
+        <span class="idx">03</span>
+        <h3>Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx181641-4BnzXGnA7CJL.jpg" alt="Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2" loading="lazy">
+        <p class="release-date">Anime · 2027</p>
+        <p class="blurb"></p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=171952&amp;lang=fr">
+        <span class="idx">04</span>
+        <h3>Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen" loading="lazy">
+        <p class="release-date">Anime · 2027</p>
+        <p class="blurb"></p>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-manga" id="cat-manga-fr">
-          <div class="cat-strip-head"><span class="cat-num">02</span><h3>Manga</h3><span class="pill">Populaire</span></div>
+          <div class="cat-strip-head"><span class="cat-num">02</span><h3>Manga</h3><span class="pill">Populaire</span><a class="see-more" href="categorie.html?cat=manga&amp;lang=fr">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="manga">
       
     
@@ -1356,38 +1383,38 @@
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx30013-BeslEMqiPhlk.jpg" alt="One Piece" loading="lazy">
         <p class="release-date">Manga · En cours</p>
         <p class="blurb">As a child, Monkey D. Luffy was inspired to become a pirate by listening to the tales of the buccaneer "Red-Haired&amp;…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=99324&amp;lang=fr">
         <span class="idx">02</span>
         <h3>Welcome to Demon School! Iruma-kun</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="Welcome to Demon School! Iruma-kun" loading="lazy">
         <p class="release-date">Manga · En cours</p>
         <p class="blurb">Iruma Suzuki has always been eager to please, even at the cost of his well-being. Worst yet, he's the son of two selfish…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=140475&amp;lang=fr">
         <span class="idx">03</span>
         <h3>The Fragrant Flower Blooms With Dignity</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx140475-QEGtrmdvbpOv.jpg" alt="The Fragrant Flower Blooms With Dignity" loading="lazy">
         <p class="release-date">Manga · En cours</p>
         <p class="blurb">This story takes place in a particular town with two infamous schools in constant dispute: Chidori High, a boys' school …</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=201773&amp;lang=fr">
         <span class="idx">04</span>
         <h3>Haimiya Is Scary Cute</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx201773-ecGmhCRhfu05.jpg" alt="Haimiya Is Scary Cute" loading="lazy">
         <p class="release-date">Manga · En cours</p>
         <p class="blurb">At my high school, everyone fears Haimiya-senpai. With her sharp piercings, striking grey wolf-cut, and that brutally ho…</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-manhwa" id="cat-manhwa-fr">
-          <div class="cat-strip-head"><span class="cat-num">03</span><h3>Manhwa</h3><span class="pill">Populaire</span></div>
+          <div class="cat-strip-head"><span class="cat-num">03</span><h3>Manhwa</h3><span class="pill">Populaire</span><a class="see-more" href="categorie.html?cat=manhwa&amp;lang=fr">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="manhwa">
       
     
@@ -1439,38 +1466,38 @@
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx120980-RZ9WLd0o9hyo.jpg" alt="Nano Machine" loading="lazy">
         <p class="release-date">Manhwa · En cours</p>
         <p class="blurb">Nanotechnology meets martial arts at the Mashin Academy. Yeo-Un’s mother may not be one of the High Priest’s six officia…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=159441&amp;lang=fr">
         <span class="idx">02</span>
         <h3>Pick Me Up</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx159441-9W8201jAT9Yv.jpg" alt="Pick Me Up" loading="lazy">
         <p class="release-date">Manhwa · En cours</p>
         <p class="blurb">1-Star heroes are just fodder for learning a boss' attack patterns. That was Seojin Han's philosophy when playing the no…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=183376&amp;lang=fr">
         <span class="idx">03</span>
         <h3>Chronicles of a Doomed Prodigy</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx183376-Cw3VnZAItw2a.jpg" alt="Chronicles of a Doomed Prodigy" loading="lazy">
         <p class="release-date">Manhwa · En cours</p>
         <p class="blurb">Gifted by the heavens yet cursed by fate, Yeonshin was born with unimaginable talent in martial arts. But this very gift…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=204974&amp;lang=fr">
         <span class="idx">04</span>
         <h3>Murim Psychopath</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx204974-SZoqdyhxoLRH.jpg" alt="Murim Psychopath" loading="lazy">
         <p class="release-date">Manhwa · En cours</p>
         <p class="blurb">The predator of predators has awakened! In life, Bongsu was a serial killer who exclusively hunted murderers and violent…</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-manhua" id="cat-manhua-fr">
-          <div class="cat-strip-head"><span class="cat-num">04</span><h3>Manhua</h3><span class="pill">Populaire</span></div>
+          <div class="cat-strip-head"><span class="cat-num">04</span><h3>Manhua</h3><span class="pill">Populaire</span><a class="see-more" href="categorie.html?cat=manhua&amp;lang=fr">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="manhua">
       
     
@@ -1522,38 +1549,38 @@
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/b167372-zfQUGcQMWiAI.png" alt="Necromancer, the Ultimate Scourge!" loading="lazy">
         <p class="release-date">Manhua · En cours</p>
         <p class="blurb">In a world where magic and monsters exist, Lin Moyu has hit the age of acquiring his very own profession. While most wou…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=160980&amp;lang=fr">
         <span class="idx">02</span>
         <h3>Log Into The Future</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx160980-KAM0gr3dSMvB.jpg" alt="Log Into The Future" loading="lazy">
         <p class="release-date">Manhua · En cours</p>
         <p class="blurb">300 years after mutated beasts ravaged the world, humanity began to lose ground, with only martial arts as their last li…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=116353&amp;lang=fr">
         <span class="idx">03</span>
         <h3>The Devil Butler</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx116353-DYuIigXuPwpZ.jpg" alt="The Devil Butler" loading="lazy">
         <p class="release-date">Manhua · En cours</p>
         <p class="blurb">As the Demon King, Yifan Zhuo uses his knowledge and power, collected over millennia, to defeat all foes, until the day …</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=138726&amp;lang=fr">
         <span class="idx">04</span>
         <h3>Rebirth Of The Ultimate Master</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx138726-ysRy6zaQMWT8.jpg" alt="Rebirth Of The Ultimate Master" loading="lazy">
         <p class="release-date">Manhua · En cours</p>
         <p class="blurb">What happens when a former martial emperor gets reborn into a complete loser's body? Gu Feiyang, a legendary martial art…</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-webtoon" id="cat-webtoon-fr">
-          <div class="cat-strip-head"><span class="cat-num">05</span><h3>Webtoon</h3><span class="pill">Populaire</span></div>
+          <div class="cat-strip-head"><span class="cat-num">05</span><h3>Webtoon</h3><span class="pill">Populaire</span><a class="see-more" href="categorie.html?cat=webtoon&amp;lang=fr">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="webtoon">
       
     
@@ -1605,38 +1632,38 @@
         <img src="https://uploads.mangadex.org/covers/9a414441-bbad-43f1-a3a7-dc262ca790a3/be18dc9a-7f1c-4ca5-b318-ffff2d7d58c3.jpg.512.jpg" alt="Omniscient Reader's Viewpoint" loading="lazy">
         <p class="release-date">Webtoon · En cours</p>
         <p class="blurb">« Je suis le seul lecteur à connaître la fin du monde. » [Les trois façons de survivre dans un monde en ruine], ce roman…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=4ada20eb-085a-491a-8c49-477ab42014d7&amp;lang=fr">
         <span class="idx">02</span>
         <h3>The Beginning After the End</h3>
         <img src="https://uploads.mangadex.org/covers/4ada20eb-085a-491a-8c49-477ab42014d7/4298e756-edf0-4bd6-9b83-340bfdb27771.jpg.512.jpg" alt="The Beginning After the End" loading="lazy">
         <p class="release-date">Webtoon · En cours</p>
         <p class="blurb">Le Roi Grey a une force, une richesse et un prestige inégalés dans un monde gouverné par l'aptitude martiale. Cependant,…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=4a973243-952e-44d7-a50f-883b4b7c9cc2&amp;lang=fr">
         <span class="idx">03</span>
         <h3>SSS-Class Revival Hunter</h3>
         <img src="https://uploads.mangadex.org/covers/4a973243-952e-44d7-a50f-883b4b7c9cc2/9adafa19-0424-4677-aab4-93a07a01a591.jpg.512.jpg" alt="SSS-Class Revival Hunter" loading="lazy">
         <p class="release-date">Webtoon · En cours</p>
         <p class="blurb">In the mysterious, RPG dungeon-like Tower, Gongja Kim lives a mundane existence, envying all the star hunters. One day, …</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=d993f789-e7e5-4832-92fd-37614220b427&amp;lang=fr">
         <span class="idx">04</span>
         <h3>The Skeleton Soldier Failed to Defend the Dungeon</h3>
         <img src="https://uploads.mangadex.org/covers/d993f789-e7e5-4832-92fd-37614220b427/7e02ac66-1ac9-4eac-bc05-a264222ca87b.png.512.jpg" alt="The Skeleton Soldier Failed to Defend the Dungeon" loading="lazy">
         <p class="release-date">Webtoon · En cours</p>
         <p class="blurb">Découvrez le Soldat Squelette, le frêle mais loyal combattant, se battant pour protéger sa maîtresse, Dame Succube. Son …</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-series" id="cat-series-fr">
-          <div class="cat-strip-head"><span class="cat-num">06</span><h3>Séries</h3><span class="pill">À venir</span></div>
+          <div class="cat-strip-head"><span class="cat-num">06</span><h3>Séries</h3><span class="pill">À venir</span><a class="see-more" href="categorie.html?cat=series&amp;lang=fr">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="series">
       
     
@@ -2546,34 +2573,34 @@
         <img src="https://image.tmdb.org/t/p/w342/9wNdTWthGpTZZaOBKlO07pK77pU.jpg" alt="Frisco King" loading="lazy">
         <p class="release-date">Série · 18 décembre 2026</p>
         <p class="blurb"></p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=224377&amp;lang=fr">
         <span class="idx">02</span>
         <h3>Harry Potter</h3>
         <img src="https://image.tmdb.org/t/p/w342/zNH0vo3rvRTklF0gui5Ntr4DBAA.jpg" alt="Harry Potter" loading="lazy">
         <p class="release-date">Série · 25 décembre 2026</p>
         <p class="blurb">Il n'y a rien de spécial chez Harry Potter, du moins, c'est ce que sa tante Pétunia lui répète sans cesse. Mais le jour …</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=337372&amp;lang=fr">
         <span class="idx">03</span>
         <h3>Eşref Tek</h3>
         <img src="https://image.tmdb.org/t/p/w342/tgGsACYKoMAtclxXkBkHhl3EvYa.jpg" alt="Eşref Tek" loading="lazy">
         <p class="release-date">Série · 1 janvier 2027</p>
         <p class="blurb"></p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=215528&amp;lang=fr">
         <span class="idx">04</span>
         <h3>Neuromancien</h3>
         <img src="https://image.tmdb.org/t/p/w342/pQKofoTaTnwQopuU1crUEEqtAfg.jpg" alt="Neuromancien" loading="lazy">
         <p class="release-date">Série · 21 janvier 2027</p>
         <p class="blurb">Un hacker de talent tombé en disgrâce et une tueuse affûtée sont recrutés pour une mission de haut vol : voler une dynas…</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-drama" id="cat-drama-fr">
@@ -2618,38 +2645,38 @@
         <img src="https://image.tmdb.org/t/p/w342/cWXBisC8gIrGB8UfxKXaoHLxBH2.jpg" alt="신의 구슬" loading="lazy">
         <p class="release-date">Drama · 5 décembre 2026</p>
         <p class="blurb"></p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=256726&amp;lang=fr">
         <span class="idx">02</span>
         <h3>Tantara</h3>
         <img src="https://image.tmdb.org/t/p/w342/5SzLNVXBqpukDEwYkkocXZy8dd.jpg" alt="Tantara" loading="lazy">
         <p class="release-date">Drama · 11 décembre 2026</p>
         <p class="blurb">Une série historique retraçant la naissance de l'industrie du divertissement coréenne et son essor depuis la guerre de C…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=283220&amp;lang=fr">
         <span class="idx">03</span>
         <h3>国民クイズ</h3>
         <img src="https://image.tmdb.org/t/p/w342/3L8El6VH4CL1pdz9JgnGsHXeGra.jpg" alt="国民クイズ" loading="lazy">
         <p class="release-date">Drama · 17 décembre 2026</p>
         <p class="blurb"></p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=293611&amp;lang=fr">
         <span class="idx">04</span>
         <h3>각성</h3>
         <img src="https://image.tmdb.org/t/p/w342/8LUQHM4F0zM63dAzaSyyHi5MDja.jpg" alt="각성" loading="lazy">
         <p class="release-date">Drama · 15 janvier 2027</p>
         <p class="blurb"></p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-movie" id="cat-movie-fr">
-          <div class="cat-strip-head"><span class="cat-num">08</span><h3>Films</h3><span class="pill">À venir</span></div>
+          <div class="cat-strip-head"><span class="cat-num">08</span><h3>Films</h3><span class="pill">À venir</span><a class="see-more" href="categorie.html?cat=movie&amp;lang=fr">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="movie">
       
     
@@ -3555,50 +3582,68 @@
     
       <div class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;">
         <span class="idx">01</span>
-        <h3>You Can See Everything</h3>
-        <img src="https://image.tmdb.org/t/p/w342/7nG1AFxnrh5KtgH3jA4uIsWmX95.jpg" alt="You Can See Everything" loading="lazy">
-        <p class="release-date">Film · 15 novembre 2026</p>
-        <p class="blurb"></p>
-      </div>
+        <h3>Hope</h3>
+        <img src="https://image.tmdb.org/t/p/w342/tGdFDoA9qyt0t6Qr9MFnOl8Z2Jz.jpg" alt="Hope" loading="lazy">
+        <p class="release-date">Film · 15 juillet 2026</p>
+        <p class="blurb">Le chef de la police de Hope Harbor, un petit village situé près de la zone coréenne démilitarisée, enquêtee sur le cas …</p>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=969681&amp;lang=fr">
         <span class="idx">02</span>
+        <h3>Spider-Man : Brand New Day</h3>
+        <img src="https://image.tmdb.org/t/p/w342/6OEtkkzoyusZDm2uMJojlWZSLR9.jpg" alt="Spider-Man : Brand New Day" loading="lazy">
+        <p class="release-date">Film · 29 juillet 2026</p>
+        <p class="blurb">Quatre ans se sont écoulés, Peter, désormais adulte, vit seul, s'est volontairement effacé de la vie et des souvenirs de…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1423191&amp;lang=fr">
+        <span class="idx">03</span>
+        <h3>Resident Evil</h3>
+        <img src="https://image.tmdb.org/t/p/w342/pICoWjcKSet6sA3yzxOkP8ChwYI.jpg" alt="Resident Evil" loading="lazy">
+        <p class="release-date">Film · 16 septembre 2026</p>
+        <p class="blurb">Bryan, un coursier médical, est en train d'effectuer une livraison lorsqu'une épidémie soudaine se déclare, le forçant à…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=791523&amp;lang=fr">
+        <span class="idx">04</span>
         <h3>Wildwood : La prophétie de la forêt</h3>
         <img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="Wildwood : La prophétie de la forêt" loading="lazy">
-        <p class="release-date">Film · 9 décembre 2026</p>
+        <p class="release-date">Film · 19 octobre 2026</p>
         <p class="blurb">Prue, une jeune fille courageuse, part à la recherche de son petit frère, enlevé et retenu dans la forêt interdite peupl…</p>
-      </div>
-    
-
-      <div class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;">
-        <span class="idx">03</span>
-        <h3>Avengers : Doomsday</h3>
-        <img src="https://image.tmdb.org/t/p/w342/cCUxE6EJ9zi1YfdsxU8rWLgqQnN.jpg" alt="Avengers : Doomsday" loading="lazy">
-        <p class="release-date">Film · 16 décembre 2026</p>
-        <p class="blurb">Les Avengers, les Wakandais, les Quatre Fantastiques, les New Avengers et les X-Men, tous héros issus de trois univers d…</p>
-      </div>
-    
-
-      <div class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;">
-        <span class="idx">04</span>
-        <h3>La bola negra</h3>
-        <img src="https://image.tmdb.org/t/p/w342/ttsFxxHKwCHrtAGJt58rpNqHdFw.jpg" alt="La bola negra" loading="lazy">
-        <p class="release-date">Film · 23 décembre 2026</p>
-        <p class="blurb">Espagne 1932, 1937, 2017. Trois hommes. Trois époques. Un même fil invisible de désir, de douleur et d'héritage. LA BOLA…</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-game" id="cat-game-fr">
-          <div class="cat-strip-head"><span class="cat-num">09</span><h3>Jeux</h3><span class="pill">À venir</span></div>
+          <div class="cat-strip-head"><span class="cat-num">09</span><h3>Jeux</h3><span class="pill">À venir</span><a class="see-more" href="categorie.html?cat=game&amp;lang=fr">Voir plus →</a></div>
           <div class="cat-grid" data-catkey="game">
-      
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=381235&amp;lang=fr">
+        <span class="idx">01</span>
+        <h3>Tomb Raider: Legacy of Atlantis</h3>
+        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/cob1kg.jpg" alt="Tomb Raider: Legacy of Atlantis" loading="lazy">
+        <p class="release-date">Jeu · 12 février 2027</p>
+        <p class="blurb">Tomb Raider: Legacy of Atlantis is a reimagining of Lara Croft’s 1996 genre-defining game with visuals powered by Unreal…</p>
+      </a>
     
 
-      
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=92550&amp;lang=fr">
+        <span class="idx">02</span>
+        <h3>Fable</h3>
+        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/cobc6d.jpg" alt="Fable" loading="lazy">
+        <p class="release-date">Jeu · 23 février 2027</p>
+        <p class="blurb">Become the Hero you want to be in an immersive open-world action-RPG where each choice shapes your journey, reputation i…</p>
+      </a>
     
 
-      
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=279621&amp;lang=fr">
+        <span class="idx">03</span>
+        <h3>Exodus</h3>
+        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/coaott.jpg" alt="Exodus" loading="lazy">
+        <p class="release-date">Jeu · 7 avril 2027</p>
+        <p class="blurb">Step forward into Exodus — a cinematic, single-player action RPG set in a new, far-future sci-fi universe. Rise from sal…</p>
+      </a>
     
 
       
@@ -3707,7 +3752,7 @@
     </div>
     <div class="cat-strips">
         <div class="cat-strip hue-anime" id="cat-anime-en">
-          <div class="cat-strip-head"><span class="cat-num">01</span><h3>Anime</h3><span class="pill">Upcoming</span></div>
+          <div class="cat-strip-head"><span class="cat-num">01</span><h3>Anime</h3><span class="pill">Upcoming</span><a class="see-more" href="categorie.html?cat=anime&amp;lang=en">See more →</a></div>
           <div class="cat-grid" data-catkey="anime">
       
     
@@ -4558,42 +4603,42 @@
     
       <div class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;">
         <span class="idx">01</span>
-        <h3>Dandadan 3rd Season</h3>
-        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="Dandadan 3rd Season" loading="lazy">
-        <p class="release-date">Anime · 2027</p>
-        <p class="blurb"></p>
-      </div>
-    
-
-      <div class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;">
-        <span class="idx">02</span>
-        <h3>Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2</h3>
-        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx181641-4BnzXGnA7CJL.jpg" alt="Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2" loading="lazy">
-        <p class="release-date">Anime · 2027</p>
-        <p class="blurb"></p>
-      </div>
-    
-
-      <div class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;">
-        <span class="idx">03</span>
-        <h3>Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen</h3>
-        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen" loading="lazy">
-        <p class="release-date">Anime · 2027</p>
-        <p class="blurb"></p>
-      </div>
-    
-
-      <div class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;">
-        <span class="idx">04</span>
         <h3>Sousou no Frieren 3rd Season</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx209939-g2Njkml1rheG.jpg" alt="Sousou no Frieren 3rd Season" loading="lazy">
         <p class="release-date">Anime · October 2027</p>
         <p class="blurb"></p>
-      </div>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=198966&amp;lang=en">
+        <span class="idx">02</span>
+        <h3>Dandadan 3rd Season</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="Dandadan 3rd Season" loading="lazy">
+        <p class="release-date">Anime · 2027</p>
+        <p class="blurb"></p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=181641&amp;lang=en">
+        <span class="idx">03</span>
+        <h3>Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx181641-4BnzXGnA7CJL.jpg" alt="Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2" loading="lazy">
+        <p class="release-date">Anime · 2027</p>
+        <p class="blurb"></p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=171952&amp;lang=en">
+        <span class="idx">04</span>
+        <h3>Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen" loading="lazy">
+        <p class="release-date">Anime · 2027</p>
+        <p class="blurb"></p>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-manga" id="cat-manga-en">
-          <div class="cat-strip-head"><span class="cat-num">02</span><h3>Manga</h3><span class="pill">Popular</span></div>
+          <div class="cat-strip-head"><span class="cat-num">02</span><h3>Manga</h3><span class="pill">Popular</span><a class="see-more" href="categorie.html?cat=manga&amp;lang=en">See more →</a></div>
           <div class="cat-grid" data-catkey="manga">
       
     
@@ -4645,38 +4690,38 @@
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx30013-BeslEMqiPhlk.jpg" alt="One Piece" loading="lazy">
         <p class="release-date">Manga · Ongoing</p>
         <p class="blurb">As a child, Monkey D. Luffy was inspired to become a pirate by listening to the tales of the buccaneer "Red-Haired&amp;…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=99324&amp;lang=en">
         <span class="idx">02</span>
         <h3>Welcome to Demon School! Iruma-kun</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="Welcome to Demon School! Iruma-kun" loading="lazy">
         <p class="release-date">Manga · Ongoing</p>
         <p class="blurb">Iruma Suzuki has always been eager to please, even at the cost of his well-being. Worst yet, he's the son of two selfish…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=140475&amp;lang=en">
         <span class="idx">03</span>
         <h3>The Fragrant Flower Blooms With Dignity</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx140475-QEGtrmdvbpOv.jpg" alt="The Fragrant Flower Blooms With Dignity" loading="lazy">
         <p class="release-date">Manga · Ongoing</p>
         <p class="blurb">This story takes place in a particular town with two infamous schools in constant dispute: Chidori High, a boys' school …</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=201773&amp;lang=en">
         <span class="idx">04</span>
         <h3>Haimiya Is Scary Cute</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx201773-ecGmhCRhfu05.jpg" alt="Haimiya Is Scary Cute" loading="lazy">
         <p class="release-date">Manga · Ongoing</p>
         <p class="blurb">At my high school, everyone fears Haimiya-senpai. With her sharp piercings, striking grey wolf-cut, and that brutally ho…</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-manhwa" id="cat-manhwa-en">
-          <div class="cat-strip-head"><span class="cat-num">03</span><h3>Manhwa</h3><span class="pill">Popular</span></div>
+          <div class="cat-strip-head"><span class="cat-num">03</span><h3>Manhwa</h3><span class="pill">Popular</span><a class="see-more" href="categorie.html?cat=manhwa&amp;lang=en">See more →</a></div>
           <div class="cat-grid" data-catkey="manhwa">
       
     
@@ -4728,38 +4773,38 @@
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx120980-RZ9WLd0o9hyo.jpg" alt="Nano Machine" loading="lazy">
         <p class="release-date">Manhwa · Ongoing</p>
         <p class="blurb">Nanotechnology meets martial arts at the Mashin Academy. Yeo-Un’s mother may not be one of the High Priest’s six officia…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=159441&amp;lang=en">
         <span class="idx">02</span>
         <h3>Pick Me Up</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx159441-9W8201jAT9Yv.jpg" alt="Pick Me Up" loading="lazy">
         <p class="release-date">Manhwa · Ongoing</p>
         <p class="blurb">1-Star heroes are just fodder for learning a boss' attack patterns. That was Seojin Han's philosophy when playing the no…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=183376&amp;lang=en">
         <span class="idx">03</span>
         <h3>Chronicles of a Doomed Prodigy</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx183376-Cw3VnZAItw2a.jpg" alt="Chronicles of a Doomed Prodigy" loading="lazy">
         <p class="release-date">Manhwa · Ongoing</p>
         <p class="blurb">Gifted by the heavens yet cursed by fate, Yeonshin was born with unimaginable talent in martial arts. But this very gift…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=204974&amp;lang=en">
         <span class="idx">04</span>
         <h3>Murim Psychopath</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx204974-SZoqdyhxoLRH.jpg" alt="Murim Psychopath" loading="lazy">
         <p class="release-date">Manhwa · Ongoing</p>
         <p class="blurb">The predator of predators has awakened! In life, Bongsu was a serial killer who exclusively hunted murderers and violent…</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-manhua" id="cat-manhua-en">
-          <div class="cat-strip-head"><span class="cat-num">04</span><h3>Manhua</h3><span class="pill">Popular</span></div>
+          <div class="cat-strip-head"><span class="cat-num">04</span><h3>Manhua</h3><span class="pill">Popular</span><a class="see-more" href="categorie.html?cat=manhua&amp;lang=en">See more →</a></div>
           <div class="cat-grid" data-catkey="manhua">
       
     
@@ -4811,38 +4856,38 @@
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/b167372-zfQUGcQMWiAI.png" alt="Necromancer, the Ultimate Scourge!" loading="lazy">
         <p class="release-date">Manhua · Ongoing</p>
         <p class="blurb">In a world where magic and monsters exist, Lin Moyu has hit the age of acquiring his very own profession. While most wou…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=160980&amp;lang=en">
         <span class="idx">02</span>
         <h3>Log Into The Future</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx160980-KAM0gr3dSMvB.jpg" alt="Log Into The Future" loading="lazy">
         <p class="release-date">Manhua · Ongoing</p>
         <p class="blurb">300 years after mutated beasts ravaged the world, humanity began to lose ground, with only martial arts as their last li…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=116353&amp;lang=en">
         <span class="idx">03</span>
         <h3>The Devil Butler</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx116353-DYuIigXuPwpZ.jpg" alt="The Devil Butler" loading="lazy">
         <p class="release-date">Manhua · Ongoing</p>
         <p class="blurb">As the Demon King, Yifan Zhuo uses his knowledge and power, collected over millennia, to defeat all foes, until the day …</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=138726&amp;lang=en">
         <span class="idx">04</span>
         <h3>Rebirth Of The Ultimate Master</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx138726-ysRy6zaQMWT8.jpg" alt="Rebirth Of The Ultimate Master" loading="lazy">
         <p class="release-date">Manhua · Ongoing</p>
         <p class="blurb">What happens when a former martial emperor gets reborn into a complete loser's body? Gu Feiyang, a legendary martial art…</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-webtoon" id="cat-webtoon-en">
-          <div class="cat-strip-head"><span class="cat-num">05</span><h3>Webtoon</h3><span class="pill">Popular</span></div>
+          <div class="cat-strip-head"><span class="cat-num">05</span><h3>Webtoon</h3><span class="pill">Popular</span><a class="see-more" href="categorie.html?cat=webtoon&amp;lang=en">See more →</a></div>
           <div class="cat-grid" data-catkey="webtoon">
       
     
@@ -4894,38 +4939,38 @@
         <img src="https://uploads.mangadex.org/covers/9a414441-bbad-43f1-a3a7-dc262ca790a3/be18dc9a-7f1c-4ca5-b318-ffff2d7d58c3.jpg.512.jpg" alt="Omniscient Reader's Viewpoint" loading="lazy">
         <p class="release-date">Webtoon · Ongoing</p>
         <p class="blurb">« Je suis le seul lecteur à connaître la fin du monde. » [Les trois façons de survivre dans un monde en ruine], ce roman…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=4ada20eb-085a-491a-8c49-477ab42014d7&amp;lang=en">
         <span class="idx">02</span>
         <h3>The Beginning After the End</h3>
         <img src="https://uploads.mangadex.org/covers/4ada20eb-085a-491a-8c49-477ab42014d7/4298e756-edf0-4bd6-9b83-340bfdb27771.jpg.512.jpg" alt="The Beginning After the End" loading="lazy">
         <p class="release-date">Webtoon · Ongoing</p>
         <p class="blurb">Le Roi Grey a une force, une richesse et un prestige inégalés dans un monde gouverné par l'aptitude martiale. Cependant,…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=4a973243-952e-44d7-a50f-883b4b7c9cc2&amp;lang=en">
         <span class="idx">03</span>
         <h3>SSS-Class Revival Hunter</h3>
         <img src="https://uploads.mangadex.org/covers/4a973243-952e-44d7-a50f-883b4b7c9cc2/9adafa19-0424-4677-aab4-93a07a01a591.jpg.512.jpg" alt="SSS-Class Revival Hunter" loading="lazy">
         <p class="release-date">Webtoon · Ongoing</p>
         <p class="blurb">In the mysterious, RPG dungeon-like Tower, Gongja Kim lives a mundane existence, envying all the star hunters. One day, …</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=d993f789-e7e5-4832-92fd-37614220b427&amp;lang=en">
         <span class="idx">04</span>
         <h3>The Skeleton Soldier Failed to Defend the Dungeon</h3>
         <img src="https://uploads.mangadex.org/covers/d993f789-e7e5-4832-92fd-37614220b427/7e02ac66-1ac9-4eac-bc05-a264222ca87b.png.512.jpg" alt="The Skeleton Soldier Failed to Defend the Dungeon" loading="lazy">
         <p class="release-date">Webtoon · Ongoing</p>
         <p class="blurb">Découvrez le Soldat Squelette, le frêle mais loyal combattant, se battant pour protéger sa maîtresse, Dame Succube. Son …</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-series" id="cat-series-en">
-          <div class="cat-strip-head"><span class="cat-num">06</span><h3>Series</h3><span class="pill">Upcoming</span></div>
+          <div class="cat-strip-head"><span class="cat-num">06</span><h3>Series</h3><span class="pill">Upcoming</span><a class="see-more" href="categorie.html?cat=series&amp;lang=en">See more →</a></div>
           <div class="cat-grid" data-catkey="series">
       
     
@@ -5835,34 +5880,34 @@
         <img src="https://image.tmdb.org/t/p/w342/9wNdTWthGpTZZaOBKlO07pK77pU.jpg" alt="Frisco King" loading="lazy">
         <p class="release-date">Series · Dec 18, 2026</p>
         <p class="blurb"></p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=224377&amp;lang=en">
         <span class="idx">02</span>
         <h3>Harry Potter</h3>
         <img src="https://image.tmdb.org/t/p/w342/zNH0vo3rvRTklF0gui5Ntr4DBAA.jpg" alt="Harry Potter" loading="lazy">
         <p class="release-date">Series · Dec 25, 2026</p>
         <p class="blurb">Il n'y a rien de spécial chez Harry Potter, du moins, c'est ce que sa tante Pétunia lui répète sans cesse. Mais le jour …</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=337372&amp;lang=en">
         <span class="idx">03</span>
         <h3>Eşref Tek</h3>
         <img src="https://image.tmdb.org/t/p/w342/tgGsACYKoMAtclxXkBkHhl3EvYa.jpg" alt="Eşref Tek" loading="lazy">
         <p class="release-date">Series · Jan 1, 2027</p>
         <p class="blurb"></p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=215528&amp;lang=en">
         <span class="idx">04</span>
         <h3>Neuromancien</h3>
         <img src="https://image.tmdb.org/t/p/w342/pQKofoTaTnwQopuU1crUEEqtAfg.jpg" alt="Neuromancien" loading="lazy">
         <p class="release-date">Series · Jan 21, 2027</p>
         <p class="blurb">Un hacker de talent tombé en disgrâce et une tueuse affûtée sont recrutés pour une mission de haut vol : voler une dynas…</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-drama" id="cat-drama-en">
@@ -5907,38 +5952,38 @@
         <img src="https://image.tmdb.org/t/p/w342/cWXBisC8gIrGB8UfxKXaoHLxBH2.jpg" alt="신의 구슬" loading="lazy">
         <p class="release-date">Drama · Dec 5, 2026</p>
         <p class="blurb"></p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=256726&amp;lang=en">
         <span class="idx">02</span>
         <h3>Tantara</h3>
         <img src="https://image.tmdb.org/t/p/w342/5SzLNVXBqpukDEwYkkocXZy8dd.jpg" alt="Tantara" loading="lazy">
         <p class="release-date">Drama · Dec 11, 2026</p>
         <p class="blurb">Une série historique retraçant la naissance de l'industrie du divertissement coréenne et son essor depuis la guerre de C…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=283220&amp;lang=en">
         <span class="idx">03</span>
         <h3>国民クイズ</h3>
         <img src="https://image.tmdb.org/t/p/w342/3L8El6VH4CL1pdz9JgnGsHXeGra.jpg" alt="国民クイズ" loading="lazy">
         <p class="release-date">Drama · Dec 17, 2026</p>
         <p class="blurb"></p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=293611&amp;lang=en">
         <span class="idx">04</span>
         <h3>각성</h3>
         <img src="https://image.tmdb.org/t/p/w342/8LUQHM4F0zM63dAzaSyyHi5MDja.jpg" alt="각성" loading="lazy">
         <p class="release-date">Drama · Jan 15, 2027</p>
         <p class="blurb"></p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-movie" id="cat-movie-en">
-          <div class="cat-strip-head"><span class="cat-num">08</span><h3>Movies</h3><span class="pill">Upcoming</span></div>
+          <div class="cat-strip-head"><span class="cat-num">08</span><h3>Movies</h3><span class="pill">Upcoming</span><a class="see-more" href="categorie.html?cat=movie&amp;lang=en">See more →</a></div>
           <div class="cat-grid" data-catkey="movie">
       
     
@@ -6844,50 +6889,68 @@
     
       <div class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;">
         <span class="idx">01</span>
-        <h3>You Can See Everything</h3>
-        <img src="https://image.tmdb.org/t/p/w342/7nG1AFxnrh5KtgH3jA4uIsWmX95.jpg" alt="You Can See Everything" loading="lazy">
-        <p class="release-date">Movie · Nov 15, 2026</p>
-        <p class="blurb"></p>
-      </div>
+        <h3>Hope</h3>
+        <img src="https://image.tmdb.org/t/p/w342/tGdFDoA9qyt0t6Qr9MFnOl8Z2Jz.jpg" alt="Hope" loading="lazy">
+        <p class="release-date">Movie · Jul 15, 2026</p>
+        <p class="blurb">Le chef de la police de Hope Harbor, un petit village situé près de la zone coréenne démilitarisée, enquêtee sur le cas …</p>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=969681&amp;lang=en">
         <span class="idx">02</span>
+        <h3>Spider-Man : Brand New Day</h3>
+        <img src="https://image.tmdb.org/t/p/w342/6OEtkkzoyusZDm2uMJojlWZSLR9.jpg" alt="Spider-Man : Brand New Day" loading="lazy">
+        <p class="release-date">Movie · Jul 29, 2026</p>
+        <p class="blurb">Quatre ans se sont écoulés, Peter, désormais adulte, vit seul, s'est volontairement effacé de la vie et des souvenirs de…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1423191&amp;lang=en">
+        <span class="idx">03</span>
+        <h3>Resident Evil</h3>
+        <img src="https://image.tmdb.org/t/p/w342/pICoWjcKSet6sA3yzxOkP8ChwYI.jpg" alt="Resident Evil" loading="lazy">
+        <p class="release-date">Movie · Sep 16, 2026</p>
+        <p class="blurb">Bryan, un coursier médical, est en train d'effectuer une livraison lorsqu'une épidémie soudaine se déclare, le forçant à…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=791523&amp;lang=en">
+        <span class="idx">04</span>
         <h3>Wildwood : La prophétie de la forêt</h3>
         <img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="Wildwood : La prophétie de la forêt" loading="lazy">
-        <p class="release-date">Movie · Dec 9, 2026</p>
+        <p class="release-date">Movie · Oct 19, 2026</p>
         <p class="blurb">Prue, une jeune fille courageuse, part à la recherche de son petit frère, enlevé et retenu dans la forêt interdite peupl…</p>
-      </div>
-    
-
-      <div class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;">
-        <span class="idx">03</span>
-        <h3>Avengers : Doomsday</h3>
-        <img src="https://image.tmdb.org/t/p/w342/cCUxE6EJ9zi1YfdsxU8rWLgqQnN.jpg" alt="Avengers : Doomsday" loading="lazy">
-        <p class="release-date">Movie · Dec 16, 2026</p>
-        <p class="blurb">Les Avengers, les Wakandais, les Quatre Fantastiques, les New Avengers et les X-Men, tous héros issus de trois univers d…</p>
-      </div>
-    
-
-      <div class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;">
-        <span class="idx">04</span>
-        <h3>La bola negra</h3>
-        <img src="https://image.tmdb.org/t/p/w342/ttsFxxHKwCHrtAGJt58rpNqHdFw.jpg" alt="La bola negra" loading="lazy">
-        <p class="release-date">Movie · Dec 23, 2026</p>
-        <p class="blurb">Espagne 1932, 1937, 2017. Trois hommes. Trois époques. Un même fil invisible de désir, de douleur et d'héritage. LA BOLA…</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-game" id="cat-game-en">
-          <div class="cat-strip-head"><span class="cat-num">09</span><h3>Games</h3><span class="pill">Upcoming</span></div>
+          <div class="cat-strip-head"><span class="cat-num">09</span><h3>Games</h3><span class="pill">Upcoming</span><a class="see-more" href="categorie.html?cat=game&amp;lang=en">See more →</a></div>
           <div class="cat-grid" data-catkey="game">
-      
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=381235&amp;lang=en">
+        <span class="idx">01</span>
+        <h3>Tomb Raider: Legacy of Atlantis</h3>
+        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/cob1kg.jpg" alt="Tomb Raider: Legacy of Atlantis" loading="lazy">
+        <p class="release-date">Game · Feb 12, 2027</p>
+        <p class="blurb">Tomb Raider: Legacy of Atlantis is a reimagining of Lara Croft’s 1996 genre-defining game with visuals powered by Unreal…</p>
+      </a>
     
 
-      
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=92550&amp;lang=en">
+        <span class="idx">02</span>
+        <h3>Fable</h3>
+        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/cobc6d.jpg" alt="Fable" loading="lazy">
+        <p class="release-date">Game · Feb 23, 2027</p>
+        <p class="blurb">Become the Hero you want to be in an immersive open-world action-RPG where each choice shapes your journey, reputation i…</p>
+      </a>
     
 
-      
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=279621&amp;lang=en">
+        <span class="idx">03</span>
+        <h3>Exodus</h3>
+        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/coaott.jpg" alt="Exodus" loading="lazy">
+        <p class="release-date">Game · Apr 7, 2027</p>
+        <p class="blurb">Step forward into Exodus — a cinematic, single-player action RPG set in a new, far-future sci-fi universe. Rise from sal…</p>
+      </a>
     
 
       
@@ -6996,7 +7059,7 @@
     </div>
     <div class="cat-strips">
         <div class="cat-strip hue-anime" id="cat-anime-nl">
-          <div class="cat-strip-head"><span class="cat-num">01</span><h3>Anime</h3><span class="pill">Binnenkort</span></div>
+          <div class="cat-strip-head"><span class="cat-num">01</span><h3>Anime</h3><span class="pill">Binnenkort</span><a class="see-more" href="categorie.html?cat=anime&amp;lang=nl">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="anime">
       
     
@@ -7847,42 +7910,42 @@
     
       <div class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;">
         <span class="idx">01</span>
-        <h3>Dandadan 3rd Season</h3>
-        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="Dandadan 3rd Season" loading="lazy">
-        <p class="release-date">Anime · 2027</p>
-        <p class="blurb"></p>
-      </div>
-    
-
-      <div class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;">
-        <span class="idx">02</span>
-        <h3>Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2</h3>
-        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx181641-4BnzXGnA7CJL.jpg" alt="Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2" loading="lazy">
-        <p class="release-date">Anime · 2027</p>
-        <p class="blurb"></p>
-      </div>
-    
-
-      <div class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;">
-        <span class="idx">03</span>
-        <h3>Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen</h3>
-        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen" loading="lazy">
-        <p class="release-date">Anime · 2027</p>
-        <p class="blurb"></p>
-      </div>
-    
-
-      <div class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;">
-        <span class="idx">04</span>
         <h3>Sousou no Frieren 3rd Season</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx209939-g2Njkml1rheG.jpg" alt="Sousou no Frieren 3rd Season" loading="lazy">
         <p class="release-date">Anime · oktober 2027</p>
         <p class="blurb"></p>
-      </div>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=198966&amp;lang=nl">
+        <span class="idx">02</span>
+        <h3>Dandadan 3rd Season</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx198966-9Ji1GwIyRiiu.jpg" alt="Dandadan 3rd Season" loading="lazy">
+        <p class="release-date">Anime · 2027</p>
+        <p class="blurb"></p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=181641&amp;lang=nl">
+        <span class="idx">03</span>
+        <h3>Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx181641-4BnzXGnA7CJL.jpg" alt="Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san Season 2" loading="lazy">
+        <p class="release-date">Anime · 2027</p>
+        <p class="blurb"></p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="anime" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=anime&amp;id=171952&amp;lang=nl">
+        <span class="idx">04</span>
+        <h3>Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen</h3>
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx171952-uB8CTTCBI1u5.jpg" alt="Kage no Jitsuryokusha ni Naritakute!: Zankyou-hen" loading="lazy">
+        <p class="release-date">Anime · 2027</p>
+        <p class="blurb"></p>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-manga" id="cat-manga-nl">
-          <div class="cat-strip-head"><span class="cat-num">02</span><h3>Manga</h3><span class="pill">Populair</span></div>
+          <div class="cat-strip-head"><span class="cat-num">02</span><h3>Manga</h3><span class="pill">Populair</span><a class="see-more" href="categorie.html?cat=manga&amp;lang=nl">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="manga">
       
     
@@ -7934,38 +7997,38 @@
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx30013-BeslEMqiPhlk.jpg" alt="One Piece" loading="lazy">
         <p class="release-date">Manga · Lopend</p>
         <p class="blurb">As a child, Monkey D. Luffy was inspired to become a pirate by listening to the tales of the buccaneer "Red-Haired&amp;…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=99324&amp;lang=nl">
         <span class="idx">02</span>
         <h3>Welcome to Demon School! Iruma-kun</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/nx99324-huvqo1tmm4pl.jpg" alt="Welcome to Demon School! Iruma-kun" loading="lazy">
         <p class="release-date">Manga · Lopend</p>
         <p class="blurb">Iruma Suzuki has always been eager to please, even at the cost of his well-being. Worst yet, he's the son of two selfish…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=140475&amp;lang=nl">
         <span class="idx">03</span>
         <h3>The Fragrant Flower Blooms With Dignity</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx140475-QEGtrmdvbpOv.jpg" alt="The Fragrant Flower Blooms With Dignity" loading="lazy">
         <p class="release-date">Manga · Lopend</p>
         <p class="blurb">This story takes place in a particular town with two infamous schools in constant dispute: Chidori High, a boys' school …</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manga" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manga&amp;id=201773&amp;lang=nl">
         <span class="idx">04</span>
         <h3>Haimiya Is Scary Cute</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx201773-ecGmhCRhfu05.jpg" alt="Haimiya Is Scary Cute" loading="lazy">
         <p class="release-date">Manga · Lopend</p>
         <p class="blurb">At my high school, everyone fears Haimiya-senpai. With her sharp piercings, striking grey wolf-cut, and that brutally ho…</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-manhwa" id="cat-manhwa-nl">
-          <div class="cat-strip-head"><span class="cat-num">03</span><h3>Manhwa</h3><span class="pill">Populair</span></div>
+          <div class="cat-strip-head"><span class="cat-num">03</span><h3>Manhwa</h3><span class="pill">Populair</span><a class="see-more" href="categorie.html?cat=manhwa&amp;lang=nl">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="manhwa">
       
     
@@ -8017,38 +8080,38 @@
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx120980-RZ9WLd0o9hyo.jpg" alt="Nano Machine" loading="lazy">
         <p class="release-date">Manhwa · Lopend</p>
         <p class="blurb">Nanotechnology meets martial arts at the Mashin Academy. Yeo-Un’s mother may not be one of the High Priest’s six officia…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=159441&amp;lang=nl">
         <span class="idx">02</span>
         <h3>Pick Me Up</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx159441-9W8201jAT9Yv.jpg" alt="Pick Me Up" loading="lazy">
         <p class="release-date">Manhwa · Lopend</p>
         <p class="blurb">1-Star heroes are just fodder for learning a boss' attack patterns. That was Seojin Han's philosophy when playing the no…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=183376&amp;lang=nl">
         <span class="idx">03</span>
         <h3>Chronicles of a Doomed Prodigy</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx183376-Cw3VnZAItw2a.jpg" alt="Chronicles of a Doomed Prodigy" loading="lazy">
         <p class="release-date">Manhwa · Lopend</p>
         <p class="blurb">Gifted by the heavens yet cursed by fate, Yeonshin was born with unimaginable talent in martial arts. But this very gift…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhwa" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhwa&amp;id=204974&amp;lang=nl">
         <span class="idx">04</span>
         <h3>Murim Psychopath</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx204974-SZoqdyhxoLRH.jpg" alt="Murim Psychopath" loading="lazy">
         <p class="release-date">Manhwa · Lopend</p>
         <p class="blurb">The predator of predators has awakened! In life, Bongsu was a serial killer who exclusively hunted murderers and violent…</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-manhua" id="cat-manhua-nl">
-          <div class="cat-strip-head"><span class="cat-num">04</span><h3>Manhua</h3><span class="pill">Populair</span></div>
+          <div class="cat-strip-head"><span class="cat-num">04</span><h3>Manhua</h3><span class="pill">Populair</span><a class="see-more" href="categorie.html?cat=manhua&amp;lang=nl">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="manhua">
       
     
@@ -8100,38 +8163,38 @@
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/b167372-zfQUGcQMWiAI.png" alt="Necromancer, the Ultimate Scourge!" loading="lazy">
         <p class="release-date">Manhua · Lopend</p>
         <p class="blurb">In a world where magic and monsters exist, Lin Moyu has hit the age of acquiring his very own profession. While most wou…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=160980&amp;lang=nl">
         <span class="idx">02</span>
         <h3>Log Into The Future</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx160980-KAM0gr3dSMvB.jpg" alt="Log Into The Future" loading="lazy">
         <p class="release-date">Manhua · Lopend</p>
         <p class="blurb">300 years after mutated beasts ravaged the world, humanity began to lose ground, with only martial arts as their last li…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=116353&amp;lang=nl">
         <span class="idx">03</span>
         <h3>The Devil Butler</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx116353-DYuIigXuPwpZ.jpg" alt="The Devil Butler" loading="lazy">
         <p class="release-date">Manhua · Lopend</p>
         <p class="blurb">As the Demon King, Yifan Zhuo uses his knowledge and power, collected over millennia, to defeat all foes, until the day …</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="manhua" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=manhua&amp;id=138726&amp;lang=nl">
         <span class="idx">04</span>
         <h3>Rebirth Of The Ultimate Master</h3>
         <img src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx138726-ysRy6zaQMWT8.jpg" alt="Rebirth Of The Ultimate Master" loading="lazy">
         <p class="release-date">Manhua · Lopend</p>
         <p class="blurb">What happens when a former martial emperor gets reborn into a complete loser's body? Gu Feiyang, a legendary martial art…</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-webtoon" id="cat-webtoon-nl">
-          <div class="cat-strip-head"><span class="cat-num">05</span><h3>Webtoon</h3><span class="pill">Populair</span></div>
+          <div class="cat-strip-head"><span class="cat-num">05</span><h3>Webtoon</h3><span class="pill">Populair</span><a class="see-more" href="categorie.html?cat=webtoon&amp;lang=nl">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="webtoon">
       
     
@@ -8183,38 +8246,38 @@
         <img src="https://uploads.mangadex.org/covers/9a414441-bbad-43f1-a3a7-dc262ca790a3/be18dc9a-7f1c-4ca5-b318-ffff2d7d58c3.jpg.512.jpg" alt="Omniscient Reader's Viewpoint" loading="lazy">
         <p class="release-date">Webtoon · Lopend</p>
         <p class="blurb">« Je suis le seul lecteur à connaître la fin du monde. » [Les trois façons de survivre dans un monde en ruine], ce roman…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=4ada20eb-085a-491a-8c49-477ab42014d7&amp;lang=nl">
         <span class="idx">02</span>
         <h3>The Beginning After the End</h3>
         <img src="https://uploads.mangadex.org/covers/4ada20eb-085a-491a-8c49-477ab42014d7/4298e756-edf0-4bd6-9b83-340bfdb27771.jpg.512.jpg" alt="The Beginning After the End" loading="lazy">
         <p class="release-date">Webtoon · Lopend</p>
         <p class="blurb">Le Roi Grey a une force, une richesse et un prestige inégalés dans un monde gouverné par l'aptitude martiale. Cependant,…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=4a973243-952e-44d7-a50f-883b4b7c9cc2&amp;lang=nl">
         <span class="idx">03</span>
         <h3>SSS-Class Revival Hunter</h3>
         <img src="https://uploads.mangadex.org/covers/4a973243-952e-44d7-a50f-883b4b7c9cc2/9adafa19-0424-4677-aab4-93a07a01a591.jpg.512.jpg" alt="SSS-Class Revival Hunter" loading="lazy">
         <p class="release-date">Webtoon · Lopend</p>
         <p class="blurb">In the mysterious, RPG dungeon-like Tower, Gongja Kim lives a mundane existence, envying all the star hunters. One day, …</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="webtoon" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=webtoon&amp;id=d993f789-e7e5-4832-92fd-37614220b427&amp;lang=nl">
         <span class="idx">04</span>
         <h3>The Skeleton Soldier Failed to Defend the Dungeon</h3>
         <img src="https://uploads.mangadex.org/covers/d993f789-e7e5-4832-92fd-37614220b427/7e02ac66-1ac9-4eac-bc05-a264222ca87b.png.512.jpg" alt="The Skeleton Soldier Failed to Defend the Dungeon" loading="lazy">
         <p class="release-date">Webtoon · Lopend</p>
         <p class="blurb">Découvrez le Soldat Squelette, le frêle mais loyal combattant, se battant pour protéger sa maîtresse, Dame Succube. Son …</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-series" id="cat-series-nl">
-          <div class="cat-strip-head"><span class="cat-num">06</span><h3>Series</h3><span class="pill">Binnenkort</span></div>
+          <div class="cat-strip-head"><span class="cat-num">06</span><h3>Series</h3><span class="pill">Binnenkort</span><a class="see-more" href="categorie.html?cat=series&amp;lang=nl">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="series">
       
     
@@ -9124,34 +9187,34 @@
         <img src="https://image.tmdb.org/t/p/w342/9wNdTWthGpTZZaOBKlO07pK77pU.jpg" alt="Frisco King" loading="lazy">
         <p class="release-date">Serie · 18 december 2026</p>
         <p class="blurb"></p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=224377&amp;lang=nl">
         <span class="idx">02</span>
         <h3>Harry Potter</h3>
         <img src="https://image.tmdb.org/t/p/w342/zNH0vo3rvRTklF0gui5Ntr4DBAA.jpg" alt="Harry Potter" loading="lazy">
         <p class="release-date">Serie · 25 december 2026</p>
         <p class="blurb">Il n'y a rien de spécial chez Harry Potter, du moins, c'est ce que sa tante Pétunia lui répète sans cesse. Mais le jour …</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=337372&amp;lang=nl">
         <span class="idx">03</span>
         <h3>Eşref Tek</h3>
         <img src="https://image.tmdb.org/t/p/w342/tgGsACYKoMAtclxXkBkHhl3EvYa.jpg" alt="Eşref Tek" loading="lazy">
         <p class="release-date">Serie · 1 januari 2027</p>
         <p class="blurb"></p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="series" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=series&amp;id=215528&amp;lang=nl">
         <span class="idx">04</span>
         <h3>Neuromancien</h3>
         <img src="https://image.tmdb.org/t/p/w342/pQKofoTaTnwQopuU1crUEEqtAfg.jpg" alt="Neuromancien" loading="lazy">
         <p class="release-date">Serie · 21 januari 2027</p>
         <p class="blurb">Un hacker de talent tombé en disgrâce et une tueuse affûtée sont recrutés pour une mission de haut vol : voler une dynas…</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-drama" id="cat-drama-nl">
@@ -9196,38 +9259,38 @@
         <img src="https://image.tmdb.org/t/p/w342/cWXBisC8gIrGB8UfxKXaoHLxBH2.jpg" alt="신의 구슬" loading="lazy">
         <p class="release-date">Drama · 5 december 2026</p>
         <p class="blurb"></p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=256726&amp;lang=nl">
         <span class="idx">02</span>
         <h3>Tantara</h3>
         <img src="https://image.tmdb.org/t/p/w342/5SzLNVXBqpukDEwYkkocXZy8dd.jpg" alt="Tantara" loading="lazy">
         <p class="release-date">Drama · 11 december 2026</p>
         <p class="blurb">Une série historique retraçant la naissance de l'industrie du divertissement coréenne et son essor depuis la guerre de C…</p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=283220&amp;lang=nl">
         <span class="idx">03</span>
         <h3>国民クイズ</h3>
         <img src="https://image.tmdb.org/t/p/w342/3L8El6VH4CL1pdz9JgnGsHXeGra.jpg" alt="国民クイズ" loading="lazy">
         <p class="release-date">Drama · 17 december 2026</p>
         <p class="blurb"></p>
-      </div>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="drama" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=drama&amp;id=293611&amp;lang=nl">
         <span class="idx">04</span>
         <h3>각성</h3>
         <img src="https://image.tmdb.org/t/p/w342/8LUQHM4F0zM63dAzaSyyHi5MDja.jpg" alt="각성" loading="lazy">
         <p class="release-date">Drama · 15 januari 2027</p>
         <p class="blurb"></p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-movie" id="cat-movie-nl">
-          <div class="cat-strip-head"><span class="cat-num">08</span><h3>Films</h3><span class="pill">Binnenkort</span></div>
+          <div class="cat-strip-head"><span class="cat-num">08</span><h3>Films</h3><span class="pill">Binnenkort</span><a class="see-more" href="categorie.html?cat=movie&amp;lang=nl">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="movie">
       
     
@@ -10133,50 +10196,68 @@
     
       <div class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;">
         <span class="idx">01</span>
-        <h3>You Can See Everything</h3>
-        <img src="https://image.tmdb.org/t/p/w342/7nG1AFxnrh5KtgH3jA4uIsWmX95.jpg" alt="You Can See Everything" loading="lazy">
-        <p class="release-date">Film · 15 november 2026</p>
-        <p class="blurb"></p>
-      </div>
+        <h3>Hope</h3>
+        <img src="https://image.tmdb.org/t/p/w342/tGdFDoA9qyt0t6Qr9MFnOl8Z2Jz.jpg" alt="Hope" loading="lazy">
+        <p class="release-date">Film · 15 juli 2026</p>
+        <p class="blurb">Le chef de la police de Hope Harbor, un petit village situé près de la zone coréenne démilitarisée, enquêtee sur le cas …</p>
+      </a>
     
 
-      <div class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;">
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=969681&amp;lang=nl">
         <span class="idx">02</span>
+        <h3>Spider-Man : Brand New Day</h3>
+        <img src="https://image.tmdb.org/t/p/w342/6OEtkkzoyusZDm2uMJojlWZSLR9.jpg" alt="Spider-Man : Brand New Day" loading="lazy">
+        <p class="release-date">Film · 29 juli 2026</p>
+        <p class="blurb">Quatre ans se sont écoulés, Peter, désormais adulte, vit seul, s'est volontairement effacé de la vie et des souvenirs de…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=1423191&amp;lang=nl">
+        <span class="idx">03</span>
+        <h3>Resident Evil</h3>
+        <img src="https://image.tmdb.org/t/p/w342/pICoWjcKSet6sA3yzxOkP8ChwYI.jpg" alt="Resident Evil" loading="lazy">
+        <p class="release-date">Film · 16 september 2026</p>
+        <p class="blurb">Bryan, un coursier médical, est en train d'effectuer une livraison lorsqu'une épidémie soudaine se déclare, le forçant à…</p>
+      </a>
+    
+
+      <a class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=movie&amp;id=791523&amp;lang=nl">
+        <span class="idx">04</span>
         <h3>Wildwood : La prophétie de la forêt</h3>
         <img src="https://image.tmdb.org/t/p/w342/shb3OmIQACcqhRvIcXuba26cP0l.jpg" alt="Wildwood : La prophétie de la forêt" loading="lazy">
-        <p class="release-date">Film · 9 december 2026</p>
+        <p class="release-date">Film · 19 oktober 2026</p>
         <p class="blurb">Prue, une jeune fille courageuse, part à la recherche de son petit frère, enlevé et retenu dans la forêt interdite peupl…</p>
-      </div>
-    
-
-      <div class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;">
-        <span class="idx">03</span>
-        <h3>Avengers : Doomsday</h3>
-        <img src="https://image.tmdb.org/t/p/w342/cCUxE6EJ9zi1YfdsxU8rWLgqQnN.jpg" alt="Avengers : Doomsday" loading="lazy">
-        <p class="release-date">Film · 16 december 2026</p>
-        <p class="blurb">Les Avengers, les Wakandais, les Quatre Fantastiques, les New Avengers et les X-Men, tous héros issus de trois univers d…</p>
-      </div>
-    
-
-      <div class="cat-card dynamic" data-cat="movie" data-reveal="" style="grid-column: span 1;">
-        <span class="idx">04</span>
-        <h3>La bola negra</h3>
-        <img src="https://image.tmdb.org/t/p/w342/ttsFxxHKwCHrtAGJt58rpNqHdFw.jpg" alt="La bola negra" loading="lazy">
-        <p class="release-date">Film · 23 december 2026</p>
-        <p class="blurb">Espagne 1932, 1937, 2017. Trois hommes. Trois époques. Un même fil invisible de désir, de douleur et d'héritage. LA BOLA…</p>
-      </div>
+      </a>
     </div>
         </div>
         <div class="cat-strip hue-game" id="cat-game-nl">
-          <div class="cat-strip-head"><span class="cat-num">09</span><h3>Games</h3><span class="pill">Binnenkort</span></div>
+          <div class="cat-strip-head"><span class="cat-num">09</span><h3>Games</h3><span class="pill">Binnenkort</span><a class="see-more" href="categorie.html?cat=game&amp;lang=nl">Meer zien →</a></div>
           <div class="cat-grid" data-catkey="game">
-      
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=381235&amp;lang=nl">
+        <span class="idx">01</span>
+        <h3>Tomb Raider: Legacy of Atlantis</h3>
+        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/cob1kg.jpg" alt="Tomb Raider: Legacy of Atlantis" loading="lazy">
+        <p class="release-date">Game · 12 februari 2027</p>
+        <p class="blurb">Tomb Raider: Legacy of Atlantis is a reimagining of Lara Croft’s 1996 genre-defining game with visuals powered by Unreal…</p>
+      </a>
     
 
-      
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=92550&amp;lang=nl">
+        <span class="idx">02</span>
+        <h3>Fable</h3>
+        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/cobc6d.jpg" alt="Fable" loading="lazy">
+        <p class="release-date">Game · 23 februari 2027</p>
+        <p class="blurb">Become the Hero you want to be in an immersive open-world action-RPG where each choice shapes your journey, reputation i…</p>
+      </a>
     
 
-      
+      <a class="cat-card dynamic" data-cat="game" data-reveal="" style="grid-column: span 1;" href="fiche.html?cat=game&amp;id=279621&amp;lang=nl">
+        <span class="idx">03</span>
+        <h3>Exodus</h3>
+        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/coaott.jpg" alt="Exodus" loading="lazy">
+        <p class="release-date">Game · 7 april 2027</p>
+        <p class="blurb">Step forward into Exodus — a cinematic, single-player action RPG set in a new, far-future sci-fi universe. Rise from sal…</p>
+      </a>
     
 
       
