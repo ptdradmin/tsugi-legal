@@ -69,6 +69,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
           git commit -m "🤖 Daily rebuild: $(date -u +'%Y-%m-%d') - Updated upcoming releases"
+          # A push to master while this job ran used to reject the push. On conflict the remote copy wins
+          # (ours = upstream during a rebase): never clobber a newer manual edit, tomorrow rebuilds anyway.
+          git pull --rebase -X ours origin master
           git push
       
       - name: Deploy to GitHub Pages (optional)

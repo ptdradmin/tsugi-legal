@@ -27,7 +27,7 @@ const CONFIG = {
   // SUPABASE_ANON_KEY is the public/RLS-protected key — same one already shipped inside the app's
   // compiled APK — but it's read from env like every other credential here, not hardcoded.
   SUPABASE_URL: env('SUPABASE_URL'),
-  SUPABASE_ANON_KEY: env('SUPABASE_ANON_KEY'),
+  SUPABASE_ANON_KEY: env('SUPABASE_ANON_KEY')?.replace(/[^A-Za-z0-9._-]/g, ''),
   // Optional: AI for descriptions
   OPENAI_API_KEY: env('OPENAI_API_KEY'),
   ANTHROPIC_API_KEY: env('ANTHROPIC_API_KEY'),
@@ -178,6 +178,67 @@ async function fetchAniListUpcoming() {
   }
 }
 
+// Manga / manhwa / manhua: comics have no "release date" to announce, so the strip shows what is
+// trending right now among ongoing titles, split by country of origin like the app does.
+async function fetchAniListComics(country, type) {
+  const query = `
+    query ($country: CountryCode) {
+      Page(perPage: 12) {
+        media(type: MANGA, countryOfOrigin: $country, status: RELEASING, sort: TRENDING_DESC, isAdult: false) {
+          id
+          title { romaji english native }
+          coverImage { large }
+          description(asHtml: false)
+        }
+      }
+    }
+  `;
+  try {
+    const res = await fetch('https://graphql.anilist.co', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, variables: { country } })
+    });
+    const data = await res.json();
+    return (data.data?.Page?.media || []).filter(m => m.coverImage?.large).slice(0, CONFIG.LIMIT_PER_CATEGORY).map(m => ({
+      type,
+      title: m.title.english || m.title.romaji || m.title.native,
+      coverImage: m.coverImage.large,
+      overview: (m.description || '').replace(/<[^>]+>/g, '').replace(/\(Source:[^)]*\)/i, '').trim(),
+      statusKey: 'ongoing',
+      id: m.id,
+    }));
+  } catch (e) {
+    log('AniList-' + type, `Error: ${e.message}`);
+    return [];
+  }
+}
+
+// Webtoon: MangaDex's "Long Strip" tag is the vertical-scroll format itself, most-followed ongoing first.
+async function fetchMangaDexWebtoons() {
+  const LONG_STRIP = '3e2b8dae-350e-4ab8-a8ce-016e844b9f0d';
+  const url = `https://api.mangadex.org/manga?limit=12&includedTags[]=${LONG_STRIP}&status[]=ongoing&order[followedCount]=desc&includes[]=cover_art&contentRating[]=safe&contentRating[]=suggestive&availableTranslatedLanguage[]=en`;
+  try {
+    const data = await (await fetch(url, { headers: { 'User-Agent': 'tsugi-legal-build' } })).json();
+    return (data.data || []).map(m => {
+      const cover = m.relationships?.find(r => r.type === 'cover_art')?.attributes?.fileName;
+      const t = m.attributes?.title || {};
+      // Main title is often the romanized original; the English one sits in altTitles (longest = not an acronym like "TBATE").
+      return {
+        type: 'webtoon',
+        title: t.en || (m.attributes?.altTitles || []).map(a => a.en).filter(Boolean).sort((a, b) => b.length - a.length)[0] || Object.values(t)[0] || '',
+        coverImage: cover ? `https://uploads.mangadex.org/covers/${m.id}/${cover}.512.jpg` : null,
+        overview: m.attributes?.description?.fr || m.attributes?.description?.en || '',
+        statusKey: 'ongoing',
+        id: m.id,
+      };
+    }).filter(w => w.title && w.coverImage).slice(0, CONFIG.LIMIT_PER_CATEGORY);
+  } catch (e) {
+    log('MangaDex', `Error: ${e.message}`);
+    return [];
+  }
+}
+
 // IGDB, via the same Supabase RPC proxy the Android app uses (games have no free direct API).
 async function fetchIGDBGames() {
   if (!CONFIG.SUPABASE_URL || !CONFIG.SUPABASE_ANON_KEY) {
@@ -267,10 +328,11 @@ function generateCategoryHTML(items, category, lang) {
   if (!items.length) return '<!-- No upcoming releases -->';
   
   const labels = {
-    fr: { movie: 'Film', series: 'Série', anime: 'Anime', drama: 'Drama', game: 'Jeu' },
-    en: { movie: 'Movie', series: 'Series', anime: 'Anime', drama: 'Drama', game: 'Game' },
-    nl: { movie: 'Film', series: 'Serie', anime: 'Anime', drama: 'Drama', game: 'Game' }
+    fr: { movie: 'Film', series: 'Série', anime: 'Anime', drama: 'Drama', game: 'Jeu', manga: 'Manga', manhwa: 'Manhwa', manhua: 'Manhua', webtoon: 'Webtoon' },
+    en: { movie: 'Movie', series: 'Series', anime: 'Anime', drama: 'Drama', game: 'Game', manga: 'Manga', manhwa: 'Manhwa', manhua: 'Manhua', webtoon: 'Webtoon' },
+    nl: { movie: 'Film', series: 'Serie', anime: 'Anime', drama: 'Drama', game: 'Game', manga: 'Manga', manhwa: 'Manhwa', manhua: 'Manhua', webtoon: 'Webtoon' }
   };
+  const statusLabels = { fr: { ongoing: 'En cours' }, en: { ongoing: 'Ongoing' }, nl: { ongoing: 'Lopend' } };
   
   const label = labels[lang][category] || category;
   const dateFormatter = { fr: formatDateFR, en: formatDateEN, nl: formatDateNL }[lang];
@@ -301,7 +363,7 @@ function generateCategoryHTML(items, category, lang) {
         <span class="idx">${String(i+1).padStart(2,'0')}</span>
         <h3>${title}</h3>
         ${media}
-        <p class="release-date">${label} · ${partial || dateFormatter(date)}</p>
+        <p class="release-date">${label} · ${(item.statusKey && statusLabels[lang][item.statusKey]) || partial || dateFormatter(date)}</p>
         <p class="blurb">${blurb.slice(0, 120)}${blurb.length > 120 ? '…' : ''}</p>
       </div>
     `;
@@ -314,15 +376,20 @@ async function main() {
   
   // Fetch all data in parallel
   log('FETCH', 'Calling APIs...');
-  const [movies, series, anime, games, dramas] = await Promise.all([
+  const [movies, series, anime, games, dramas, webtoons] = await Promise.all([
     fetchTMDBUpcomingMovies(),
     fetchTMDBUpcomingTV(),
     fetchAniListUpcoming(),
     fetchIGDBGames(),
     fetchTMDBDramas(),
+    fetchMangaDexWebtoons(),
   ]);
+  // AniList rate-limits bursts: the three comic queries go one after another.
+  const manga = await fetchAniListComics('JP', 'manga');
+  const manhwa = await fetchAniListComics('KR', 'manhwa');
+  const manhua = await fetchAniListComics('CN', 'manhua');
 
-  log('FETCH', `Got ${movies.length} movies, ${series.length} series, ${anime.length} anime, ${games.length} games, ${dramas.length} dramas`);
+  log('FETCH', `Got ${movies.length} movies, ${series.length} series, ${anime.length} anime, ${games.length} games, ${dramas.length} dramas, ${manga.length} manga, ${manhwa.length} manhwa, ${manhua.length} manhua, ${webtoons.length} webtoons`);
 
   // Load template
   let html = fs.readFileSync(CONFIG.TEMPLATE_PATH, 'utf-8');
@@ -336,6 +403,10 @@ async function main() {
     anime: anime,
     game: games,
     drama: dramas,
+    manga,
+    manhwa,
+    manhua,
+    webtoon: webtoons,
   };
 
   for (const lang of langs) {
