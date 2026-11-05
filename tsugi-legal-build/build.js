@@ -472,6 +472,8 @@ async function main() {
       // one happened to come first in the markup.
       const catGrid = $(sectionId).find(`.cat-grid[data-catkey="${catKey}"]`);
 
+      // A failed fetch (dead API, bad secret) keeps yesterday's cards instead of blanking the strip.
+      if (!items.length) { log('INJECT', `${catKey}: no items, keeping previous cards in ${lang}`); continue; }
       if (catGrid.length) {
         // Yesterday's run already injected .dynamic cards into this same committed index.html —
         // without clearing them first, every successful run piles more on top of the last forever.
