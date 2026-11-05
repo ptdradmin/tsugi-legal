@@ -32,6 +32,7 @@ const T = {
     heroKicker: 'TSUGI — ce qui arrive',
     heroTitle: ['Tout ce que vous suivez.', 'Un seul endroit.'],
     heroBody: "Animes, mangas, manhwas, manhuas, webtoons, séries, dramas, films et jeux vidéo — une seule bibliothèque, des alertes de sortie, et une synchronisation entre tous vos appareils.",
+    heroStat: '9 catégories, une seule app',
     ctaPlay: 'Voir sur Google Play', appStoreSoon: 'App Store — bientôt', ctaCats: 'Voir les catégories',
     catsKicker: 'Neuf mondes, un seul hub', catsTitle: 'Arrêtez de jongler entre dix applications.',
     catsBody: "Chaque catégorie a son propre univers de fans — et sa propre app dédiée. TSUGI les réunit toutes, avec les mêmes outils de suivi partout.",
@@ -79,6 +80,7 @@ const T = {
     heroKicker: "TSUGI — what's coming",
     heroTitle: ['Everything you follow.', 'One place.'],
     heroBody: "Anime, manga, manhwa, manhua, webtoons, series, dramas, movies and video games — one library, release alerts, and sync across all your devices.",
+    heroStat: '9 categories, one app',
     ctaPlay: 'Get it on Google Play', appStoreSoon: 'App Store — coming soon', ctaCats: 'View categories',
     catsKicker: 'Nine worlds, one hub', catsTitle: 'Stop juggling ten different apps.',
     catsBody: "Every category has its own fandom — and its own dedicated app. TSUGI brings them all together, with the same tracking tools everywhere.",
@@ -126,6 +128,7 @@ const T = {
     heroKicker: 'TSUGI — wat eraan komt',
     heroTitle: ['Alles wat je volgt.', 'Eén plek.'],
     heroBody: 'Anime, manga, manhwa, manhua, webtoons, series, dramas, films en games — één bibliotheek, releasemeldingen, en synchronisatie op al je apparaten.',
+    heroStat: '9 categorieën, één app',
     ctaPlay: 'Verkrijgbaar via Google Play', appStoreSoon: 'App Store — binnenkort', ctaCats: 'Bekijk categorieën',
     catsKicker: 'Negen werelden, één hub', catsTitle: 'Stop met jongleren tussen tien apps.',
     catsBody: 'Elke categorie heeft zijn eigen fandom — en zijn eigen app. TSUGI brengt ze allemaal samen, met overal dezelfde volgtools.',
@@ -198,13 +201,13 @@ function heroHtml(lang) {
       </div>
       <div class="social-proof">
         <div class="avatars" aria-hidden="true"><span></span><span></span><span></span></div>
-        <span>9 catégories, une seule app</span>
+        <span>${esc(t.heroStat)}</span>
       </div>
     </div>
     <div class="hero-art" aria-hidden="true">
-      <img class="phone phone-a" src="img/shot-feed.png" alt="" loading="eager">
-      <img class="phone phone-b" src="img/shot-calendrier.png" alt="" loading="eager">
-      <img class="phone phone-c" src="img/shot-maliste.png" alt="" loading="eager">
+      <img class="phone phone-a" src="/img/shot-feed.png" alt="" loading="eager">
+      <img class="phone phone-b" src="/img/shot-calendrier.png" alt="" loading="eager">
+      <img class="phone phone-c" src="/img/shot-maliste.png" alt="" loading="eager">
     </div>
   </section>`;
 }
