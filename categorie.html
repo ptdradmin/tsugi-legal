@@ -333,7 +333,7 @@
 </main>
 <script>
 (function () {
-  var I18N = {"fr":{"cats":{"anime":"Anime","manga":"Manga","manhwa":"Manhwa","manhua":"Manhua","webtoon":"Webtoon","series":"Séries","drama":"Dramas","movie":"Films","game":"Jeux"},"upcoming":"À venir","popular":"Populaire","backHome":"Accueil","prev":"Précédent","next":"Suivant","pageOf":"Page {p} sur {n}","empty":"Aucune annonce pour le moment.","backCat":"Toute la catégorie","synopsis":"Synopsis","source":"Voir la source","follow":"Suivre dans l’app","notFound":"Annonce introuvable.","world":"Sorties dans le monde","worldNote":"Date de première sortie dans chaque pays.","continents":{"eu":"Europe","am":"Amériques","as":"Asie","oc":"Océanie","af":"Afrique & Moyen-Orient"},"kinds":{"cinema":"Au cinéma","streaming":"En streaming"},"filterAll":"Tout"},"en":{"cats":{"anime":"Anime","manga":"Manga","manhwa":"Manhwa","manhua":"Manhua","webtoon":"Webtoon","series":"Series","drama":"Dramas","movie":"Movies","game":"Games"},"upcoming":"Upcoming","popular":"Popular","backHome":"Home","prev":"Previous","next":"Next","pageOf":"Page {p} of {n}","empty":"Nothing announced yet.","backCat":"Whole category","synopsis":"Synopsis","source":"View source","follow":"Follow it in the app","notFound":"Announcement not found.","world":"Release around the world","worldNote":"First release date in each country.","continents":{"eu":"Europe","am":"Americas","as":"Asia","oc":"Oceania","af":"Africa & Middle East"},"kinds":{"cinema":"In cinemas","streaming":"Streaming"},"filterAll":"All"},"nl":{"cats":{"anime":"Anime","manga":"Manga","manhwa":"Manhwa","manhua":"Manhua","webtoon":"Webtoon","series":"Series","drama":"Dramas","movie":"Films","game":"Games"},"upcoming":"Binnenkort","popular":"Populair","backHome":"Home","prev":"Vorige","next":"Volgende","pageOf":"Pagina {p} van {n}","empty":"Nog niets aangekondigd.","backCat":"Hele categorie","synopsis":"Synopsis","source":"Bron bekijken","follow":"Volg het in de app","notFound":"Aankondiging niet gevonden.","world":"Releases wereldwijd","worldNote":"Eerste releasedatum per land.","continents":{"eu":"Europa","am":"Amerika","as":"Azië","oc":"Oceanië","af":"Afrika & Midden-Oosten"},"kinds":{"cinema":"In de bioscoop","streaming":"Streaming"},"filterAll":"Alles"}};
+  var I18N = {"fr":{"cats":{"anime":"Anime","manga":"Manga","manhwa":"Manhwa","manhua":"Manhua","webtoon":"Webtoon","series":"Séries","drama":"Dramas","movie":"Films","game":"Jeux"},"upcoming":"À venir","popular":"Populaire","backHome":"Accueil","prev":"Précédent","next":"Suivant","pageOf":"Page {p} sur {n}","empty":"Aucune annonce pour le moment.","backCat":"Toute la catégorie","synopsis":"Synopsis","source":"Voir la source","follow":"Suivre dans l’app","notFound":"Annonce introuvable.","world":"Sorties dans le monde","worldNote":"Date de première sortie dans chaque pays.","continents":{"eu":"Europe","am":"Amériques","as":"Asie","oc":"Océanie","af":"Afrique & Moyen-Orient"},"kinds":{"cinema":"Au cinéma","streaming":"En streaming","series":"Séries","film":"Films"},"filterAll":"Tout"},"en":{"cats":{"anime":"Anime","manga":"Manga","manhwa":"Manhwa","manhua":"Manhua","webtoon":"Webtoon","series":"Series","drama":"Dramas","movie":"Movies","game":"Games"},"upcoming":"Upcoming","popular":"Popular","backHome":"Home","prev":"Previous","next":"Next","pageOf":"Page {p} of {n}","empty":"Nothing announced yet.","backCat":"Whole category","synopsis":"Synopsis","source":"View source","follow":"Follow it in the app","notFound":"Announcement not found.","world":"Release around the world","worldNote":"First release date in each country.","continents":{"eu":"Europe","am":"Americas","as":"Asia","oc":"Oceania","af":"Africa & Middle East"},"kinds":{"cinema":"In cinemas","streaming":"Streaming","series":"Series","film":"Films"},"filterAll":"All"},"nl":{"cats":{"anime":"Anime","manga":"Manga","manhwa":"Manhwa","manhua":"Manhua","webtoon":"Webtoon","series":"Series","drama":"Dramas","movie":"Films","game":"Games"},"upcoming":"Binnenkort","popular":"Populair","backHome":"Home","prev":"Vorige","next":"Volgende","pageOf":"Pagina {p} van {n}","empty":"Nog niets aangekondigd.","backCat":"Hele categorie","synopsis":"Synopsis","source":"Bron bekijken","follow":"Volg het in de app","notFound":"Aankondiging niet gevonden.","world":"Releases wereldwijd","worldNote":"Eerste releasedatum per land.","continents":{"eu":"Europa","am":"Amerika","as":"Azië","oc":"Oceanië","af":"Afrika & Midden-Oosten"},"kinds":{"cinema":"In de bioscoop","streaming":"Streaming","series":"Series","film":"Films"},"filterAll":"Alles"}};
   var CATS = [{"key":"anime","num":"01"},{"key":"manga","num":"02"},{"key":"manhwa","num":"03"},{"key":"manhua","num":"04"},{"key":"webtoon","num":"05"},{"key":"series","num":"06"},{"key":"drama","num":"07"},{"key":"movie","num":"08"},{"key":"game","num":"09"}];
   var COMICS = ['manga', 'manhwa', 'manhua', 'webtoon'];
   var PER_PAGE = 10;
@@ -362,13 +362,17 @@
   });
 
   // Films only: All / In cinemas / Streaming.
+  // Films: All / In cinemas / Streaming — Dramas: All / Series / Films.
+  var FILTERS = { movie: { def: 'cinema', keys: ['cinema', 'streaming'] }, drama: { def: 'series', keys: ['series', 'film'] } };
+  var F = FILTERS[cat.key];
   var kind = q.get('kind') || 'all';
-  function shown() { return kind === 'all' ? items : items.filter(function (it) { return (it.kind || 'cinema') === kind; }); }
+  function kindOf(it) { return it.kind || (F && F.def); }
+  function shown() { return kind === 'all' || !F ? items : items.filter(function (it) { return kindOf(it) === kind; }); }
   function chips() {
-    if (cat.key !== 'movie') return;
+    if (!F) return;
     var box = el('cp-kinds'); box.textContent = ''; box.hidden = false;
-    [['all', t.filterAll], ['cinema', t.kinds.cinema], ['streaming', t.kinds.streaming]].forEach(function (k) {
-      var n = k[0] === 'all' ? items.length : items.filter(function (it) { return (it.kind || 'cinema') === k[0]; }).length;
+    [['all', t.filterAll]].concat(F.keys.map(function (k) { return [k, t.kinds[k]]; })).forEach(function (k) {
+      var n = k[0] === 'all' ? items.length : items.filter(function (it) { return kindOf(it) === k[0]; }).length;
       var b = document.createElement('button');
       b.className = 'kind-chip' + (kind === k[0] ? ' active' : '');
       b.textContent = k[1] + ' (' + n + ')';
@@ -406,7 +410,7 @@
     el('cp-pager').hidden = pages <= 1;
     var url = new URL(location.href);
     url.searchParams.set('cat', cat.key); url.searchParams.set('lang', lang); url.searchParams.set('page', page);
-    if (cat.key === 'movie') url.searchParams.set('kind', kind);
+    if (F) url.searchParams.set('kind', kind);
     history.replaceState(null, '', url);
   }
   function go(delta) { page += delta; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }

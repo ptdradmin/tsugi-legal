@@ -38,7 +38,7 @@ const T = {
       movie: ['Films', "Sorties à venir, du festival à la salle obscure."],
       game: ['Jeux', "Dates de sortie confirmées, jusqu'à plusieurs années."],
     },
-    upcomingLabel: 'À venir', popularLabel: 'Populaire', seeMore: 'Voir plus', backCat: 'Toute la catégorie', synopsis: 'Synopsis', source: 'Voir la source', follow: 'Suivre dans l’app', notFound: 'Annonce introuvable.', world: 'Sorties dans le monde', worldNote: 'Date de première sortie dans chaque pays.', continents: { eu: 'Europe', am: 'Amériques', as: 'Asie', oc: 'Océanie', af: 'Afrique & Moyen-Orient' }, kinds: { cinema: 'Au cinéma', streaming: 'En streaming' }, filterAll: 'Tout', backHome: 'Accueil', prev: 'Précédent', next: 'Suivant', pageOf: 'Page {p} sur {n}', emptyCat: 'Aucune annonce pour le moment.',
+    upcomingLabel: 'À venir', popularLabel: 'Populaire', seeMore: 'Voir plus', backCat: 'Toute la catégorie', synopsis: 'Synopsis', source: 'Voir la source', follow: 'Suivre dans l’app', notFound: 'Annonce introuvable.', world: 'Sorties dans le monde', worldNote: 'Date de première sortie dans chaque pays.', continents: { eu: 'Europe', am: 'Amériques', as: 'Asie', oc: 'Océanie', af: 'Afrique & Moyen-Orient' }, kinds: { cinema: 'Au cinéma', streaming: 'En streaming', series: 'Séries', film: 'Films' }, filterAll: 'Tout', backHome: 'Accueil', prev: 'Précédent', next: 'Suivant', pageOf: 'Page {p} sur {n}', emptyCat: 'Aucune annonce pour le moment.',
     featKicker: 'Pourquoi TSUGI', featTitle: "Pensé pour qu'on ne rate plus une sortie.",
     feats: [
       ['Alertes de sortie', "Un nouvel épisode, chapitre ou une nouvelle saison sort ? TSUGI vous notifie directement, sans avoir à vérifier dix sites."],
@@ -85,7 +85,7 @@ const T = {
       movie: ['Movies', 'Upcoming releases, from festival premieres to theaters.'],
       game: ['Games', 'Confirmed release dates, even years out.'],
     },
-    upcomingLabel: 'Upcoming', popularLabel: 'Popular', seeMore: 'See more', backCat: 'Whole category', synopsis: 'Synopsis', source: 'View source', follow: 'Follow it in the app', notFound: 'Announcement not found.', world: 'Release around the world', worldNote: 'First release date in each country.', continents: { eu: 'Europe', am: 'Americas', as: 'Asia', oc: 'Oceania', af: 'Africa & Middle East' }, kinds: { cinema: 'In cinemas', streaming: 'Streaming' }, filterAll: 'All', backHome: 'Home', prev: 'Previous', next: 'Next', pageOf: 'Page {p} of {n}', emptyCat: 'Nothing announced yet.',
+    upcomingLabel: 'Upcoming', popularLabel: 'Popular', seeMore: 'See more', backCat: 'Whole category', synopsis: 'Synopsis', source: 'View source', follow: 'Follow it in the app', notFound: 'Announcement not found.', world: 'Release around the world', worldNote: 'First release date in each country.', continents: { eu: 'Europe', am: 'Americas', as: 'Asia', oc: 'Oceania', af: 'Africa & Middle East' }, kinds: { cinema: 'In cinemas', streaming: 'Streaming', series: 'Series', film: 'Films' }, filterAll: 'All', backHome: 'Home', prev: 'Previous', next: 'Next', pageOf: 'Page {p} of {n}', emptyCat: 'Nothing announced yet.',
     featKicker: 'Why TSUGI', featTitle: 'Built so you never miss a release again.',
     feats: [
       ['Release alerts', 'A new episode, chapter, or season drops? TSUGI notifies you directly — no need to check ten different sites.'],
@@ -132,7 +132,7 @@ const T = {
       movie: ['Films', 'Aankomende releases, van festival tot bioscoop.'],
       game: ['Games', 'Bevestigde releasedata, zelfs jaren vooruit.'],
     },
-    upcomingLabel: 'Binnenkort', popularLabel: 'Populair', seeMore: 'Meer zien', backCat: 'Hele categorie', synopsis: 'Synopsis', source: 'Bron bekijken', follow: 'Volg het in de app', notFound: 'Aankondiging niet gevonden.', world: 'Releases wereldwijd', worldNote: 'Eerste releasedatum per land.', continents: { eu: 'Europa', am: 'Amerika', as: 'Azië', oc: 'Oceanië', af: 'Afrika & Midden-Oosten' }, kinds: { cinema: 'In de bioscoop', streaming: 'Streaming' }, filterAll: 'Alles', backHome: 'Home', prev: 'Vorige', next: 'Volgende', pageOf: 'Pagina {p} van {n}', emptyCat: 'Nog niets aangekondigd.',
+    upcomingLabel: 'Binnenkort', popularLabel: 'Populair', seeMore: 'Meer zien', backCat: 'Hele categorie', synopsis: 'Synopsis', source: 'Bron bekijken', follow: 'Volg het in de app', notFound: 'Aankondiging niet gevonden.', world: 'Releases wereldwijd', worldNote: 'Eerste releasedatum per land.', continents: { eu: 'Europa', am: 'Amerika', as: 'Azië', oc: 'Oceanië', af: 'Afrika & Midden-Oosten' }, kinds: { cinema: 'In de bioscoop', streaming: 'Streaming', series: 'Series', film: 'Films' }, filterAll: 'Alles', backHome: 'Home', prev: 'Vorige', next: 'Volgende', pageOf: 'Pagina {p} van {n}', emptyCat: 'Nog niets aangekondigd.',
     featKicker: 'Waarom TSUGI', featTitle: 'Gemaakt zodat je nooit meer een release mist.',
     feats: [
       ['Releasemeldingen', 'Een nieuwe episode, hoofdstuk of seizoen verschijnt? TSUGI stuurt je direct een melding — geen tien sites meer checken.'],
@@ -428,13 +428,17 @@ ${style}
   });
 
   // Films only: All / In cinemas / Streaming.
+  // Films: All / In cinemas / Streaming — Dramas: All / Series / Films.
+  var FILTERS = { movie: { def: 'cinema', keys: ['cinema', 'streaming'] }, drama: { def: 'series', keys: ['series', 'film'] } };
+  var F = FILTERS[cat.key];
   var kind = q.get('kind') || 'all';
-  function shown() { return kind === 'all' ? items : items.filter(function (it) { return (it.kind || 'cinema') === kind; }); }
+  function kindOf(it) { return it.kind || (F && F.def); }
+  function shown() { return kind === 'all' || !F ? items : items.filter(function (it) { return kindOf(it) === kind; }); }
   function chips() {
-    if (cat.key !== 'movie') return;
+    if (!F) return;
     var box = el('cp-kinds'); box.textContent = ''; box.hidden = false;
-    [['all', t.filterAll], ['cinema', t.kinds.cinema], ['streaming', t.kinds.streaming]].forEach(function (k) {
-      var n = k[0] === 'all' ? items.length : items.filter(function (it) { return (it.kind || 'cinema') === k[0]; }).length;
+    [['all', t.filterAll]].concat(F.keys.map(function (k) { return [k, t.kinds[k]]; })).forEach(function (k) {
+      var n = k[0] === 'all' ? items.length : items.filter(function (it) { return kindOf(it) === k[0]; }).length;
       var b = document.createElement('button');
       b.className = 'kind-chip' + (kind === k[0] ? ' active' : '');
       b.textContent = k[1] + ' (' + n + ')';
@@ -472,7 +476,7 @@ ${style}
     el('cp-pager').hidden = pages <= 1;
     var url = new URL(location.href);
     url.searchParams.set('cat', cat.key); url.searchParams.set('lang', lang); url.searchParams.set('page', page);
-    if (cat.key === 'movie') url.searchParams.set('kind', kind);
+    if (F) url.searchParams.set('kind', kind);
     history.replaceState(null, '', url);
   }
   function go(delta) { page += delta; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }

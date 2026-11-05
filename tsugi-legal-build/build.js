@@ -172,16 +172,28 @@ const ASIAN_LANGS = ['ko', 'ja', 'zh', 'cn'];
 // (BetaSeries' planning/upcoming endpoint is dead — it answers "No entry ..." as plain text).
 async function fetchTMDBDramas() {
   if (!CONFIG.TMDB_API_KEY) return [];
-  const url = `https://api.themoviedb.org/3/discover/tv?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&page=1&first_air_date.gte=${getDateOffset(CONFIG.DAYS_AHEAD)}&first_air_date.lte=${getDateOffset(730)}&with_original_language=ko|ja|zh&without_genres=16,10763,10764,10766,10767`;
+  const langs = 'ko|ja|zh';
+  // Dramas = Korean/Japanese/Chinese live action, series AND films (animation belongs to Anime).
+  const tvUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&page=1&first_air_date.gte=${getDateOffset(CONFIG.DAYS_AHEAD)}&first_air_date.lte=${getDateOffset(730)}&with_original_language=${langs}&without_genres=16,10763,10764,10766,10767`;
+  // Most of these films never reach BE/FR cinemas: the date shown is the release in their own country.
+  const movieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${CONFIG.TMDB_API_KEY}&language=fr-FR&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${getDateOffset(CONFIG.DAYS_AHEAD)}&primary_release_date.lte=${getDateOffset(730)}&with_original_language=${langs}&without_genres=16,99,10402`;  // no animation, documentaries, concert films
+  const poster = (p) => p ? `https://image.tmdb.org/t/p/w342${p}` : null;
   try {
-    return (await tmdbResults(url, 3)).slice(0, CONFIG.FULL_LIMIT).map(s => ({
-        type: 'drama',
-        name: s.name,
-        first_air_date: s.first_air_date,
-        overview: s.overview,
-        poster_path: s.poster_path ? `https://image.tmdb.org/t/p/w342${s.poster_path}` : null,
-        id: s.id,
-      }));
+    const en = (u) => u.replace('&language=fr-FR&', '&language=en-US&');
+    const [tv, films, tvEn, filmsEn] = await Promise.all([tmdbResults(tvUrl, 3), tmdbResults(movieUrl, 3), tmdbResults(en(tvUrl), 3), tmdbResults(en(movieUrl), 3)]);
+    // No French title -> TMDB falls back to the original script (신의 구슬); the English one is readable here.
+    const enName = new Map([...tvEn.map(x => [`tv${x.id}`, x.name]), ...filmsEn.map(x => [`m${x.id}`, x.title])]);
+    const readable = (fr, original, key) => (fr && fr !== original) ? fr : (enName.get(key) || fr);
+    const series = tv.map(s => ({
+      type: 'drama', dramaKind: 'series', tmdbType: 'tv', name: readable(s.name, s.original_name, `tv${s.id}`), first_air_date: s.first_air_date,
+      overview: s.overview, poster_path: poster(s.poster_path), id: s.id, popularity: s.popularity,
+    }));
+    const movies = films.map(m => ({
+      type: 'drama', dramaKind: 'film', tmdbType: 'movie', title: readable(m.title, m.original_title, `m${m.id}`), release_date: m.release_date,
+      overview: m.overview, poster_path: poster(m.poster_path), id: `m${m.id}`, tmdbId: m.id, popularity: m.popularity,
+    }));
+    // Series first (fewer of them), films fill the rest; then most popular first.
+    return [...series, ...movies].slice(0, CONFIG.FULL_LIMIT).sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
   } catch (e) {
     log('TMDB-DRAMA', `Error: ${e.message}`);
     return [];
@@ -455,6 +467,7 @@ const CAT_LABELS = {
 };
 const STATUS_LABELS = { fr: { ongoing: 'En cours' }, en: { ongoing: 'Ongoing' }, nl: { ongoing: 'Lopend' } };
 const KIND_LABELS = { fr: { cinema: 'Au cinéma', streaming: 'En streaming' }, en: { cinema: 'In cinemas', streaming: 'Streaming' }, nl: { cinema: 'In de bioscoop', streaming: 'Streaming' } };
+const DRAMA_KIND_LABELS = { fr: { series: 'Série', film: 'Film' }, en: { series: 'Series', film: 'Film' }, nl: { series: 'Serie', film: 'Film' } };
 
 // AniList's startDate often has only a year for not-yet-released anime (month/day unannounced):
 // a full date string is only built when all three parts are real ("Invalid Date" otherwise).
@@ -472,7 +485,8 @@ function itemDateLabel(item, category, lang) {
     : null;
   const dateFormatter = { fr: formatDateFR, en: formatDateEN, nl: formatDateNL }[lang];
   const when = (item.statusKey && STATUS_LABELS[lang][item.statusKey]) || partial || dateFormatter(date);
-  const kind = item.releaseKind ? ` · ${(item.releaseKind === 'streaming' && item.platform) || KIND_LABELS[lang][item.releaseKind]}` : '';
+  const kind = item.releaseKind ? ` · ${(item.releaseKind === 'streaming' && item.platform) || KIND_LABELS[lang][item.releaseKind]}`
+    : item.dramaKind ? ` · ${DRAMA_KIND_LABELS[lang][item.dramaKind]}` : '';
   return `${CAT_LABELS[lang][category] || category}${kind} · ${when}`;
 }
 
@@ -487,7 +501,8 @@ const byDate = (list) => [...list].sort((a, b) => itemSortKey(a).localeCompare(i
 function sourceUrl(item, category) {
   switch (category) {
     case 'movie': return `https://www.themoviedb.org/movie/${item.id}`;
-    case 'series': case 'drama': return `https://www.themoviedb.org/tv/${item.id}`;
+    case 'series': return `https://www.themoviedb.org/tv/${item.id}`;
+    case 'drama': return item.tmdbType === 'movie' ? `https://www.themoviedb.org/movie/${item.tmdbId}` : `https://www.themoviedb.org/tv/${item.id}`;
     case 'anime': return `https://anilist.co/anime/${item.id}`;
     case 'manga': case 'manhwa': case 'manhua': return `https://anilist.co/manga/${item.id}`;
     case 'webtoon': return `https://mangadex.org/title/${item.id}`;
@@ -503,7 +518,7 @@ function toPublicItem(item, category) {
     poster: item.poster_path || item.coverImage || null,
     blurb: (item.overview || item.description || '').slice(0, 1500),
     url: sourceUrl(item, category),
-    ...(item.releaseKind ? { kind: item.releaseKind } : {}),
+    ...(item.releaseKind || item.dramaKind ? { kind: item.releaseKind || item.dramaKind } : {}),
     ...(item.world ? { world: item.world.map(w => ({ c: w.country, d: w.date, k: w.kind, ...(w.platform ? { p: w.platform } : {}) })) } : {}),
     date: { fr: itemDateLabel(item, category, 'fr'), en: itemDateLabel(item, category, 'en'), nl: itemDateLabel(item, category, 'nl') },
   };
@@ -604,7 +619,8 @@ async function main() {
         // without clearing them first, every successful run piles more on top of the last forever.
         catGrid.find('.cat-card.dynamic').remove();
         // Films: up to two streaming releases, the rest of the four from cinema.
-        const streamPick = catKey === 'movie' ? items.filter(m => m.releaseKind === 'streaming').slice(0, 2) : [];
+        const streamPick = catKey === 'movie' ? items.filter(m => m.releaseKind === 'streaming').slice(0, 2)
+          : catKey === 'drama' ? items.filter(m => m.dramaKind === 'film').slice(0, 2) : [];
         const landing = byDate([...streamPick, ...items.filter(m => !streamPick.includes(m)).slice(0, CONFIG.LIMIT_PER_CATEGORY - streamPick.length)]);
         catGrid.append(generateCategoryHTML(landing, catKey, lang));
         log('INJECT', `Injected ${landing.length} ${catKey} items into ${lang}`);
